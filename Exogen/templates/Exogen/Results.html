@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Result
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        <! This is the statement for the treatment group >
+        {% if treatment == 1 %}
+            You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
+            {% if breakdown == 1 %}
+                Unfortunately the pool broke down. <br><br>
+                This means you earned {{payoff}}
+            {%else%}
+                Fortunately the pool did not break down. <br><br>
+                This means your share is {{share}} points and you earned {{payoff}}
+            {% endif %} <br><br>
+
+        {%else%}
+        <! This is the statement for the control group >
+        You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
+        This means your share is {{share}} points and you earned {{payoff}}
+        {% endif %}
+
+    </p>
+
+{% endblock %}
+
+
