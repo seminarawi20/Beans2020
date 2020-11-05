@@ -13,10 +13,6 @@ mturk_hit_settings = {
         'minutes_allotted_per_assignment':40,
         'expiration_hours':2*24,
         'qualification_requirements':[
-            {
-                'QualificationTypeId': "YOUR_QUALIFICATION_ID_HERE",
-                'Comparator': "DoesNotExist",
-            },
             # Only US
             {
                 'QualificationTypeId': "00000000000000000071",
