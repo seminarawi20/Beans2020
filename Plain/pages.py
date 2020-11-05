@@ -15,8 +15,7 @@ class Welcome(Page):
                 'players': Constants.players_per_group,
                 'factor': Constants.efficiency_factor,
                 'max': Constants.max,
-                'treatment': self.subsession.treatment,
-                'tipping_point': Constants.tipping_point*100}
+                }
 
 
 class Take(Page):
@@ -29,11 +28,8 @@ class Take(Page):
 
 class ResultsWaitPage(WaitPage):
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
-    # self.group.set_payoff and set_breakdown runs the functions we defined on the models page. It is important that we run
-    # set_breakdown first, since it is an input for the payoff.
 
     def after_all_players_arrive(self):
-        self.group.set_breakdown()
         self.group.set_payoffs()
 
 
@@ -47,8 +43,6 @@ class Results(Page):
             take = self.player.take,
             total_points_left = self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
-            breakdown = self.group.breakdown,
-            treatment = self.subsession.treatment,
             share = self.group.resource_share,
             completion_code=self.player.completion_code
         )

@@ -1,5 +1,68 @@
 from os import environ
 
+#############################################
+###########  DO NOT TOUCH ###################
+#############################################
+
+mturk_hit_settings = {
+        'kewords': ['academic','study','common pool','exeriment'],
+        'title': "common ressource experiment (few minutes to complete, earn real money",
+        'frame height':500,
+        'template': 'global/mturk_template.html',
+        'minutes_allotted_per_assignment':40,
+        'experiration_hours':2*24,
+        'qualification_requirements':[
+            {
+                'QualificationTypeId': "YOUR_QUALIFICATION_ID_HERE",
+                'Comparator': "DoesNotExist",
+            },
+            # Only US
+            {
+                'QualificationTypeId': "00000000000000000071",
+                'Comparator': "EqualTo",
+                'LocaleValues': [{'Country': "US"}]
+            },
+            # At least 15 HITs approved
+            {
+                'QualificationTypeId': "00000000000000000040",
+                'Comparator': "GreaterThanOrEqualTo",
+                'IntegerValues': [15]
+            },
+            # At least 95% of HITs approved
+            {
+                'QualificationTypeId': "000000000000000000L0",
+                'Comparator': "GreaterThanOrEqualTo",
+                'IntegerValues': [95]
+            },
+        ]
+
+}
+#############################################
+
+
+
+################################################################
+#Only touch real_world_currency per point in alignment with us
+################################################################
+
+# if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
+# in SESSION_CONFIGS, except those that explicitly override it.
+# the session config can be accessed from methods in your apps as self.session.config,
+# e.g. self.session.config['participation_fee']
+
+
+SESSION_CONFIG_DEFAULTS= {
+    "real_world_currency_per_point": 1.00,
+    'participation_fee': 0.00,
+     'doc': "",
+    "mturk_hit_settings": mturk_hit_settings
+}
+
+
+
+##################################################
+####### ENTER THE SESSIONS YOU WANT TO PLAY ######
+#################################################
 SESSION_CONFIGS = [
      dict(
         name='Exogen_Cont',
@@ -25,18 +88,21 @@ SESSION_CONFIGS = [
         num_demo_participants=3,
         app_sequence=['Endogen'],
         treatment = True
-    )
+    ),
+    dict(name='Plain',
+         display_name="Plain",
+         num_demo_participants=3,
+         app_sequence=['Plain']
+         )
 ]
 
-# if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
-# in SESSION_CONFIGS, except those that explicitly override it.
-# the session config can be accessed from methods in your apps as self.session.config,
-# e.g. self.session.config['participation_fee']
 
-SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
-)
+#############################################
 
+
+#############################################
+###########  DO NOT TOUCH ###################
+#############################################
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
 LANGUAGE_CODE = 'en'
@@ -57,3 +123,7 @@ SECRET_KEY = 'gqu#5o1o$fci0cbu!9%*8$1obvpnm9&=w%*^z4nur4pb(dw!^p'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
+
+AWS_ACCESS_KEY_ID = environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY_ID = environ.get("AWS_SECRET_ACCESS_KEY_ID")
+#############################################

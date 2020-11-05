@@ -55,7 +55,8 @@ class Results(Page):
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
-            tipping_point = self.group.tipping_point
+            tipping_point = self.group.tipping_point,
+            completion_code= self.player.completion_code
         )
 
 

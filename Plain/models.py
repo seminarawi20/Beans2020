@@ -5,6 +5,8 @@ from otree.api import (
     BaseSubsession,
     BaseGroup,
     BasePlayer,
+    Currency as c,
+    currency_range,
 )
 
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
@@ -21,69 +23,40 @@ class Constants(BaseConstants):
 
     # Here we define the different values that are valid in every form of the game.
 
-    name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
+    name_in_url = 'Plain'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    tipping_point_max= 15 #This is the max value the tipping point can get. You can set it to any int >0 and < pool
-    tipping_point_min= 10 #This is the min value the tipping point can get. You can set it to any int >0 and < pool
-     # This is the value that acts as a threshhold. If less than those points remain the pool collapses. You can insert any float between 0 and 1.
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
-    # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
+    # np.floor rounds it down and int converts it to an integer. This is not necessary, but it looks better.
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
-class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
+class Subsession(BaseSubsession):
 
-    # Here we define the different treatments that are available in the different subversions.
-
-    # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
-
-    # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
-    #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
     def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
         # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
         for player in self.get_players():
             player.completion_code = Constants.completion_code
 
 
-
 class Group(BaseGroup):
+
 
     #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
     #define a function which sets the value later on
 
-    #First we need to define the tipping point. We coould have done it in the constants, but doing it here gives us the
-    #advantage that every group has its own tipping point.
 
-    tipping_point = models.IntegerField()
-
-    def set_tipping_point(self):
-        self.tipping_point = np.random.randint(Constants.tipping_point_min, Constants.tipping_point_max)
-
-    # To determine if a groups pool breaks down, we sum up the amount of points that were taken.
-    # If the tipping point is higher than the remaining points, the breakdown will be TRUE.
-    # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
-
-    breakdown = models.BooleanField(initial=False)
-
-    def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > (Constants.pool - sum([p.take for p in self.get_players()]))
-
-
-    # total_points_left is the number of points that do not get taken.
+    #We have to define empty fields which we want to have in our group level. They will get updated later in the function down below.
+    # total_points_left is the number of points that do not get take.
     # resource share is the share each player receives from the resource.
     total_points_left = models.IntegerField()
     resource_share = models.IntegerField()
-    # We could define functions here to fill the fields, but we will do it in the payoff function, since it speeds up the programm and
-    # keeps the code a little "cleaner"
 
-    #Now we need to set the payoff.
+
+    #with def you can define a function that can be called at a later during the experiment.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
 
@@ -98,15 +71,9 @@ class Group(BaseGroup):
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
 
-        # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
-        # If that is the case the players do not get any money
-        if self.breakdown == True:
-            for p in self.get_players():
-                p.payoff = 0
-        else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            for p in self.get_players():
+        # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+
+        for p in self.get_players():
                 p.payoff = sum([+ p.take,
                                 + self.resource_share,
                                 ])
@@ -128,5 +95,6 @@ class Player(BasePlayer):
 
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+
 
     completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality
