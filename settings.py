@@ -5,7 +5,7 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'kewords': ['academic','study','common pool','exeriment'],
+        'keywords': ['academic','study','common pool','exeriment'],
         'title': "common ressource experiment (few minutes to complete, earn real money",
         'frame height':500,
         'template': 'global/mturk_template.html',
