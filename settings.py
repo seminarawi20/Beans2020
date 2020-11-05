@@ -5,17 +5,14 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'kewords': ['academic','study','common pool','exeriment'],
+        'keywords': ['academic','study','common pool','exeriment'],
         'title': "common ressource experiment (few minutes to complete, earn real money",
-        'frame height':500,
+        'description': 'Academic decision making experiment',
+        'frame_height':500,
         'template': 'global/mturk_template.html',
         'minutes_allotted_per_assignment':40,
-        'experiration_hours':2*24,
+        'expiration_hours':2*24,
         'qualification_requirements':[
-            {
-                'QualificationTypeId': "YOUR_QUALIFICATION_ID_HERE",
-                'Comparator': "DoesNotExist",
-            },
             # Only US
             {
                 'QualificationTypeId': "00000000000000000071",
@@ -115,7 +112,7 @@ ROOMS = []
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('password')
+ADMIN_PASSWORD = environ.get('password ')
 
 DEMO_PAGE_INTRO_HTML = """ """
 

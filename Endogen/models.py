@@ -129,4 +129,4 @@ class Player(BasePlayer):
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
-    completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality
+    completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
