@@ -9,7 +9,7 @@ mturk_hit_settings = {
         'title': "common ressource experiment (few minutes to complete, earn real money",
         'frame height':500,
         'template': 'global/mturk_template.html',
-        'minutes_allotted_per_assignment':15,
+        'minutes_allotted_per_assignment':40,
         'experiration_hours':2*24,
         'qualification_requirements':[
             {
@@ -22,7 +22,7 @@ mturk_hit_settings = {
                 'Comparator': "EqualTo",
                 'LocaleValues': [{'Country': "US"}]
             },
-            # At least 500 HITs approved
+            # At least 15 HITs approved
             {
                 'QualificationTypeId': "00000000000000000040",
                 'Comparator': "GreaterThanOrEqualTo",
@@ -54,7 +54,7 @@ mturk_hit_settings = {
 SESSION_CONFIG_DEFAULTS= {
     "real_world_currency_per_point": 1.00,
     'participation_fee': 0.00,
-   'doc': "",
+     'doc': "",
     "mturk_hit_settings": mturk_hit_settings
 }
 
