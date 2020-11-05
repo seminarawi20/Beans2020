@@ -28,22 +28,11 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    tipping_point = 0.5 # This is the chance that the pool collapses. You can insert any float between 0 and 1.
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. This is not necessary, but it looks better.
 
-class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
-
-    # Here we define the different treatments that are available in the different subversions.
-
-    # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
-
-    # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
-    #want a treatment based on our Boolean in line 35.
-    def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
-
+class Subsession(BaseSubsession):
+    pass
 
 
 class Group(BaseGroup):
@@ -52,17 +41,6 @@ class Group(BaseGroup):
     #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
     #define a function which sets the value later on
-
-    # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
-    # If the tipping point is higher than the random number, breakdown will be TRUE.
-    # We set this breakdown as a function that can be called during the experiment.
-    # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
-
-    breakdown = models.BooleanField(initial=False)
-
-    def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = Constants.tipping_point > np.random.rand()
 
 
     #We have to define empty fields which we want to have in our group level. They will get updated later in the function down below.
@@ -87,14 +65,9 @@ class Group(BaseGroup):
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
 
-        # we need to add an if statement since our payout is 0 if the pool breaks down.
-        if self.breakdown == True:
-            for p in self.get_players():
-                p.payoff = 0
-        else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            for p in self.get_players():
+        # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+
+        for p in self.get_players():
                 p.payoff = sum([+ p.take,
                                 + self.resource_share,
                                 ])
