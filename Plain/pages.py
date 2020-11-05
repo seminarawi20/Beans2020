@@ -43,7 +43,8 @@ class Results(Page):
             take = self.player.take,
             total_points_left = self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
-            share = self.group.resource_share
+            share = self.group.resource_share,
+            completion_code=self.player.completion_code
         )
 
 

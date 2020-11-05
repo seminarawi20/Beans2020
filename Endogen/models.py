@@ -31,6 +31,8 @@ class Constants(BaseConstants):
      # This is the value that acts as a threshhold. If less than those points remain the pool collapses. You can insert any float between 0 and 1.
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
+    completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
+    #after they complete the experiment.
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
 
@@ -43,6 +45,9 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
     def creating_session(self):
         self.treatment = self.session.config.get('treatment')
+        # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
+        for player in self.get_players():
+            player.completion_code = Constants.completion_code
 
 
 
@@ -123,3 +128,5 @@ class Player(BasePlayer):
 
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+
+    completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality

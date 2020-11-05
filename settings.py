@@ -89,8 +89,8 @@ SESSION_CONFIGS = [
         app_sequence=['Endogen'],
         treatment = True
     ),
-    dict(name='plain',
-         display_name="plain",
+    dict(name='Plain',
+         display_name="Plain",
          num_demo_participants=3,
          app_sequence=['Plain']
          )

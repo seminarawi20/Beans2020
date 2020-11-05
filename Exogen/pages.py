@@ -49,7 +49,8 @@ class Results(Page):
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
-            share = self.group.resource_share
+            share = self.group.resource_share,
+            completion_code=self.player.completion_code
         )
 
 
