@@ -98,3 +98,9 @@ class Player(BasePlayer):
 
 
     completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality
+
+
+    #Now we implement the test questions. For this we use radioselect and a couple of choices.
+
+
+    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")

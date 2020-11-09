@@ -16,11 +16,12 @@
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
+            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
-                Unfortunately your tipping point was {{tipping_point}} points and more points were taken from the pool. This caused the pool to break down. <br><br>
+                Unfortunately the pool broke down. <br><br>
                 This means you earned {{payoff}}
             {%else%}
-                Fortunately your tipping point was {{tipping_point}}  and less points were taken. Therefore, the pool did not break down.<br><br>
+                Fortunately the pool did not break down. <br><br>
                 This means your share is {{share}} points and you earned {{payoff}}
             {% endif %} <br><br>
 

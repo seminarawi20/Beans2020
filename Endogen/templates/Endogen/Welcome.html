@@ -20,8 +20,8 @@ p indicates a text, br is equal to enter and div is the main block >
                 There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a tipping point between {{tipping_point_min}} and {{tipping_point_max}} points. <br>
-                If less points remain in the pool after all players made their choice, the pool will break down and you will not get any points.<br>
+                Unfortunately the pool has a {{base}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
+                 If the pool breaks down you will not get any points.<br>
         {%else%}
            <! This is the statement for the control group >
            The instructions are as follows: <br><br>

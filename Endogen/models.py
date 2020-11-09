@@ -13,7 +13,7 @@ import numpy as np
 author = 'Moritz Sommerlad'
 
 doc = """
-This is the first out of three experiments for the Seminar on Experimental Economics in the WS 2020 at the AWI Heidelberg
+This is the second out of three experiments for the Seminar on Experimental Economics in the WS 2020 at the AWI Heidelberg
 """
 
 
@@ -26,9 +26,9 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    tipping_point_max= 15 #This is the max value the tipping point can get. You can set it to any int >0 and < pool
-    tipping_point_min= 10 #This is the min value the tipping point can get. You can set it to any int >0 and < pool
-     # This is the value that acts as a threshhold. If less than those points remain the pool collapses. You can insert any float between 0 and 1.
+    base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
@@ -57,23 +57,24 @@ class Group(BaseGroup):
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
     #define a function which sets the value later on
 
-    #First we need to define the tipping point. We coould have done it in the constants, but doing it here gives us the
-    #advantage that every group has its own tipping point.
+    #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
-    tipping_point = models.IntegerField()
-
+    tipping_point = models.FloatField()
     def set_tipping_point(self):
-        self.tipping_point = np.random.randint(Constants.tipping_point_min, Constants.tipping_point_max)
+        self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
-    # To determine if a groups pool breaks down, we sum up the amount of points that were taken.
-    # If the tipping point is higher than the remaining points, the breakdown will be TRUE.
+
+
+    # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
+    # If the tipping point is higher than the random number, breakdown will be TRUE.
+    # We set this breakdown as a function that can be called during the experiment.
     # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
 
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
         if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > (Constants.pool - sum([p.take for p in self.get_players()]))
+            self.breakdown = self.tipping_point > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
@@ -130,3 +131,12 @@ class Player(BasePlayer):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
+
+    #Now we implement the test questions. For this we use radioselect and a couple of choices.
+
+
+    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")
+
+    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
+    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
+

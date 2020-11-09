@@ -16,12 +16,63 @@ class Welcome(Page):
                 'factor': Constants.efficiency_factor,
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
-                'tipping_point_max': Constants.tipping_point_max,
-                'tipping_point_min': Constants.tipping_point_min}
+                'base': Constants.base*100,
+                'addition_per_take': Constants.addition_per_take*100}
+
+# I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
+# For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
+# id _displayed line.
+
+## a form field is something the participant can interact with. Since we defined it on a player level, we must specify it in the form_model section.
 
 
+class Test_Control(Page):
+    form_model = 'player'
+    form_fields = ['test_control']
+
+    def is_displayed(self):
+        return self.subsession.treatment == 0
+
+class Results_Control(Page):
+    def vars_for_template(self):
+        return {'test_control': self.player.test_control}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 0
+
+
+class Test1(Page):
+    form_model = 'player'
+    form_fields = ['test1']
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
+class Test2(Page):
+    form_model = 'player'
+    form_fields = ['test2']
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
+class Results_Test1(Page):
+    def vars_for_template(self):
+        return {'test1': self.player.test1}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
+class Results_Test2(Page):
+    def vars_for_template(self):
+        return {'test2': self.player.test2}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
+
+# Now we create a page for the player to decide what to take.
 class Take(Page):
-    # a form field is something the participant can interact with. Here we will asked them to pick how much they want to take
+
     form_model = 'player'
     form_fields = ['take']
     def vars_for_template(self):
@@ -51,14 +102,24 @@ class Results(Page):
             payoff = self.player.payoff,
             take = self.player.take,
             total_points_left = self.group.total_points_left,
+            points_taken = Constants.pool - self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
-            tipping_point = self.group.tipping_point,
+            tipping_point = self.group.tipping_point*100,
             completion_code= self.player.completion_code
         )
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome, Take, ResultsWaitPage, Results]
+page_sequence = [Welcome,
+                 Test_Control,
+                 Results_Control,
+                 Test1,
+                 Results_Test1,
+                 Test2,
+                 Results_Test2,
+                 Take,
+                 ResultsWaitPage,
+                 Results]
