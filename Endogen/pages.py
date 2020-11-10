@@ -107,7 +107,7 @@ class Results(Page):
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
-            tipping_point = round(self.group.tipping_point*100),
+            tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.player.completion_code
         )
 
