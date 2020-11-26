@@ -46,6 +46,12 @@ class Take(Page):
         return {'max': Constants.max
         }
 
+class Belief(Page):
+    # New page in which players state their belief, how much the other players took
+    form_model = 'player'
+    form_fields = ['belief']
+
+
 class ResultsWaitPage(WaitPage):
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
 
@@ -55,6 +61,7 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
+
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
@@ -64,9 +71,10 @@ class Results(Page):
             total_points_left = self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             share = self.group.resource_share,
-            completion_code=self.player.completion_code
+            completion_code=self.player.completion_code,
+            belief = self.player.belief
         )
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome, Test_Control, Results_Control, Take, ResultsWaitPage, Results]
+page_sequence = [Welcome, Test_Control, Results_Control, Take, Belief, ResultsWaitPage, Results]
