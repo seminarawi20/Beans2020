@@ -67,6 +67,14 @@ class Results(Page):
             completion_code=self.player.completion_code
         )
 
+class Machiavellianism (Page):
+    form_model = 'player'
+    form_fields = ['M1']
+
+class Demographics(Page):
+    form_model = 'player'
+    form_fields = ['gender']
+
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome, Test_Control, Results_Control, Take, ResultsWaitPage, Results]
+page_sequence = [Welcome, Test_Control, Results_Control, Take, ResultsWaitPage, Results, Machiavellianism, Demographics]

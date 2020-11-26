@@ -96,6 +96,22 @@ class Player(BasePlayer):
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
+    gender = models.IntegerField(
+        choices=[
+            [1, 'male'],
+            [2, 'female'],
+            [3, 'diverse'],
+        ])
+
+    M1 = models.IntegerField(
+        choices=[
+            [1, 'Disagree strongly'],
+            [2, 'Disagree'],
+            [3, 'Neither agree nor disagree'],
+            [4, 'Agree'],
+            [5, 'Agree strongly'],
+        ], widget=widgets.RadioSelectHorizontal)
+
 
     completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality
 
