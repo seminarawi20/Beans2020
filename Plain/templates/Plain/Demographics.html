@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Demographics
+{% endblock %}
+
+{% block content %}
+    <br>
+    <p>On this page you will find a few questions about yourself, please answer truthfully.</p> <br>
+       {% formfield player.gender %}<br>
+{% formfield player.education %}<br>
+{% formfield player.risk %}<br>
+{% formfield player.experience %}<br>
+    </p>
+    {% next_button %}
+
+{% endblock %}

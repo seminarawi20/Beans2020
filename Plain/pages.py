@@ -61,7 +61,6 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
@@ -75,6 +74,18 @@ class Results(Page):
             belief = self.player.belief
         )
 
+class Genderrole(Page):
+    form_model = 'player'
+    form_fields = ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10']
+
+class Genderrole2(Page):
+    form_model = 'player'
+    form_fields = ['G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20']
+
+class Demographics(Page):
+    form_model = 'player'
+    form_fields = ['gender', 'education', 'risk', 'experience']
+
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome, Test_Control, Results_Control, Take, Belief, ResultsWaitPage, Results]
+page_sequence = [Welcome, Demographics, Genderrole, Genderrole2, Test_Control, Results_Control, Take, ResultsWaitPage, Results]
