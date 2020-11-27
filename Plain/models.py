@@ -20,18 +20,19 @@ This is the first out of three experiments for the Seminar on Experimental Econo
 
 
 class Constants(BaseConstants):
-
     # Here we define the different values that are valid in every form of the game.
 
-    name_in_url = 'Plain'#The name can be set to whatever you want it to be. It will show in the URL.
-    players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
-    num_rounds = 1 # You can play more than one round, but in our case we play one.
-    pool = 30 #This defines how big the pool is. You can use any INT or String here
-    efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
+    name_in_url = 'Study'  # The name can be set to whatever you want it to be. It will show in the URL.
+    players_per_group = 3  # Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
+    num_rounds = 1  # You can play more than one round, but in our case we play one.
+    pool = 30  # This defines how big the pool is. You can use any INT or String here
+    efficiency_factor = 2  # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
+    max = int(np.floor(
+        pool / players_per_group))  # The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. This is not necessary, but it looks better.
     completion_code = 142675  # Please change this number in your live version. This is just a random code all participants in the live version get
     # after they complete the experiment.
+
 
 class Subsession(BaseSubsession):
 
@@ -42,333 +43,62 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-
-
-    #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
+    # The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
     # define a function which sets the value later on
 
-
-    #We have to define empty fields which we want to have in our group level. They will get updated later in the function down below.
+    # We have to define empty fields which we want to have in our group level. They will get updated later in the function down below.
     # total_points_left is the number of points that do not get take.
     # resource share is the share each player receives from the resource.
     total_points_left = models.IntegerField()
     resource_share = models.IntegerField()
 
-
-    #with def you can define a function that can be called at a later during the experiment.
+    # with def you can define a function that can be called at a later during the experiment.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
-
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
         self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
-
         # the resource_share is the amount every player gets back from the pool.
         # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
         # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
         self.resource_share = np.round(
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
-
-        # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-
+        # creating a the 1-point return for a correct guess in belief
         for p in self.get_players():
-                p.payoff = sum([+ p.take,
-                                + self.resource_share,
-                                ])
+            p.correct_belief = 1 if p.belief == self.total_points_left else 0
 
+        # The payoff for each player is determined by the the amount he took, what his share of the common resource is and if he guessed correctly.
+        for p in self.get_players():
+            p.payoff = sum([+ p.take,
+                            + self.resource_share,
+                            + p.correct_belief])
 
 
 class Player(BasePlayer):
-
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
 
     take = models.IntegerField(label="How many points do you want to take ?")
 
-    #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
-    #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
-    #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
-    #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
-    #This is we add +1 to the range
+    # the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
+    # The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
+    # The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
+    # This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
+    # This is we add +1 to the range
 
     def take_choices(self):
-        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+        return range(int(np.floor(Constants.pool / Constants.players_per_group)) + 1)
 
+    completion_code = models.IntegerField()  # Do not worry about this, since it does not effect the functionality
 
-# ab hier die Items zu Demografie
-
-    gender = models.IntegerField(
-        choices=[
-            [1, 'female'],
-            [2, 'male'],
-            [3, 'diverse'],
-        ]
-        , label="What gender do you identify with?")
-
-    education = models.IntegerField(
-        choices=[
-            [1, 'no diploma'],
-            [2, 'high school diploma'],
-            [3, 'undergraduate degree'],
-            [4, 'graduate degree'],
-        ]
-        , label="What is the highest level of education you have completed?")
-
-    risk = models.IntegerField(
-        choices=[
-            [1, 'Never'],
-            [2, 'Rarely'],
-            [3, 'Occasionally'],
-            [4, 'Often'],
-            [5, 'Always'],
-        ]
-        , label="Are you comfortable in taking risks?")
-
-    experience = models.IntegerField(
-        choices=[
-            [1, 'none'],
-            [2, 'a few times'],
-            [3, 'more than 10'],
-            [4, 'more than 30'],
-            [5, 'more than I can count'],
-        ]
-        , label="How much experience with experiments like this have you had so far?")
-
-
-# G1-G20 sind die Items zu Genderroles
-
-    G1 = models.IntegerField(label="compassionate",
-        choices=[
-            [1, 'Never'],
-            [2, 'Very Rarely'],
-            [3, 'Rarely'],
-            [4, 'Occasionally'],
-            [5, 'Often'],
-            [6, 'Very Often'],
-            [7, 'Always'],
-        ], widget=widgets.RadioSelectHorizontal())
-
-    G2 = models.IntegerField(label="tender",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G3 = models.IntegerField(label="dominant",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G4 = models.IntegerField(label="brave",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G5 = models.IntegerField(label="loving",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G6 = models.IntegerField(label="controlling",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G7 = models.IntegerField(label="analytical",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G8 = models.IntegerField(label="careful",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G9 = models.IntegerField(label="boastful",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G10 = models.IntegerField(label="willing to take risks",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G11 = models.IntegerField(label="caring",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G12 = models.IntegerField(label="sensitive",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G13 = models.IntegerField(label="rational",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G14 = models.IntegerField(label="anxious",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G15 = models.IntegerField(label="familiy-oriented",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G16 = models.IntegerField(label="pragmatic",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G17 = models.IntegerField(label="reckless",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G18 = models.IntegerField(label="warm-hearted",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G19 = models.IntegerField(label="adventurous",
-                             choices=[
-                                 [1, 'Never'],
-                                 [2, 'Very Rarely'],
-                                 [3, 'Rarely'],
-                                 [4, 'Occasionally'],
-                                 [5, 'Often'],
-                                 [6, 'Very Often'],
-                                 [7, 'Always'],
-                             ], widget=widgets.RadioSelectHorizontal())
-
-    G20 = models.IntegerField(label="delicate",
-                              choices=[
-                                  [1, 'Never'],
-                                  [2, 'Very Rarely'],
-                                  [3, 'Rarely'],
-                                  [4, 'Occasionally'],
-                                  [5, 'Often'],
-                                  [6, 'Very Often'],
-                                  [7, 'Always'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    completion_code = models.IntegerField() # Do not worry about this, since it does not effect the functionality
-
-
-    #Now we implement the test questions. For this we use radioselect and a couple of choices.
+    # Now we implement the test questions. For this we use radioselect and a couple of choices.
 
     test_control = models.IntegerField(choices=[5, 10, 15], widget=widgets.RadioSelect(),
                                        label="How many points would you earn in total?")
 
     # For beliefs:
-    belief = models.IntegerField(min = 0, max = 30)
-
-    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")
+    belief = models.IntegerField(min=0, max=30)
+    correct_belief = models.IntegerField()

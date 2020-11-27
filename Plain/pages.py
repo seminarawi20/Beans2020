@@ -88,4 +88,4 @@ class Demographics(Page):
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome, Demographics, Genderrole, Genderrole2, Test_Control, Results_Control, Take, ResultsWaitPage, Results]
+page_sequence = [Welcome, Test_Control, Results_Control, Take, Belief, ResultsWaitPage, Results, Demographics, Genderrole, Genderrole2]

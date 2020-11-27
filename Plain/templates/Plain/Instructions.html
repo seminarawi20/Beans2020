@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Instructions
+{% endblock %}
+<! This is a html-comment>
+<! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
+p indicates a text, br means break line and div is the main block >
+
+{% block content %}
+<div id="main">
+    <p>
+            You are {{ players }} players. <br>
+            There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
+            After all players make a decision, you will be asked how much you believe the other two players took. <br>
+            For a correct guess, you will receive 1 point. <br>
+            Then the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
+            At the end of the study, the points will be converted to dollar. 1 point amounts to 20 cent. <br><br>
+
+    </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

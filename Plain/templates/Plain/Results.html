@@ -12,17 +12,13 @@
         {% if belief == total_points_left %}
             Your guess on the amount of points taken is <b>correct</b>. <br>
             You earn one additional point. <br>
-            This means your share is {{share}} points and you earned {{payoff}} + 1<br><br>
-            Thank you for participating in this experiment. <br>
-            You completion code is <b>{{ completion_code }}</b>
         {%else%}
             Your guess on the amount of points taken is <b>false</b>. <br>
             You do not earn the additional point.
-            This means your share is {{share}} points and you earned {{payoff}}<br><br>
-            Thank you for participating in this experiment. <br>
-            You completion code is <b>{{ completion_code }}</b>
         {%endif%}
-
+        This means your share is {{share}} points and you earned {{payoff}}<br><br>
+        Thank you for participating in this experiment. <br>
+        You completion code is <b>{{ completion_code }}</b>
         <br>
 
 
