@@ -28,7 +28,11 @@ class Welcome(Page):
 class Test_Control(Page):
     form_model = 'player'
     form_fields = ['test_control']
+    timeout_seconds = 60
 
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test_control = True
 
 class Results_Control(Page):
     def vars_for_template(self):
