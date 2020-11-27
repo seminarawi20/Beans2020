@@ -24,6 +24,23 @@ class Welcome(Page):
         if self.timeout_happened:
             self.player.timeout_test_control = True
 
+class Instructions(Page):
+
+    def vars_for_template(self):
+        return {'pool': Constants.pool,
+                'players': Constants.players_per_group,
+                'factor': Constants.efficiency_factor,
+                'max': Constants.max,
+                'treatment': self.subsession.treatment,
+                'base': Constants.base*100,
+                'addition_per_take': Constants.addition_per_take*100}
+    timeout_seconds = 15
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test_control = True
+
+
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -135,9 +152,9 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['gender', 'education', 'risk', 'experience']
 
-
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
+                 Instructions,
                  Test_Control,
                  Results_Control,
                  Test1,
@@ -145,5 +162,10 @@ page_sequence = [Welcome,
                  Test2,
                  Results_Test2,
                  Take,
+                 Belief,
                  ResultsWaitPage,
-                 Results]
+                 Results,
+                 Genderrole,
+                 Genderrole2,
+                 Demographics,
+                 ]

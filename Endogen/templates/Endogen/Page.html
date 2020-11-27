@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block app_styles %}
+<style>
+    .otree-timer {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block app_scripts %}
+<script>
+    $(function () {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
