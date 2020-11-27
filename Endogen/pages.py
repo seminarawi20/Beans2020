@@ -18,6 +18,12 @@ class Welcome(Page):
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
+    timeout_seconds = 15
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test_control = True
+
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -109,7 +115,25 @@ class Results(Page):
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.player.completion_code
+            belief = self.player.belief
         )
+
+class Belief(Page):
+    # New page in which players state their belief, how much the other players took
+    form_model = 'player'
+    form_fields = ['belief']
+
+class Genderrole(Page):
+    form_model = 'player'
+    form_fields = ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10']
+
+class Genderrole2(Page):
+    form_model = 'player'
+    form_fields = ['G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20']
+
+class Demographics(Page):
+    form_model = 'player'
+    form_fields = ['gender', 'education', 'risk', 'experience']
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
