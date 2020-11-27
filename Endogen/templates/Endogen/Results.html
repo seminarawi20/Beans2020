@@ -11,7 +11,6 @@
 <! Here we need an if statement, since the players in the treatment determines if he gets info of the pool breaking down or not.
         In this special case we have a nested loop. For those the syntax remains the same as a normal loop>
 
-
     <p>
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
@@ -22,18 +21,24 @@
                 This means you earned {{payoff}}
             {%else%}
                 Fortunately the pool did not break down. <br><br>
-                This means your share is {{share}} points and you earned {{payoff}}
             {% endif %} <br><br>
 
         {%else%}
         <! This is the statement for the control group >
         You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
-        This means your share is {{share}} points and you earned {{payoff}}
         {% endif %}
-        <br><br>
-        Thank you for participating in this experiment. <br>
-        You completion code is <b>{{ completion_code }}</b>
+        {% if belief == total_points_left %}
+            Your guess on the amount of points taken is <b>correct</b>. <br>
+            You earn one additional point. <br>
+        {%else%}
+            Your guess on the amount of points taken is <b>false</b>. <br>
+            You do not earn the additional point.
+        {%endif%}
+        This means your share is {{share}} points and you earned {{payoff}}<br><br>
+        Thank you for participating in the experiment. <br>
+        Click Next for the short questionnaire you need to complete to finish this study. </b>
     </p>
+    {% next_button %}
 
 {% endblock %}
 

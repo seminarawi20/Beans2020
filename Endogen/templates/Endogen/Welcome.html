@@ -12,25 +12,11 @@ p indicates a text, br is equal to enter and div is the main block >
     <p>
 
       <br>
-
-        {% if treatment == 1 %}
-            <! This is the statement for the treatment group >
-
-            The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a {{base}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
-                 If the pool breaks down you will not get any points.<br>
-        {%else%}
-           <! This is the statement for the control group >
-           The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.
-        {% endif %}
+            Welcome to this study of decision-making. <br>
+            The study consists of an experiment and a short questionnaire, which will in total take about 15 minutes. <br>
+            The instructions are simple, and if you follow them carefully, you can earn a considerable amount of money. <br>
+            All the money you earn is yours to keep and will be paid to you. <br>
+            In addition to any earnings you might have in the task, you will be paid $1 for participation. <br><br>
     </p>
 </div>
     {% next_button %}

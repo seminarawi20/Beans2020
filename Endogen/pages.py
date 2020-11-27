@@ -9,15 +9,6 @@ from .models import Constants
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 class Welcome(Page):
-
-    def vars_for_template(self):
-        return {'pool': Constants.pool,
-                'players': Constants.players_per_group,
-                'factor': Constants.efficiency_factor,
-                'max': Constants.max,
-                'treatment': self.subsession.treatment,
-                'base': Constants.base*100,
-                'addition_per_take': Constants.addition_per_take*100}
     timeout_seconds = 15
 
     def before_next_page(self):
@@ -131,7 +122,7 @@ class Results(Page):
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
-            completion_code= self.player.completion_code
+            completion_code= self.player.completion_code,
             belief = self.player.belief
         )
 
@@ -152,6 +143,17 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['gender', 'education', 'risk', 'experience']
 
+class End(Page):
+
+    def vars_for_template(self):
+        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
+
+        return dict(
+            payoff = self.player.payoff,
+            treatment = self.subsession.treatment,
+            completion_code= self.player.completion_code,
+        )
+
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
                  Instructions,
@@ -168,4 +170,5 @@ page_sequence = [Welcome,
                  Genderrole,
                  Genderrole2,
                  Demographics,
+                 End,
                  ]
