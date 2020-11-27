@@ -98,6 +98,9 @@ class Group(BaseGroup):
         self.resource_share = np.round(
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
+        # Awards points if belief is correct
+        for p in self.get_players():
+            p.correct_belief = 1 if p.belief == self.total_points_left else 0
 
         # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
         # If that is the case the players do not get any money
@@ -110,6 +113,7 @@ class Group(BaseGroup):
             for p in self.get_players():
                 p.payoff = sum([+ p.take,
                                 + self.resource_share,
+                                + p.correct_belief,
                                 ])
 
 
@@ -140,3 +144,265 @@ class Player(BasePlayer):
     test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
 
+    # For beliefs:
+    belief = models.IntegerField(min=0, max=30)
+    correct_belief = models.IntegerField()
+
+# ab hier die Items zu Demografie
+
+    gender = models.IntegerField(
+        choices=[
+            [1, 'female'],
+            [2, 'male'],
+            [3, 'non-binary'],
+        ]
+        , label="What gender do you identify with?")
+
+    education = models.IntegerField(
+        choices=[
+            [1, 'no diploma'],
+            [2, 'high school diploma'],
+            [3, 'university degree'],
+        ]
+        , label="What is the highest level of education you have completed?")
+
+    risk = models.IntegerField(
+        choices=[
+            [1, 'Never'],
+            [2, 'Rarely'],
+            [3, 'Occasionally'],
+            [4, 'Often'],
+            [5, 'Always'],
+        ]
+        , label="Are you comfortable in taking risks?")
+
+    experience = models.IntegerField(
+        choices=[
+            [1, 'none'],
+            [2, 'a few times'],
+            [3, 'more than 10'],
+            [4, 'more than I can count'],
+        ], widget=widgets.RadioSelect()
+        , label="How much experience with experiments like this have you had so far?")
+
+# G1-G20 sind die Items zu Genderroles
+
+    G1 = models.IntegerField(label="compassionate",
+        choices=[
+            [1, 'Never'],
+            [2, 'Very Rarely'],
+            [3, 'Rarely'],
+            [4, 'Occasionally'],
+            [5, 'Often'],
+            [6, 'Very Often'],
+            [7, 'Always'],
+        ], widget=widgets.RadioSelectHorizontal())
+
+    G2 = models.IntegerField(label="tender",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G3 = models.IntegerField(label="dominant",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G4 = models.IntegerField(label="brave",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G5 = models.IntegerField(label="loving",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G6 = models.IntegerField(label="controlling",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G7 = models.IntegerField(label="analytical",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G8 = models.IntegerField(label="careful",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G9 = models.IntegerField(label="boastful",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G10 = models.IntegerField(label="willing to take risks",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G11 = models.IntegerField(label="caring",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G12 = models.IntegerField(label="sensitive",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G13 = models.IntegerField(label="rational",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G14 = models.IntegerField(label="anxious",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G15 = models.IntegerField(label="familiy-oriented",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G16 = models.IntegerField(label="pragmatic",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G17 = models.IntegerField(label="reckless",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G18 = models.IntegerField(label="warm-hearted",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G19 = models.IntegerField(label="adventurous",
+                             choices=[
+                                 [1, 'Never'],
+                                 [2, 'Very Rarely'],
+                                 [3, 'Rarely'],
+                                 [4, 'Occasionally'],
+                                 [5, 'Often'],
+                                 [6, 'Very Often'],
+                                 [7, 'Always'],
+                             ], widget=widgets.RadioSelectHorizontal())
+
+    G20 = models.IntegerField(label="delicate",
+                              choices=[
+                                  [1, 'Never'],
+                                  [2, 'Very Rarely'],
+                                  [3, 'Rarely'],
+                                  [4, 'Occasionally'],
+                                  [5, 'Often'],
+                                  [6, 'Very Often'],
+                                  [7, 'Always'],
+                              ], widget=widgets.RadioSelectHorizontal())
