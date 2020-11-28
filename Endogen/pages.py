@@ -39,6 +39,7 @@ class Test_Control(Page):
     form_model = 'player'
     form_fields = ['test_control']
 
+    @property
     def is_displayed(self):
         return self.subsession.treatmentUC == 0
 

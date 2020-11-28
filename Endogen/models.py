@@ -32,7 +32,7 @@ class Constants(BaseConstants):
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
-    completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
+    completion_code = 140675 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
@@ -63,7 +63,7 @@ class Group(BaseGroup):
 
     tipping_pointUC = models.FloatField()
     tipping_pointC = models.FloatField()
-    def set_tipping_point(self):
+    def set_tipping_pointUC(self):
         self.tipping_pointUC = np.round(Constants.baseUC + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
 
@@ -85,7 +85,6 @@ class Group(BaseGroup):
 
     # resource share is the share each player receives from the resource.
     total_points_left = models.IntegerField()
-    resource_share = models.IntegerField()
     # We could define functions here to fill the fields, but we will do it in the payoff function, since it speeds up the programm and
     # keeps the code a little "cleaner"
 
