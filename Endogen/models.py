@@ -83,10 +83,6 @@ class Group(BaseGroup):
     # total_points_left is the number of points that do not get taken.
     resource_share = models.IntegerField()
 
-    # variable for if there was a time-out
-    timeout_welcome = models.BooleanField(initial=True)
-
-
     # resource share is the share each player receives from the resource.
     total_points_left = models.IntegerField()
     resource_share = models.IntegerField()
@@ -156,6 +152,10 @@ class Player(BasePlayer):
     # For beliefs:
     belief = models.IntegerField(min=0, max=30)
     correct_belief = models.IntegerField()
+
+
+    # variable for if there was a time-out
+    timeout_welcome = models.BooleanField(initial=True)
 
 # ab hier die Items zu Demografie
 
