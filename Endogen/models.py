@@ -26,7 +26,8 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 20/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    baseUC = 20/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    baseC = 60/100 # the cooperative treatment (x* = 0)
     addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
@@ -39,12 +40,13 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # Here we define the different treatments that are available in the different subversions.
 
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
+    treatmentUC = models.BooleanField()
+    treatmentC = models.BooleanField()
 
     # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
     #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
     def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
+        self.treatmentUC = self.session.config.get('treatmentUC')
         # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
         for player in self.get_players():
             player.completion_code = Constants.completion_code
@@ -59,9 +61,10 @@ class Group(BaseGroup):
 
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
-    tipping_point = models.FloatField()
+    tipping_pointUC = models.FloatField()
+    tipping_pointC = models.FloatField()
     def set_tipping_point(self):
-        self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
+        self.tipping_pointUC = np.round(Constants.baseUC + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
 
 
@@ -73,8 +76,8 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > np.random.rand()
+        if self.subsession.treatmentUC == 1:
+            self.breakdown = self.tipping_pointUC > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
