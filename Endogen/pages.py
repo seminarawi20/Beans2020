@@ -145,7 +145,7 @@ class End(Page):
 
         return dict(
             payoff = self.player.payoff,
-            treatment = self.subsession.treatment,
+            treatmentUC = self.subsession.treatmentUC,
             completion_code= self.player.completion_code,
         )
 
