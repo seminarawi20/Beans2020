@@ -21,12 +21,12 @@ class Constants(BaseConstants):
 
     # Here we define the different values that are valid in every form of the game.
 
-    name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
+    name_in_url = 'Study'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    base= 20/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
     addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
