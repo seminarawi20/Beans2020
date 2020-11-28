@@ -13,7 +13,7 @@ class Welcome(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test_control = True
+            self.player.timeout_welcome = True
 
 class Instructions(Page):
 
@@ -25,11 +25,6 @@ class Instructions(Page):
                 'treatmentUC': self.subsession.treatmentUC,
                 'baseUC': Constants.baseUC*100,
                 'addition_per_take': Constants.addition_per_take*100}
-    timeout_seconds = 15
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_test_control = True
 
 
 
