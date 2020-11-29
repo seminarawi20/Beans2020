@@ -22,8 +22,8 @@ class Instructions(Page):
                 'players': Constants.players_per_group,
                 'factor': Constants.efficiency_factor,
                 'max': Constants.max,
-                'treatmentUC': self.subsession.treatmentUC,
-                'baseUC': Constants.baseUC*100,
+                'treatment': self.subsession.treatment,
+                'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
 
@@ -39,16 +39,15 @@ class Test_Control(Page):
     form_model = 'player'
     form_fields = ['test_control']
 
-    @property
     def is_displayed(self):
-        return self.subsession.treatmentUC == 0
+        return self.subsession.treatment == 0
 
 class Results_Control(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatmentUC == 0
+        return self.subsession.treatment == 0
 
 
 class Test1(Page):
@@ -56,28 +55,28 @@ class Test1(Page):
     form_fields = ['test1']
 
     def is_displayed(self):
-        return self.subsession.treatmentUC == 1
+        return self.subsession.treatment == 1
 
 class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.subsession.treatmentUC == 1
+        return self.subsession.treatment == 1
 
 class Results_Test1(Page):
     def vars_for_template(self):
         return {'test1': self.player.test1}
 
     def is_displayed(self):
-        return self.subsession.treatmentUC == 1
+        return self.subsession.treatment == 1
 
 class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.subsession.treatmentUC == 1
+        return self.subsession.treatment == 1
 
 
 # Now we create a page for the player to decide what to take.
@@ -115,9 +114,9 @@ class Results(Page):
             points_taken = Constants.pool - self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
-            treatmentUC = self.subsession.treatmentUC,
+            treatment = self.subsession.treatment,
             share = self.group.resource_share,
-            tipping_pointUC = round(self.group.tipping_pointUC*100,1),
+            tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.player.completion_code,
             belief = self.player.belief
         )
@@ -146,7 +145,7 @@ class End(Page):
 
         return dict(
             payoff = self.player.payoff,
-            treatmentUC = self.subsession.treatmentUC,
+            treatment = self.subsession.treatment,
             completion_code= self.player.completion_code,
         )
 

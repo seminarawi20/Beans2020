@@ -13,7 +13,7 @@ p indicates a text, br is equal to enter and div is the main block >
 
       <br>
 
-        {% if treatmentUC == 1 %}
+        {% if treatment == 1 %}
             <! This is the statement for the treatment group >
 
             The instructions are as follows: <br><br>
@@ -21,7 +21,7 @@ p indicates a text, br is equal to enter and div is the main block >
                 There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a {{baseUC}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
+                Unfortunately the pool has a {{base}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
                  If the pool breaks down you will not get any points.<br>
         {%else%}
            <! This is the statement for the control group >
