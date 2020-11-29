@@ -158,6 +158,7 @@ class Player(BasePlayer):
 
 # ab hier die Items zu Demografie
 
+
     gender = models.IntegerField(
         choices=[
             [1, 'female'],
@@ -182,7 +183,7 @@ class Player(BasePlayer):
             [4, 'Often'],
             [5, 'Always'],
         ]
-        , label="Are you comfortable in taking risks?")
+        , label ="Are you comfortable in taking risks?")
 
     experience = models.IntegerField(
         choices=[

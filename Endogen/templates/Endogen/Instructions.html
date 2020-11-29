@@ -1,7 +1,7 @@
 {% extends "Endogen/Page.html" %}
 {% load otree static %}
 {% block title %}
-    Welcome
+    Instructions
 {% endblock %}
 <! This is a html-comment>
 <! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
@@ -16,20 +16,19 @@ p indicates a text, br is equal to enter and div is the main block >
         {% if treatmentUC == 1 %}
             <! This is the statement for the treatment group >
 
-            The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a {{baseUC}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
+            This is how the game works : <br><br>
+                You will be playing in a group of {{ players }} players. <br>
+                At the beginning there is a pool of {{pool}} points. Every player can then take between 0 and  {{ max }} points from this pool. <br>
+                After all players made their decisions, the remaining points in the pool get multiplied by {{ factor }} and these points are distributed amongst all {{ players }} players equally. <br><br>
+                Therefore your payoff will be the amount you choose to take from the pool plus your share from the multiplied remaining points of the pool.<br><br>
+                Unfortunately the pool itself has a {{baseUC}}% chance to break down. This chance increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
                  If the pool breaks down you will not get any points.<br>
         {%else%}
            <! This is the statement for the control group >
-           The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.
+           This is how the game works : <br><br>
+               At the beginning there is a pool of {{pool}} points. Every player can then take between 0 and  {{ max }} points from this pool. <br>
+                After all players made their decisions, the remaining points in the pool get multiplied by {{ factor }} and these points are distributed amongst all {{ players }} players equally. <br><br>
+                Therefore your payoff will be the amount you choose to take from the pool plus your share from the multiplied remaining points of the pool.<br>
         {% endif %}
     </p>
 </div>

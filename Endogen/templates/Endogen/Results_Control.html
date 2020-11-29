@@ -11,17 +11,16 @@ p indicates a text, br is equal to enter and div is the main block >
 <div id="main">
     <p><! This is the statement for the control group >
         {% if test_control == 15 %}
-            Your answer is <b>correct</b>. <br>
+            Your answer is <b>correct</b>. <br><br>
             The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
+            Therefore in total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
         {%else%}
-            Your answer is <b>false</b>. <br>
-            The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
+            Your answer is <b>false</b>. <br><br>
+        <i>Please read the explanation carefully and make sure that you fully understand the setup, because the real game starts after this:</i> <br>
+            The remaining 15 points in the pool are doubled to 30 and then equally split between all three players. <br>
+            Therefore in total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
         {%endif%}
     </p>
-
-
 
 </div>
 <br>
