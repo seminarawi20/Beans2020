@@ -41,7 +41,6 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
 
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
-    #treatmentC = models.BooleanField()
 
     # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
     #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
