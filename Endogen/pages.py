@@ -151,9 +151,6 @@ class End(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
-                 Demographics,
-                 Genderrole,
-                 Genderrole2,
                  Instructions,
                  Test_Control,
                  Results_Control,
@@ -165,5 +162,8 @@ page_sequence = [Welcome,
                  Belief,
                  ResultsWaitPage,
                  Results,
+                 Genderrole,
+                 Genderrole2,
+                 Demographics,
                  End,
                  ]
