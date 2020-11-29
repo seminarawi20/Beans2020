@@ -10,6 +10,29 @@
     <p>Now you make the real decision.</p> <br>
     <p>You can take between 0 and {{ max }} points. <br>
        {% formfield player.take %}</p>
-    {% next_button %}
+
+<br>
+<br>
+<style>
+    .button {
+        background-color: #cc0000;
+        border-color: #cc0000;
+        color: white;
+        text-align: center;
+        border-radius: 2px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;}
+    .button:hover {
+        background-color: #990000; color: white;}
+    .button:active {
+  background-color: #990000;
+  transform: translateY(4px);
+}
+
+</style>
+<button class="button button1">Next</button>
 
 {% endblock %}
