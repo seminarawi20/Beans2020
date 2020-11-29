@@ -12,11 +12,11 @@
         In this special case we have a nested loop. For those the syntax remains the same as a normal loop>
 
     <p>
-        <! This is the statement for the treatmentUC group >
-        {% if treatmentUC == 1 %}
+        <! This is the statement for the treatment group >
+        {% if treatment == 1 %}
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
-            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_pointUC}}%.<br>
-            {% if breakdownUC == 1 %}
+            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+            {% if breakdown == 1 %}
                 Unfortunately the pool broke down. <br><br>
                 This means you earned {{payoff}}
             {%else%}
