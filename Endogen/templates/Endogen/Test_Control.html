@@ -1,7 +1,7 @@
 {% extends "Endogen/Page.html" %}
 {% load otree static %}
 {% block title %}
-    Task 1
+    First task
 {% endblock %}
 <! This is a html-comment>
 <! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
@@ -14,9 +14,10 @@ p indicates a text, br is equal to enter and div is the main block >
       <br><br>
 
 
-            The pool has 30 points. <br>
-            Imagine you take 5 points from the pool and the other two players each take 5 points from the pool.
-            There are 15 points left in the pool.
+            Imagine there is a pool with 30 points in it. <br>
+        <br>
+            You take 5 points from this pool and two other players also take 5 points from the pool each.
+            Now there are only 15 points left in the pool.
 
             {% formfield player.test_control %}
 
