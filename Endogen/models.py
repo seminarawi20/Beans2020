@@ -182,7 +182,7 @@ class Player(BasePlayer):
             [4, 'Often'],
             [5, 'Always'],
         ]
-        , label ="Are you comfortable in taking risks?")
+        , label ="Are you comfortable with taking risks?")
 
     experience = models.IntegerField(
         choices=[
