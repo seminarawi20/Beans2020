@@ -64,7 +64,8 @@ class Group(BaseGroup):
     tipping_pointC = models.FloatField()
     def set_tipping_point(self):
         self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
-
+    def set_tipping_pointC(self):
+        self.tipping_pointC = np.round(Constants.baseC + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
 
     # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
@@ -77,6 +78,8 @@ class Group(BaseGroup):
     def set_breakdown(self):
         if self.subsession.treatment == 1:
             self.breakdown = self.tipping_point > np.random.rand()
+        else:
+            self.breakdown = self.tipping_pointC > np.randum.rand()
 
 
     # total_points_left is the number of points that do not get taken.
@@ -109,6 +112,7 @@ class Group(BaseGroup):
         if self.breakdown == True:
             for p in self.get_players():
                 p.payoff = 0
+
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
@@ -140,16 +144,12 @@ class Player(BasePlayer):
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
-
-    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")
-
     test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
 
     # For beliefs:
     belief = models.IntegerField(min=0, max=30)
     correct_belief = models.IntegerField()
-
 
     # variable for if there was a time-out
     timeout_welcome = models.BooleanField(initial=True)
