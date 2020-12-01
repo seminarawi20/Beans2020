@@ -413,3 +413,34 @@ class Player(BasePlayer):
                                   [6, 'Very Often'],
                                   [7, 'Always'],
                               ], widget=widgets.RadioSelectHorizontal())
+
+    # Risk elicitation
+    R1 = models.StringField(label="1. Which lottery do you prefer",
+                              choices=[
+                                  ['A', '0.1*$5 + 0.9*$4'],
+                                  ['B', '0.1*$10 + 0.9*$0.1'],
+                              ], widget=widgets.RadioSelectHorizontal())
+
+    R2 = models.StringField(label="2. Which lottery do you prefer",
+                              choices=[
+                                  ['A', 'A = 0.4 * $5 + 0.6 * $4'],
+                                  ['B', 'B = 0.4 * $10 + 0.6 * $0.1'],
+                              ], widget=widgets.RadioSelectHorizontal())
+
+    R3 = models.StringField(label="3. Which lottery do you prefer",
+                              choices=[
+                                  ['A', 'A = 0.5 * $5 + 0.5 * $4'],
+                                  ['B', 'B = 0.5 * $10 + 0.5 * $0.1'],
+                              ], widget=widgets.RadioSelectHorizontal())
+
+    R4 = models.StringField(label="4. Which lottery do you prefer",
+                              choices=[
+                                  ['A', 'A = 0.6 * $5 + 0.4 * $4'],
+                                  ['B', 'B = 0.6 * $10 + 0.4 * $0.1'],
+                              ], widget=widgets.RadioSelectHorizontal())
+
+    R5 = models.StringField(label="5. Which lottery do you prefer",
+                              choices=[
+                                  ['A', 'A = 0.9 * $5 + 0.1 * $4'],
+                                  ['B', 'B = 0.9 * $10 + 0.1 * $0.1'],
+                              ], widget=widgets.RadioSelectHorizontal())

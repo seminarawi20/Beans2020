@@ -14,26 +14,22 @@ p indicates a text, br is equal to enter and div is the main block >
     <p>
 
       <br>
-
-        {% if treatment == 1 %}
-            <! This is the statement for the treatment group >
-
             This is how the game works : <br><br>
                 You will be playing in a group of {{ players }} players. <br>
                 At the beginning there is a pool of {{pool}} points. Every player can then take between 0 and  {{ max }} points from this pool. <br>
-                After all players made their decisions, the remaining points in the pool get multiplied by {{ factor }} and these points are distributed amongst all {{ players }} players equally. <br><br>
-                Therefore your payoff will be the amount you choose to take from the pool plus your share from the multiplied remaining points of the pool.<br><br>
+                After all players made their decisions, we ask you, how much you think it left in the pool. <br>
+                The remaining points in the pool get multiplied by {{ factor }} and these points are distributed amongst all {{ players }} players equally. <br>
+                Additionally, you get 1 point if your guess on the amount of points remaining was correct. <br><br>
+                Therefore your payoff will be the amount you choose to take from the pool plus your share from the multiplied remaining points of the pool.<br>
+                plus one point if your guess was correct. <br><br>
+        {% if treatment == 1 %}
                 Unfortunately the pool itself has a {{base}}% chance to break down. This chance increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
-                 If the pool breaks down you will not get any points.<br>
-        {%else%}
-           <! This is the statement for the control group >
-         This is how the game works : <br><br>
-                You will be playing in a group of {{ players }} players. <br>
-                At the beginning there is a pool of {{pool}} points. Every player can then take between 0 and  {{ max }} points from this pool. <br>
-                After all players made their decisions, the remaining points in the pool get multiplied by {{ factor }} and these points are distributed amongst all {{ players }} players equally. <br><br>
-                Therefore your payoff will be the amount you choose to take from the pool plus your share from the multiplied remaining points of the pool.<br><br>
+                 If the pool breaks down you will not get any points from the game.<br>
+        {% else %}
                 Unfortunately the pool itself has a {{baseC}}% chance to break down. This chance increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
-                 If the pool breaks down you will not get any points.<br>        {% endif %}
+                 If the pool breaks down you will not get any points from the game.<br>
+        {% endif %}
+
     </p>
 </div>
 <br>

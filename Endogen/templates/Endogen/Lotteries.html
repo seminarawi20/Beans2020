@@ -1,0 +1,54 @@
+{% extends "Endogen/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Lotteries
+<img src="https://heibox.uni-heidelberg.de/f/8b76e01407a34875906e/?dl=1" style="float:right;width:200px;height:100px;"/>
+<br>
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <br>
+    <p><i>Please choose in each line the lottery that you prefer.</i></p> <br>
+
+<style>
+    .col-form-label {
+    font-size: 1.3rem;}
+</style>
+<br>
+<p>
+{% formfield player.R1 %}<br>
+{% formfield player.R2 %}<br>
+{% formfield player.R3 %}<br>
+{% formfield player.R4 %}<br>
+{% formfield player.R5 %}<br>
+
+    </p>
+
+</div>
+<br>
+<br>
+<style>
+    .button {
+        background-color: #cc0000;
+        border-color: #cc0000;
+        color: white;
+        text-align: center;
+        border-radius: 2px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;}
+    .button:hover {
+        background-color: #990000; color: white;}
+    .button:active {
+  background-color: #990000;
+  transform: translateY(4px);
+}
+
+</style>
+<button class="button button1">Next</button>
+
+{% endblock %}
