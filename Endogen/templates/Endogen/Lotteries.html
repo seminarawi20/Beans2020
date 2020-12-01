@@ -24,9 +24,23 @@
 {% formfield player.R4 %}<br>
 {% formfield player.R5 %}<br>
 
-    </p>
-
+<table class="table">
+      <caption>What do you prefer?</caption>
+        <tr>
+            <th>Option A:</th>
+            <th>Option B:</th>
+        </tr>
+    {% for field in form %}
+        <tr>
+            <th>{{ player.R1 }}</th>
+            {% for choice in field %}
+                <td>{{ choice }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
 </div>
+
 <br>
 <br>
 <style>

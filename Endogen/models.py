@@ -417,8 +417,8 @@ class Player(BasePlayer):
     # Risk elicitation
     R1 = models.StringField(label="1. Which lottery do you prefer",
                               choices=[
-                                  ['A', '0.1*$5 + 0.9*$4'],
-                                  ['B', '0.1*$10 + 0.9*$0.1'],
+                                  ['A', 'A = 0.1 * $5 + 0.9 * $4'],
+                                  ['B', 'B = 0.1 * $10 + 0.9 * $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
 
     R2 = models.StringField(label="2. Which lottery do you prefer",
