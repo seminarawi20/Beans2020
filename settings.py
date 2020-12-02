@@ -90,12 +90,6 @@ SESSION_CONFIGS = [
          display_name="Plain",
          num_demo_participants=3,
          app_sequence=['Plain']
-    ),
-    dict(name='icl',
-     display_name="Staircase Risk Elicitation",
-     num_demo_participants=3,
-     app_sequence=['icl']
-     )
 ]
 
 
