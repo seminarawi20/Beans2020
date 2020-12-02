@@ -30,8 +30,8 @@ class Constants(BaseConstants):
     baseC = 60/100 # the cooperative treatment (x* = 0)
     addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
-    max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
-    # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
+    max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available, the number of players.
+    # np.floor rounds it down, int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
@@ -54,7 +54,7 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
 
 class Group(BaseGroup):
 
-    #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
+    #The group-level is used to define values that are the same for every player in the group, to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
     #define a function which sets the value later on
 
@@ -68,7 +68,7 @@ class Group(BaseGroup):
         self.tipping_pointC = np.round(Constants.baseC + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
 
-    # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
+    # To determine if a groups pool breaks down, we create a random number that takes values between 0, 1.
     # If the tipping point is higher than the random number, breakdown will be TRUE.
     # We set this breakdown as a function that can be called during the experiment.
     # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
@@ -98,7 +98,7 @@ class Group(BaseGroup):
         self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
 
         # the resource_share is the amount every player gets back from the pool.
-        # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
+        # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor, devide it by the number of players.
         # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
         self.resource_share = np.round(
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
@@ -114,7 +114,7 @@ class Group(BaseGroup):
                 p.payoff = 0
 
         else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+            # The payoff for each player is determined by the the amount he took, what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
             for p in self.get_players():
                 p.payoff = sum([+ p.take,
@@ -142,7 +142,7 @@ class Player(BasePlayer):
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 
-    #Now we implement the test questions. For this we use radioselect and a couple of choices.
+    #Now we implement the test questions. For this we use radioselect, a couple of choices.
 
     test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
@@ -415,32 +415,33 @@ class Player(BasePlayer):
                               ], widget=widgets.RadioSelectHorizontal())
 
     # Risk elicitation
+
     R1 = models.StringField(label="1. Which lottery do you prefer",
                               choices=[
-                                  ['A', 'A = 0.1 * $5 + 0.9 * $4'],
-                                  ['B', 'B = 0.1 * $10 + 0.9 * $0.1'],
+                                  ['A', 'A 10% chance of $5, a 90% chance of $4'],
+                                  ['B', 'A 10% chance of $10, a 90% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
 
     R2 = models.StringField(label="2. Which lottery do you prefer",
                               choices=[
-                                  ['A', 'A = 0.4 * $5 + 0.6 * $4'],
-                                  ['B', 'B = 0.4 * $10 + 0.6 * $0.1'],
+                                  ['A', 'A 40% chance of $5, a 60% chance of $4'],
+                                  ['B', 'A 40% chance of $10, a 60% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
 
     R3 = models.StringField(label="3. Which lottery do you prefer",
                               choices=[
-                                  ['A', 'A = 0.5 * $5 + 0.5 * $4'],
-                                  ['B', 'B = 0.5 * $10 + 0.5 * $0.1'],
+                                  ['A', 'A 50% chance of $5, a 50% chance of $4'],
+                                  ['B', 'A 50% chance of $10, a 50% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
 
     R4 = models.StringField(label="4. Which lottery do you prefer",
                               choices=[
-                                  ['A', 'A = 0.6 * $5 + 0.4 * $4'],
-                                  ['B', 'B = 0.6 * $10 + 0.4 * $0.1'],
+                                  ['A', 'A 60% chance of $5, a 40% chance of $4'],
+                                  ['B', 'A 60% chance of $10, a 40% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
 
     R5 = models.StringField(label="5. Which lottery do you prefer",
                               choices=[
-                                  ['A', 'A = 0.9 * $5 + 0.1 * $4'],
-                                  ['B', 'B = 0.9 * $10 + 0.1 * $0.1'],
+                                  ['A', 'A 90% chance of $5, a 10% chance of $4'],
+                                  ['B', 'A 90% chance of $10, a 10% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())

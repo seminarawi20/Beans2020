@@ -10,7 +10,7 @@
 {% block content %}
 <div id="main">
     <br>
-    <p><i>Please choose in each line the lottery that you prefer.</i></p> <br>
+    <p><i>Here you have to decide which hypothetical lottery you would pick in each row.</i></p> <br>
 
 <style>
     .col-form-label {
@@ -18,27 +18,21 @@
 </style>
 <br>
 <p>
-{% formfield player.R1 %}<br>
-{% formfield player.R2 %}<br>
-{% formfield player.R3 %}<br>
-{% formfield player.R4 %}<br>
-{% formfield player.R5 %}<br>
-
-<table class="table">
-      <caption>What do you prefer?</caption>
+    <table class="table">
         <tr>
-            <th>Option A:</th>
-            <th>Option B:</th>
+            <th>Lottery A</th>
+            <th>Lottery B</th>
         </tr>
     {% for field in form %}
         <tr>
-            <th>{{ player.R1 }}</th>
-            {% for choice in field %}
-                <td>{{ choice }}</td>
-            {% endfor %}
+            <tr>
+                {% for choice in field %}
+                    <td>{{ choice }}</td>
+                {% endfor %}
+
         </tr>
     {% endfor %}
-</table>
+
 </div>
 
 <br>
