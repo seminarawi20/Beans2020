@@ -113,6 +113,9 @@ class Lotteries(Page):
     form_model = 'player'
     form_fields = ['R1', 'R2', 'R3', 'R4', 'R5']
 
+class Instructions_Risk(Page):
+    form_model = 'player'
+
 class End(Page):
 
     def vars_for_template(self):
@@ -126,8 +129,9 @@ class End(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
-                 Instructions,
+                 Instructions_Risk,
                  Lotteries,
+                 Instructions,
                  Test1,
                  Results_Test1,
                  Test2,
