@@ -9,7 +9,7 @@ from .models import Constants
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 class Welcome(Page):
-    timeout_seconds = 120
+    timeout_seconds = 4000
 
     def before_next_page(self):
         if self.timeout_happened:

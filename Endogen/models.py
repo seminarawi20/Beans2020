@@ -174,14 +174,24 @@ class Player(BasePlayer):
         , label="What is the highest level of education you have completed?")
 
     risk = models.IntegerField(
+        label="How do you see yourself: are you generally a person who is fully "
+                "prepared to take risks or do you try to avoid taking risks? "
+                "Please tick a box on the scale, where the value 0 means: "
+                "'not at all willing to take risks' and the value 10 means: "
+                "'very willing to take risks'.",
         choices=[
-            [1, 'Never'],
-            [2, 'Rarely'],
-            [3, 'Occasionally'],
-            [4, 'Often'],
-            [5, 'Always'],
-        ]
-        , label ="Are you comfortable with taking risks?")
+                               [0],
+                               [1],
+                               [2],
+                               [3],
+                               [4],
+                               [5],
+                               [6],
+                               [7],
+                               [8],
+                               [9],
+                               [10],
+    ], widget = widgets.RadioSelectHorizontal())
 
     experience = models.IntegerField(
         choices=[
