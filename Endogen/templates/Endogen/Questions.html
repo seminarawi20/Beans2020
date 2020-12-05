@@ -1,0 +1,57 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+<! We use the same questionnaire for control and treatment group>
+{% block content %}
+<div id="main">
+    <p>
+        Please answer the following questions.
+        Your answers will remain anonymous.<br><br>
+
+    <p> Question 1:<br>
+        {% formfield player.q1 %}
+    </p>
+    <p> Question 2:<br>
+        {% formfield player.q2 %}
+    </p>
+    <p> Question 3:<br>
+        {% formfield player.q3 %}
+    </p>
+    <p> Question 4:<br>
+        {% formfield player.q4 %}
+    </p>
+    <p> Question 5:<br>
+        {% formfield player.q5 %}
+    </p>
+    <p> Question 6:<br>
+        {% formfield player.q6 %}
+    </p>
+    <p> Question 7:<br>
+        {% formfield player.q7 %}
+    </p>
+    <p> Question 8:<br>
+        {% formfield player.q8 %}
+    </p>
+    <p> Question 9:<br>
+        {% formfield player.q9 %}
+    </p>
+    <p> Question 10:<br>
+        {% formfield player.q10 %}
+    </p>
+    <p> Question 11:<br>
+        {% formfield player.q11 %}
+    </p>
+    <p> Question 12:<br>
+        {% formfield player.q12 %}
+    </p>
+
+</div>
+
+    {% next_button %}
+{% endblock %}
+
+

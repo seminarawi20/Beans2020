@@ -140,3 +140,37 @@ class Player(BasePlayer):
     test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
 
+    #In the following we implement the questions from the questionnaire.
+
+    q1 = models.StringField(choices=["Alabama", "Alaska", "Arizona", "Arkansas", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+                                      "Indiana", "Iowa", "California", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+                                      "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+                                      "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
+                                      "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], label="Which state are you from?")
+
+    q2 = models.StringField(choices=["Democratic Party", "Republican Party", "Other", "None"], widget=widgets.RadioSelect() , label="With which party do you affiliate?")
+
+    q3 = models.StringField(choices=["Very opposed", "Rather opposed", "Impartial", "Rather in favour", "Very in favour", "No answer"], widget=widgets.RadioSelect() , label=
+                            "Are you opposed or in favour of Anti-COVID-19 measures in your state?")
+
+    q4 = models.StringField(choices=["Yes", "No", "No answer"], widget=widgets.RadioSelect() , label="Do you have health insurance?")
+
+    q5 = models.StringField(choices=["Yes", "No", "No answer"], widget=widgets.RadioSelect() , label="Do you have any pre-existing conditions?")
+
+    q6 = models.StringField(choices=["60-69", "70-79", "80-89", "90+", "None", "No answer"], widget=widgets.RadioSelect() , label=
+                            "Do you have any relatives of the following age groups in your family?")
+
+    q7 = models.StringField(choices=["High School", "Undergraduate", "Graduate", "None", "No answer"], widget=widgets.RadioSelect() , label="What is your educational qualification?")
+
+    q8 = models.StringField(choices=["0-30", "30-60", "60-80", "80-100", "100+", "Now answer"], widget=widgets.RadioSelect() , label="What is your annual income in thousand US Dollars?")
+
+    q9 = models.StringField(choices=["Single", "Long-term relationship", "Married", "Divorced", "Widowed"], widget=widgets.RadioSelect() , label=
+                            "What is your relationship status?")
+
+    q10 = models.StringField(choices=["0", "1", "2", "3", "4+", "No answer"], widget=widgets.RadioSelect() , label="How many children do you have?")
+
+    q11 = models.StringField(choices=["Male", "Female", "Diverse", "No answer"], widget=widgets.RadioSelect() , label="What is your gender?")
+
+    q12 = models.StringField(choices=["18-24", "25-30", "31-40", "41-50", "51-60", "61-70", "71-80", "80+", "No answer"], widget=widgets.RadioSelect() , label=
+                             "How old are you?")
+
