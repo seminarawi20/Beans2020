@@ -1,25 +1,40 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
-{% block title %}
-    Task 1
-{% endblock %}
-<! This is a html-comment>
-<! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
-p indicates a text, br is equal to enter and div is the main block >
 
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+<! We use the same questionnaire for control and treatment group>
 {% block content %}
 <div id="main">
-    <p><! This is the statement for the treatment group >
-        This is the first task where you will be asked to answer two questions on a a fictional example.
-      <br><br>
-            Question 1: <br><br>
+    <p>
+        Please answer the following questions truthfully.
+        Your answers will remain anonymous.<br><br>
 
-            The pool has 30 points. <br>
-            Imagine you take 5 points from the pool and the other two players each take 5 points from the pool.
-            There are 15 points left in the pool.
-            {% formfield player.test1 %}
+
+
+            You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
+            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+            {% if breakdown == 1 %}
+                Unfortunately the pool broke down. <br><br>
+                This means you earned {{payoff}}
+            {%else%}
+                Fortunately the pool did not break down. <br><br>
+                This means your share is {{share}} points and you earned {{payoff}}
+            {% endif %} <br><br>
+
+        {%else%}
+        <! This is the statement for the control group >
+        You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
+        This means your share is {{share}} points and you earned {{payoff}}
+        {% endif %}
+        <br><br>
+        Thank you for participating in this experiment. <br>
+        You completion code is <b>{{ completion_code }}</b>
+    </p>
 
 </div>
-    {% next_button %}
-
 {% endblock %}
+
+
