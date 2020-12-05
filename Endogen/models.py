@@ -164,7 +164,7 @@ class Player(BasePlayer):
 
     q8 = models.StringField(choices=["0-30", "30-60", "60-80", "80-100", "100+", "Now answer"], widget=widgets.RadioSelect() , label="What is your annual income in thousand US Dollars?")
 
-    q9 = models.StringField(choices=["Single", "Long-term relationship", "Married", "Divorced", "widowed"], widget=widgets.RadioSelect() , label=
+    q9 = models.StringField(choices=["Single", "Long-term relationship", "Married", "Divorced", "Widowed"], widget=widgets.RadioSelect() , label=
                             "What is your relationship status?")
 
     q10 = models.StringField(choices=["0", "1", "2", "3", "4+", "No answer"], widget=widgets.RadioSelect() , label="How many children do you have?")
