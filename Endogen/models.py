@@ -146,8 +146,7 @@ class Player(BasePlayer):
                                       "Indiana", "Iowa", "California", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
                                       "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
                                       "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
-                                      "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], widget=widgets.RadioSelect() , label =
-                             "Which state are you from?")
+                                      "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], label="Which state are you from?")
 
     q2 = models.StringField(choices=["Democratic Party", "Republican Party", "Other", "None"], widget=widgets.RadioSelect() , label="With which party do you affiliate?")
 
