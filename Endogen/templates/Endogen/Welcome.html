@@ -10,25 +10,38 @@ p indicates a text, br is equal to enter and div is the main block >
 {% block content %}
 <div id="main">
     <p>
-
       <br>
 
         {% if treatment == 1 %}
             <! This is the statement for the treatment group >
             The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a {{base}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
-                 If the pool breaks down you will not get any points.<br>
+               Your country is faced with an epidemic at the moment.<br>
+        This epidemic can be contained by the population taking private measures. The measures are considered successful if at least 2/3 of the measures are implemented.<br>
+        Each player can decide whether or not to comply with the measures.<br>
+        These are symbolized by bundles of balls in this game.<br>
+        Your possibilities are:<br><br>
+        Keep distance (one ball)<br>
+        Stay at home (two balls)<br>
+        Reduce social contacts (two balls)<br>
+        Wear a mask outside (two balls)<br>
+        Willingness to be vaccinated (three balls)<br><br>
+        After all players made a decision the balls in the pool get multiplied by {{ 2 }} and every player receives an equal share.
+        Your payoff will then be the amount you have left plus your share from the pool.<br>
+        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool.
+        Which are symbolizing the measurements you can comply to try to contain the epidemic.
         {%else%}
            <! This is the statement for the control group >
            The instructions are as follows: <br><br>
-                You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
-                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
-                Your payoff will then be the amount you took plus your share from the pool.
+        You are {{ 3 }} players.<br>
+        Every player has 10 balls. We have an empty pool of zero balls in the beginning. Every player can give different bunches of balls:<br><br>
+        A (one ball)<br>
+        B (two balls)<br>
+        C (two balls)<br>
+        D (two balls)<br>
+        E (three balls)<br><br>
+        After all players made a decision the balls in the pool get multiplied by {{ 2 }} and every player receives an equal share.<br>
+        Your payoff will then be the amount you have left plus your share from the pool.<br>
+        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. Otherwise you loose every ball you put in the pool. Your payoff will then be the amount you have kept.<br>
         {% endif %}
     </p>
 </div>
