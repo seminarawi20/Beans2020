@@ -121,5 +121,6 @@ page_sequence = [Welcome,
                  Test2,
                  Results_Test2,
                  Take,
+                 Questions,
                  ResultsWaitPage,
                  Results]
