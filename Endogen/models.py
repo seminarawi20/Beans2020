@@ -151,7 +151,7 @@ class Player(BasePlayer):
     q2 = models.StringField(choices=["Democratic Party", "Republican Party", "Other", "None"], widget=widgets.RadioSelect() , label="With which party do you affiliate?")
 
     q3 = models.StringField(choices=["Very opposed", "Rather opposed", "Impartial", "Rather in favour", "Very in favour", "No answer"], widget=widgets.RadioSelect() , label=
-                            "Are you opposed or in favour of Anti-Covid measures in your state?")
+                            "Are you opposed or in favour of Anti-COVID-19 measures in your state?")
 
     q4 = models.StringField(choices=["Yes", "No", "No answer"], widget=widgets.RadioSelect() , label="Do you have health insurance?")
 
