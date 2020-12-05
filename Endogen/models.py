@@ -147,7 +147,7 @@ class Player(BasePlayer):
                                       "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
                                       "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
                                       "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], widget=widgets.RadioSelect() , label =
-                             "What state are you from?")
+                             "Which state are you from?")
 
     q2 = models.StringField(choices=["Democratic Party", "Republican Party", "Other", "None"], widget=widgets.RadioSelect() , label="With which party do you affiliate?")
 
@@ -163,12 +163,12 @@ class Player(BasePlayer):
 
     q7 = models.StringField(choices=["High School", "Undergraduate", "Graduate", "None", "No answer"], widget=widgets.RadioSelect() , label="What is your educational qualification?")
 
-    q8 = models.StringField(choices=["0-30", "30-60", "60-80", "80-100", "100+", "Now answer"], widget=widgets.RadioSelect() , label="What is your annual income?")
+    q8 = models.StringField(choices=["0-30", "30-60", "60-80", "80-100", "100+", "Now answer"], widget=widgets.RadioSelect() , label="What is your annual income in thousand US Dollars?")
 
     q9 = models.StringField(choices=["Single", "Long-term relationship", "Married", "Divorced", "widowed"], widget=widgets.RadioSelect() , label=
                             "What is your relationship status?")
 
-    q10 = models.StringField(choices=["0", "1", "2", "3", "More", "No answer"], widget=widgets.RadioSelect() , label="How many children do you have?")
+    q10 = models.StringField(choices=["0", "1", "2", "3", "4+", "No answer"], widget=widgets.RadioSelect() , label="How many children do you have?")
 
     q11 = models.StringField(choices=["Male", "Female", "Diverse", "No answer"], widget=widgets.RadioSelect() , label="What is your gender?")
 
