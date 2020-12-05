@@ -12,29 +12,46 @@
         Please answer the following questions truthfully.
         Your answers will remain anonymous.<br><br>
 
-
-
-            You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
-            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
-            {% if breakdown == 1 %}
-                Unfortunately the pool broke down. <br><br>
-                This means you earned {{payoff}}
-            {%else%}
-                Fortunately the pool did not break down. <br><br>
-                This means your share is {{share}} points and you earned {{payoff}}
-            {% endif %} <br><br>
-
-        {%else%}
-        <! This is the statement for the control group >
-        You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
-        This means your share is {{share}} points and you earned {{payoff}}
-        {% endif %}
-        <br><br>
-        Thank you for participating in this experiment. <br>
-        You completion code is <b>{{ completion_code }}</b>
+    <p> Question 1:<br>
+        {% formfield player.q1 %}
+    </p>
+    <p> Question 2:<br>
+        {% formfield player.q2 %}
+    </p>
+    <p> Question 3:<br>
+        {% formfield player.q3 %}
+    </p>
+    <p> Question 4:<br>
+        {% formfield player.q4 %}
+    </p>
+    <p> Question 5:<br>
+        {% formfield player.q5 %}
+    </p>
+    <p> Question 6:<br>
+        {% formfield player.q6 %}
+    </p>
+    <p> Question 7:<br>
+        {% formfield player.q7 %}
+    </p>
+    <p> Question 8:<br>
+        {% formfield player.q8 %}
+    </p>
+    <p> Question 9:<br>
+        {% formfield player.q9 %}
+    </p>
+    <p> Question 10:<br>
+        {% formfield player.q10 %}
+    </p>
+    <p> Question 11:<br>
+        {% formfield player.q11 %}
+    </p>
+    <p> Question 12:<br>
+        {% formfield player.q12 %}
     </p>
 
 </div>
+
+    {% next_button %}
 {% endblock %}
 
 
