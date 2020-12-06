@@ -75,7 +75,7 @@ class Group(BaseGroup):
 
     def set_breakdown(self):
         if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > (2/3)
+            self.breakdown = self.tipping_point > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
@@ -105,9 +105,11 @@ class Group(BaseGroup):
         # we need to add an if statement for when the pool breaks down. Remember it can only break down if we are in the treatment version.
         # If that is the case the players receive the balls they have not put in the common pool.
 
+
+
         if self.breakdown == True:
             for p in self.get_players():
-                p.payoff = [p.give for p in self.get_players()]
+                p.payoff = p.give
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
