@@ -26,10 +26,10 @@ p indicates a text, br is equal to enter and div is the main block >
                 plus your share from the multiplied remaining points of the pool,
                 plus one point if your guess was correct. <br><br>
         {% if treatment == 1 %}
-                Unfortunately the pool itself has a {{base}}% chance to break down. This chance increases by {{addition_per_take}}%-point for every point that is taken from the pool. <br>
+        Unfortunately the pool itself has a {{base}}% chance to <b>break down</b>. This chance increases by {{addition_per_take}} percentage point for every point that is taken from the pool. <br>
                  If the pool breaks down you will not get any points from the game.<br>
         {% else %}
-                Unfortunately the pool itself has a {{baseC}}% chance to break down. This chance increases by {{addition_per_take}}%-point for every point that is taken from the pool.
+                Unfortunately the pool itself has a {{baseC}}% chance to <b>break down</b>. This chance increases by {{addition_per_take}} percentage point for every point that is taken from the pool.
                  If the pool breaks down you will <b>not</b> get any points from the game.<br>
         {% endif %}
 
