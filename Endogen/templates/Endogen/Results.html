@@ -18,18 +18,21 @@
         {% if treatment == 1 %}
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+        <br>
             {% if belief == total_points_left %}
-                Your guess on the amount of points taken is <b>correct</b>. <br>
-                You earn one additional point. <br>
+                Your guess on the amount of points taken is <b>correct</b>, therefore
+                you earn one additional point. <br>
             {%else%}
-                Your guess on the amount of points taken is <b>false</b>. <br>
-                You do not earn the additional point.
+                Your guess on the amount of points taken is <b>false</b>, therefore
+                you do not earn the additional point.
             {%endif%}
             {% if breakdown == 1 %}
-                Unfortunately the pool broke down. <br><br>
+        <br>
+                Unfortunately the pool broke down.
                 This means you earned {{payoff}}
             {%else%}
-                Fortunately the pool did not break down. <br><br>
+        <br>
+                Fortunately the pool did not break down.
                 This means your share is {{share}} points and you will earn {{payoff}}<br><br>
             {% endif %} <br><br>
 
