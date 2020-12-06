@@ -75,7 +75,7 @@ class Group(BaseGroup):
 
     def set_breakdown(self):
         if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > (2/3)
+            self.breakdown = self.tipping_point < (2/3)
 
 
     # total_points_left is the number of points that do not get taken.
