@@ -17,7 +17,7 @@ class Welcome(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'addition_per_take': Constants.addition_per_take*100}
+                'addition_per_give': Constants.addition_per_give*100}
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -71,10 +71,10 @@ class Results_Test2(Page):
 
 
 # Now we create a page for the player to decide what to take.
-class Take(Page):
+class Give(Page):
 
     form_model = 'player'
-    form_fields = ['take']
+    form_fields = ['give']
     def vars_for_template(self):
         return {'max': Constants.max}
 
@@ -104,10 +104,10 @@ class Results(Page):
 
         return dict(
             payoff = self.player.payoff,
-            take = self.player.take,
-            total_points_left = self.group.total_points_left,
-            points_taken = Constants.pool - self.group.total_points_left,
-            pool_mult = self.group.total_points_left * Constants.efficiency_factor,
+            take = self.player.give,
+            total_points_given = self.group.total_points_given,
+            points_given = Constants.common_pool - self.group.total_points_given,
+            pool_mult = self.group.total_points_given * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
@@ -124,7 +124,7 @@ page_sequence = [Welcome,
                  Results_Test1,
                  Test2,
                  Results_Test2,
-                 Take,
+                 Give,
                  Questions,
                  ResultsWaitPage,
                  Results]

@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
     base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    addition_per_take = 3/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+    addition_per_give = 3/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
     common_pool = 0 #This is the common pool that is empty at the beginning
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
@@ -61,7 +61,7 @@ class Group(BaseGroup):
 
     tipping_point = models.FloatField()
     def set_tipping_point(self):
-        self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
+        self.tipping_point = np.round(Constants.base + (sum([p.give for p in self.get_players()]) * Constants.addition_per_give),4)
 
 
 
@@ -70,6 +70,7 @@ class Group(BaseGroup):
     # We set this breakdown as a function that can be called during the experiment.
     # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
 
+    # To determine if the common pool breaks down we check whether the tipping point is higher
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
@@ -79,7 +80,7 @@ class Group(BaseGroup):
 
     # total_points_left is the number of points that do not get taken.
     # resource share is the share each player receives from the resource.
-    total_points_left = models.IntegerField()
+    total_points_given = models.IntegerField()
     resource_share = models.IntegerField()
     # We could define functions here to fill the fields, but we will do it in the payoff function, since it speeds up the programm and
     # keeps the code a little "cleaner"
@@ -90,25 +91,27 @@ class Group(BaseGroup):
 
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
-        self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
+
+        # We calculate total points given to the common pool by adding up all given balls from every player
+        self.total_points_given = Constants.common_pool + sum([p.give for p in self.get_players()])
 
         # the resource_share is the amount every player gets back from the pool.
         # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
         # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
         self.resource_share = np.round(
-            self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+            self.total_points_given * Constants.efficiency_factor / Constants.players_per_group, 0)
 
 
-        # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
-        # If that is the case the players do not get any money
+        # we need to add an if statement for when the pool breaks down. Remember it can only break down if we are in the treatment version.
+        # If that is the case the players receive the balls they have not put in the common pool.
         if self.breakdown == True:
             for p in self.get_players():
-                p.payoff = 0
+                p.payoff = p.give for p in self.get_players()
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
             for p in self.get_players():
-                p.payoff = sum([+ p.take,
+                p.payoff = sum([+ p.give,
                                 + self.resource_share,
                                 ])
 
@@ -119,7 +122,7 @@ class Player(BasePlayer):
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
 
-    take = models.IntegerField(label="How many points do you want to take ?")
+    give = models.IntegerField(label="How many balls do you want to give?")
 
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
@@ -127,7 +130,7 @@ class Player(BasePlayer):
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
 
-    def take_choices(self):
+    def give_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
