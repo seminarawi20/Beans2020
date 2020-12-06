@@ -27,8 +27,8 @@ class Constants(BaseConstants):
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
     base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
-
+    addition_per_take = 3/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+    common_pool = 0 #This is the common pool that is empty at the beginning
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
@@ -135,10 +135,10 @@ class Player(BasePlayer):
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
 
-    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")
+    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many balls would you earn in total?")
 
-    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool breaks down?")
+    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool does not break down?")
 
     #In the following we implement the questions from the questionnaire.
 
