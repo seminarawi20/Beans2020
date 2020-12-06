@@ -79,7 +79,7 @@ class Group(BaseGroup):
         if self.subsession.treatment == 1:
             self.breakdown = self.tipping_point > np.random.rand()
         else:
-            self.breakdown = self.tipping_pointC > np.randum.rand()
+            self.breakdown = self.tipping_pointC > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
@@ -152,7 +152,17 @@ class Player(BasePlayer):
     correct_belief = models.IntegerField()
 
     # variable for if there was a time-out
-    timeout_welcome = models.BooleanField(initial=True)
+    timeout_welcome = models.BooleanField(initial=False)
+    timeout_instructions_risk = models.BooleanField(initial=False)
+    timeout_lotteries = models.BooleanField(initial=False)
+    timeout_test1 = models.BooleanField(initial=False)
+    timeout_test2 = models.BooleanField(initial=False)
+    timeout_results_test1 = models.BooleanField(initial=False)
+    timeout_results_test2 = models.BooleanField(initial=False)
+    timeout_belief = models.BooleanField(initial=False)
+    timeout_take = models.BooleanField(initial=False)
+    timeout_instructions = models.BooleanField(initial=False)
+
 
 # ab hier die Items zu Demografie
 
@@ -162,6 +172,7 @@ class Player(BasePlayer):
             [1, 'female'],
             [2, 'male'],
             [3, 'non-binary'],
+            [9, 'prefere not to say'],
         ]
         , label="What gender do you identify with?")
 
@@ -170,6 +181,7 @@ class Player(BasePlayer):
             [1, 'no diploma'],
             [2, 'high school diploma'],
             [3, 'university degree'],
+            [9, 'prefere not to say'],
         ]
         , label="What is the highest level of education you have completed?")
 

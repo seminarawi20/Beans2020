@@ -9,7 +9,7 @@ from .models import Constants
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 class Welcome(Page):
-    timeout_seconds = 4000
+    timeout_seconds = 6000
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -27,6 +27,12 @@ class Instructions(Page):
                 'baseC': Constants.baseC*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_instructions = True
+
 
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
@@ -39,17 +45,41 @@ class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
 
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
 class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
+
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test2 = True
 
 class Results_Test1(Page):
     def vars_for_template(self):
         return {'test1': self.player.test1}
 
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_results_test1 = True
+
 class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
+
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_results_test2 = True
 
 # Now we create a page for the player to decide what to take.
 class Take(Page):
@@ -62,6 +92,12 @@ class Take(Page):
                 'base': Constants.base*100,
                 'baseC': Constants.baseC*100,
                 }
+
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 class ResultsWaitPage(WaitPage):
 
@@ -100,6 +136,12 @@ class Belief(Page):
     form_model = 'player'
     form_fields = ['belief']
 
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_belief = True
+
 class Genderrole(Page):
     form_model = 'player'
     form_fields = ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10']
@@ -116,8 +158,20 @@ class Lotteries(Page):
     form_model = 'player'
     form_fields = ['R1', 'R2', 'R3', 'R4', 'R5']
 
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_lotteries = True
+
 class Instructions_Risk(Page):
     form_model = 'player'
+
+    timeout_seconds = 6000
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_instructions_risk = True
 
 class End(Page):
 
