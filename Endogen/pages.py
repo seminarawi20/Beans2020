@@ -17,7 +17,9 @@ class Welcome(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'addition_per_give': Constants.addition_per_give*100}
+                'addition_per_give': Constants.addition_per_give*100
+                'players_per_group': Constants.players_per_group}
+
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
