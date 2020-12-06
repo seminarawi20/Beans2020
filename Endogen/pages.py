@@ -105,7 +105,7 @@ class Results(Page):
 
         return dict(
             payoff = self.player.payoff,
-            take = self.player.give,
+            give = self.player.give,
             total_points_given = self.group.total_points_given,
             points_given = Constants.common_pool - self.group.total_points_given,
             pool_mult = self.group.total_points_given * Constants.efficiency_factor,
