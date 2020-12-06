@@ -166,6 +166,7 @@ class Player(BasePlayer):
 
 # ab hier die Items zu Demografie
 
+    age = models.IntegerField(min=14, max=120)
 
     gender = models.IntegerField(
         choices=[

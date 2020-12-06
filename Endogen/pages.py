@@ -152,7 +152,7 @@ class Genderrole2(Page):
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['gender', 'education', 'risk', 'experience']
+    form_fields = ['age', 'gender', 'education', 'risk', 'experience']
 
 class Lotteries(Page):
     form_model = 'player'
