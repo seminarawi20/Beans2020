@@ -163,8 +163,7 @@ class Player(BasePlayer):
 
     q5 = models.StringField(choices=["Yes", "No", "No answer"], widget=widgets.RadioSelect() , label="Do you have any pre-existing conditions?")
 
-    q6 = models.StringField(choices=["60-69", "70-79", "80-89", "90+", "None", "No answer"], widget=widgets.RadioSelect() , label=
-                            "Do you have any relatives of the following age groups in your family?")
+    q6 = models.StringField(choices=["Yes", "No", "No answer"], widget=widgets.RadioSelect() , label="Do you have any relatives that are 70 years or older?")
 
     q7 = models.StringField(choices=["High School", "Undergraduate", "Graduate", "None", "No answer"], widget=widgets.RadioSelect() , label="What is your educational qualification?")
 
