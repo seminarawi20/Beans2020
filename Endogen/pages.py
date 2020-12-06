@@ -24,6 +24,7 @@ class Instructions(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
+                'baseC': Constants.baseC*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
 
@@ -57,7 +58,9 @@ class Take(Page):
     form_fields = ['take']
     def vars_for_template(self):
         return {'max': Constants.max,
-                'treatment': self.subsession.treatment
+                'treatment': self.subsession.treatment,
+                'base': Constants.base*100,
+                'baseC': Constants.baseC*100,
                 }
 
 class ResultsWaitPage(WaitPage):
