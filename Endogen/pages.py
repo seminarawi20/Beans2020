@@ -107,7 +107,7 @@ class Results(Page):
             payoff = self.player.payoff,
             give = self.player.give,
             total_points_given = self.group.total_points_given,
-            points_given = Constants.common_pool - self.group.total_points_given,
+            points_given = Constants.common_pool + self.group.total_points_given,
             pool_mult = self.group.total_points_given * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
             treatment = self.subsession.treatment,
