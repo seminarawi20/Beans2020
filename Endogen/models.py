@@ -26,8 +26,8 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    addition_per_give = 3/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+    base= 30/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    addition_per_give = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
     common_pool = 0 #This is the common pool that is empty at the beginning
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
@@ -73,7 +73,8 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-            self.breakdown = self.tipping_point < (2/3)
+        if self.tipping_point > (2/3):
+            self.breakdown = self.tipping_point < np.random.rand()
 
     # Alternative (still to be decided):
     # def set_breakdown(self):
