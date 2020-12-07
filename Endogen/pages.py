@@ -27,49 +27,21 @@ class Welcome(Page):
 ## a form field is something the participant can interact with. Since we defined it on a player level, we must specify it in the form_model section.
 
 
-#class Test_Control(Page):
- #   form_model = 'player'
-  #  form_fields = ['test_control']
-
-   # def is_displayed(self):
-    #    return self.subsession.treatment == 0
-
-#class Results_Control(Page):
- #   def vars_for_template(self):
-  #      return {'test_control': self.player.test_control}
-
-   # def is_displayed(self):
-    #    return self.subsession.treatment == 0
-
-
 class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
-
- #   def is_displayed(self):
-   #     return self.subsession.treatment == 1
 
 class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
 
- #   def is_displayed(self):
-   #     return self.subsession.treatment == 1
-
 class Results_Test1(Page):
     def vars_for_template(self):
         return {'test1': self.player.test1}
 
-  #  def is_displayed(self):
-   #     return self.subsession.treatment == 1
-
 class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
-
-  #  def is_displayed(self):
-      #  return self.subsession.treatment == 1
-
 
 # Now we create a page for the player to decide what to take.
 class Give(Page):
@@ -119,8 +91,6 @@ class Results(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
-                # Test_Control,
-                # Results_Control,
                  Test1,
                  Results_Test1,
                  Test2,
