@@ -73,7 +73,6 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-     #   if self.subsession.treatment == 1:
             self.breakdown = self.tipping_point < (2/3)
 
 
