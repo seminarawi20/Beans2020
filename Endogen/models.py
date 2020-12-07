@@ -140,6 +140,9 @@ class Player(BasePlayer):
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
+
+  #  test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many balls would you earn in total?")
+
     test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool does not break down?")
 
