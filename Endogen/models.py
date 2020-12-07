@@ -72,6 +72,8 @@ class Group(BaseGroup):
     # To determine if the common pool breaks down we check whether the tipping point is higher
     breakdown = models.BooleanField(initial=False)
 
+    # If tipping point is higher than 2/3 there still is some chance that the common pool breaks down, which can be
+    # slimmed by putting more balls in the common pool.
     def set_breakdown(self):
         if self.tipping_point > (2/3):
             self.breakdown = self.tipping_point < np.random.rand()

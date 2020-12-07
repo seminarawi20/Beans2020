@@ -26,16 +26,19 @@ p indicates a text, br is equal to enter and div is the main block >
         Wear a mask outside (two balls)<br>
         Willingness to be vaccinated (three balls)<br><br>
         You are {{ players }} players.<br>
+        Every player has 10 balls. There is a common pool which is empty at the start.
+        The balls are symbolizing the measurements you can comply to try to contain the epidemic.
+        Every player can decide how many balls they want to put into the common pool.
         After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.
         Your payoff will then be the amount you have left plus your share from the pool.<br>
         Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool.
         This means that at least 2/3 of the measures are implemented or 2/3 of the population adheres to all measures.
-        The balls are symbolizing the measurements you can comply to try to contain the epidemic.
+        Otherwise, the common pool breaks down and you loose every ball you put in the pool. Your payoff will then be the amount you have kept.
         {%else%}
            <! This is the statement for the control group >
            The instructions are as follows: <br><br>
         You are {{ players }} players.<br>
-        Every player has 10 balls. There is a common pool which is empty at the start. Every player can give different bundles of balls:<br><br>
+        Every player has 10 balls. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool:<br><br>
         A (one ball)<br>
         B (two balls)<br>
         C (two balls)<br>
