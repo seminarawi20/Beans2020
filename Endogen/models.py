@@ -66,15 +66,14 @@ class Group(BaseGroup):
 
 
     # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
-    # If the tipping point is higher than the random number, breakdown will be TRUE.
+    # If the tipping point is lower than the random number, breakdown will be TRUE.
     # We set this breakdown as a function that can be called during the experiment.
-    # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
 
     # To determine if the common pool breaks down we check whether the tipping point is higher
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        if self.subsession.treatment == 1:
+     #   if self.subsession.treatment == 1:
             self.breakdown = self.tipping_point < (2/3)
 
 
