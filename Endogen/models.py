@@ -109,7 +109,7 @@ class Group(BaseGroup):
 
         if self.breakdown == True:
             for p in self.get_players():
-                p.payoff = p.give
+                p.payoff = (max - p.give)
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
