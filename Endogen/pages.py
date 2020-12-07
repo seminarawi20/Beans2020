@@ -120,7 +120,7 @@ class Results(Page):
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
                 # Test_Control,
-                 Results_Control,
+                # Results_Control,
                  Test1,
                  Results_Test1,
                  Test2,
