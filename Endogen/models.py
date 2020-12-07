@@ -75,6 +75,10 @@ class Group(BaseGroup):
     def set_breakdown(self):
             self.breakdown = self.tipping_point < (2/3)
 
+    # Alternative (still to be decided):
+    # def set_breakdown(self):
+    #     self.breakdown = self.tipping_point < np.random.rand()
+
 
     # total_points_given is the number of points that are given.
     # resource share is the share each player receives from the resource.
@@ -106,6 +110,10 @@ class Group(BaseGroup):
         if self.breakdown == True:
             for p in self.get_players():
                 p.payoff = (Constants.max - p.give)
+
+                # Alternative:
+                # p.payoff = 0
+
         else:
             # The payoff for each player is determined by the the amount he gave and what his share of the common resource is.
             for p in self.get_players():
