@@ -43,7 +43,7 @@ class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-# Now we create a page for the player to decide what to take.
+# Now we create a page for the player to decide what to give.
 class Give(Page):
 
     form_model = 'player'

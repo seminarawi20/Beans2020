@@ -76,7 +76,7 @@ class Group(BaseGroup):
             self.breakdown = self.tipping_point < (2/3)
 
 
-    # total_points_left is the number of points that do not get taken.
+    # total_points_given is the number of points that are given.
     # resource share is the share each player receives from the resource.
     total_points_given = models.IntegerField()
     resource_share = models.IntegerField()
@@ -87,30 +87,27 @@ class Group(BaseGroup):
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
 
-        # to calculate the points left we need the sum of all points the players took.
-        # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
+        # to calculate the points given we need the sum of all points the players gave.
+        # This is done with sum([p.give for p in self.get_players()]). Give is defined in the player class.
 
         # We calculate total points given to the common pool by adding up all given balls from every player
         self.total_points_given = Constants.common_pool + sum([p.give for p in self.get_players()])
 
         # the resource_share is the amount every player gets back from the pool.
-        # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
+        # to calculate the resource_share we need to know how much was given to the common pool , multiply it by the
+        # factor and divide it by the number of players.
         # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
         self.resource_share = np.round(
             self.total_points_given * Constants.efficiency_factor / Constants.players_per_group, 0)
 
-
-        # we need to add an if statement for when the pool breaks down. Remember it can only break down if we are in the treatment version.
-        # If that is the case the players receive the balls they have not put in the common pool.
-
-
+        # we need to add an if statement for when the pool breaks down.
+        # If that is the case the players only receive the balls they have not put in the common pool.
 
         if self.breakdown == True:
             for p in self.get_players():
                 p.payoff = (Constants.max - p.give)
         else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
+            # The payoff for each player is determined by the the amount he gave and what his share of the common resource is.
             for p in self.get_players():
                 p.payoff = sum([+ p.give,
                                 + self.resource_share,
