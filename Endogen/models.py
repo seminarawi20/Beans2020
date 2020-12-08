@@ -75,8 +75,11 @@ class Group(BaseGroup):
     # If tipping point is higher than 2/3 there still is some chance that the common pool breaks down, which can be
     # slimmed by putting more balls in the common pool.
     def set_breakdown(self):
-        if self.tipping_point > (2/3):
+        if self.tipping_point >= (2/3):
             self.breakdown = self.tipping_point < np.random.rand()
+        else:
+            self.breakdown = self.tipping_point < (2/3)
+
 
     # Alternative (still to be decided):
     # def set_breakdown(self):
