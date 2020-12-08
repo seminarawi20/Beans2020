@@ -173,7 +173,7 @@ class Player(BasePlayer):
             [1, 'female'],
             [2, 'male'],
             [3, 'non-binary'],
-            [9, 'prefere not to say'],
+            [9, 'prefer not to say'],
         ]
         , label="What gender do you identify with?")
 
@@ -182,7 +182,7 @@ class Player(BasePlayer):
             [1, 'no diploma'],
             [2, 'high school diploma'],
             [3, 'university degree'],
-            [9, 'prefere not to say'],
+            [9, 'prefer not to say'],
         ]
         , label="What is the highest level of education you have completed?")
 
