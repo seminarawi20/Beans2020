@@ -149,8 +149,8 @@ class Player(BasePlayer):
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
-    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you earn in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you have in total if the pool breaks down?")
+    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you have in total if the pool does not break down?")
 
     #In the following we implement the questions from the questionnaire.
 
