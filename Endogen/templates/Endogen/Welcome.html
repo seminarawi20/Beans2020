@@ -47,7 +47,9 @@ p indicates a text, br is equal to enter and div is the main block >
         E (three balls)<br><br>
         After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.<br>
         Your payoff will then be the amount you have left plus your share from the pool.<br>
-        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. Otherwise you loose every ball you put in the pool. Your payoff will then be the amount you have kept.<br>
+        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. <br>
+        Additional the pool has a 70% chance to break down which decreases {{addition_per_take}}% for every ball that is given in the pool. <br>
+        If the pool breaks down you will not get any balls from the pool. Your payoff will then be the amount you have kept.
         {% endif %}
     </p>
 </div>
