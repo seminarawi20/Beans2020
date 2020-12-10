@@ -64,12 +64,6 @@ class Framing(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
-    timeout_seconds = 30
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.xyz = True
-
 class ResultsWaitPage(WaitPage):
 
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
