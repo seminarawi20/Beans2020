@@ -42,13 +42,31 @@ class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
 class Results_Test1(Page):
     def vars_for_template(self):
         return {'test1': self.player.test1}
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
 class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 # Now we create a page for the player to decide what to give.
 class Give(Page):
@@ -58,11 +76,23 @@ class Give(Page):
     def vars_for_template(self):
         return {'max': Constants.max}
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
 # Page for the questionnaire.
 class Questions(Page):
 
     form_model = 'player'
     form_fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
+
+    timeout_seconds = 240
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 # Page for Framing.
 class Framing(Page):
@@ -70,6 +100,12 @@ class Framing(Page):
     form_model = 'player'
     def is_displayed(self):
         return self.subsession.treatment == 1
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 class ResultsWaitPage(WaitPage):
 
@@ -102,6 +138,11 @@ class Results(Page):
             completion_code= self.player.completion_code
         )
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,

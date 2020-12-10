@@ -151,7 +151,15 @@ class Player(BasePlayer):
 
     #Now we implement a boolean condition for timeouts for all pages
 
+    timeout_framing = models.BooleanField(initial=False)
+    timeout_welcome = models.BooleanFeld(initial=False)
     timeout_test1 = models.BooleanField(initial=False)
+    timeout_result1 = models.BooleanField(initial=False)
+    timeout_test2 = models.BooleanField(initial=False)
+    timeout_result2 = models.BooleanField(initial=False)
+    timeout_give = models.BooleanField(initial=False)
+    timeout_questions = models.BooleanField(initial=False)
+    timeout_results = models.BooleanField(initial=False)
 
     #In the following we implement the questions from the questionnaire.
 
