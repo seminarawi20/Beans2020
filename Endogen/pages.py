@@ -137,12 +137,6 @@ class Results(Page):
             completion_code= self.player.completion_code
         )
 
-    timeout_seconds = 120
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_test1 = True
-
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
                  Welcome,
