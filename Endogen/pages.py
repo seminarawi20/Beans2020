@@ -59,6 +59,17 @@ class Questions(Page):
 
     timeout_seconds = 20
 
+    def get_timeout_seconds(self):
+        if self.participant.vars.get('is_dropout'):
+            return 1  # instant timeout, 1 second
+        else:
+            return 5*60
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.participant.vars['is_dropout'] = True
+            self.player.contribution = c(100)
+
 # Page for Framing.
 class Framing(Page):
 
