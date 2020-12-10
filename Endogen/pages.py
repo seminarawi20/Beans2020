@@ -19,6 +19,11 @@ class Welcome(Page):
                 'base': Constants.base*100,
                 'addition_per_give': Constants.addition_per_give*100}
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
