@@ -14,42 +14,31 @@ p indicates a text, br is equal to enter and div is the main block >
 
         {% if treatment == 1 %}
             <! This is the statement for the treatment group >
-            The instructions are as follows: <br><br>
-               Your country is faced with an epidemic at the moment.<br>
-        This epidemic can be contained by the population taking private measures. The measures are considered successful if at least 2/3 of the measures are implemented.<br>
-        Each player can decide whether or not to comply with the measures.<br>
-        These are symbolized by bundles of balls in this game.<br>
-        Your possibilities are:<br><br>
-        Keep distance (one ball)<br>
-        Stay at home (two balls)<br>
-        Reduce social contacts (two balls)<br>
-        Wear a mask outside (two balls)<br>
-        Willingness to be vaccinated (three balls)<br><br>
-        You are {{ players }} players.<br>
-        Every player has 10 balls. There is a common pool which is empty at the start.
-        Balls put into the pool symbolize measures that the player would carry out.
-        Every player can decide how many balls they want to put into the common pool.
-        After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.
-        Your payoff will then be the amount you have left plus your share from the pool.<br>
-        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool.
-        This means that at least 2/3 of the measures are implemented or 2/3 of the population adheres to all measures.
-        Additional the pool has a 70% chance to break down which decreases {{addition_per_give}}% for every ball that is given in the pool. <br>
-        If the pool breaks down you will not get any balls from the pool. Your payoff will then be the amount you have kept.
-        {%else%}
-           <! This is the statement for the control group >
+           Welcome to our experiment!<br>
+        Before explaining the rules, good news: If you play the game to the end you will get 1 Dollar for sure.
+        Depending on how you decide during the game you can <b>win even more money</b>.
            The instructions are as follows: <br><br>
         You are {{ players }} players.<br>
-        Every player has 10 balls that are split into bundles. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool:<br><br>
-        A (one ball)<br>
-        B (two balls)<br>
-        C (two balls)<br>
-        D (two balls)<br>
-        E (three balls)<br><br>
+        Every player has 10 balls. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool.<br><br>
         After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.<br>
-        Your payoff will then be the amount you have left plus your share from the pool.<br>
+        Your <b>payoff</b> will then be the amount you have left plus your share from the pool.<br><br>
         Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. <br>
-        Additional the pool has a 70% chance to break down which decreases {{addition_per_give}}% for every ball that is given in the pool. <br>
-        If the pool breaks down you will not get any balls from the pool. Your payoff will then be the amount you have kept.
+        If there are not enough balls in the pool you will loose the balls you gave in the pool and your payoff will then be the amount of balls you have kept.<br>
+        The <b>more balls</b> you get paid at the end, the <b>more money</b> you win.
+
+        {%else%}
+           <! This is the statement for the control group >
+        Welcome to our experiment!<br>
+        Before explaining the rules, good news: If you play the game to the end you will get 1 Dollar for sure.
+        Depending on how you decide during the game you can <b>win even more money</b>.
+           The instructions are as follows: <br><br>
+        You are {{ players }} players.<br>
+        Every player has 10 balls. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool.<br><br>
+        After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.<br>
+        Your <b>payoff</b> will then be the amount you have left plus your share from the pool.<br><br>
+        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. <br>
+        If there are not enough balls in the pool you will loose the balls you gave in the pool and your payoff will then be the amount of balls you have kept.<br>
+        The <b>more balls</b> you get paid at the end, the <b>more money</b> you win.
         {% endif %}
     </p>
 </div>
