@@ -57,6 +57,12 @@ class Questions(Page):
     form_model = 'player'
     form_fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12']
 
+# Page for Framing.
+class Framing(Page):
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
 class ResultsWaitPage(WaitPage):
 
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
@@ -90,7 +96,8 @@ class Results(Page):
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome,
+page_sequence = [Framing,
+                 Welcome,
                  Test1,
                  Results_Test1,
                  Test2,

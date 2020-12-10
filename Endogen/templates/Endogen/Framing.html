@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Context
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p>
+      <br>
+
+<! This is for the treatment group only>
+
+        {% if treatment == 1 %}
+
+        ------TEXT-------
+
+        {% endif %}
+
+    </p>
+</div>
+
+{% next_button %}
+
+{% endblock %}
