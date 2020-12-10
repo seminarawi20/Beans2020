@@ -120,7 +120,6 @@ class ResultsWaitPage(WaitPage):
         self.group.set_payoffs()
 
 
-
 class Results(Page):
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
@@ -152,6 +151,6 @@ page_sequence = [Framing,
                  Test2,
                  Results_Test2,
                  Give,
-                 Questions,
                  ResultsWaitPage,
+                 Questions,
                  Results]
