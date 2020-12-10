@@ -31,6 +31,13 @@ class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
+
 class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
