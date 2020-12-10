@@ -60,8 +60,9 @@ class Questions(Page):
 # Page for Framing.
 class Framing(Page):
 
-    def is_displayed(self):
-        return self.subsession.treatment == 1
+    form_model = 'player'
+  #  def is_displayed(self):
+    #    return self.subsession.treatment == 1
 
 class ResultsWaitPage(WaitPage):
 
