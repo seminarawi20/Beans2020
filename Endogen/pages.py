@@ -31,6 +31,12 @@ class Welcome(Page):
 
 ## a form field is something the participant can interact with. Since we defined it on a player level, we must specify it in the form_model section.
 
+class Test1_init(Page):
+    form_model = 'player'
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 class Test1(Page):
     form_model = 'player'
@@ -42,6 +48,12 @@ class Test1(Page):
         if self.timeout_happened:
             self.player.timeout_test1 = True
 
+class Test2_init(Page):
+    form_model = 'player'
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
 
 class Test2(Page):
     form_model = 'player'
@@ -156,8 +168,10 @@ class Results(Page):
 page_sequence = [Framing,
                  Welcome,
                  Welcome2,
+                 Test1_init,
                  Test1,
                  Results_Test1,
+                 Test2_init,
                  Test2,
                  Results_Test2,
                  Give,
