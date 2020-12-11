@@ -19,7 +19,7 @@ class Welcome(Page):
                 'base': Constants.base*100,
                 'addition_per_give': Constants.addition_per_give*100}
 
-    timeout_seconds = 120
+    timeout_seconds = 180
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -112,6 +112,16 @@ class Framing(Page):
         if self.timeout_happened:
             self.player.timeout_test1 = True
 
+class Welcome2(Page):
+
+    form_model = 'player'
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_test1 = True
+
 class ResultsWaitPage(WaitPage):
 
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
@@ -145,6 +155,7 @@ class Results(Page):
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
                  Welcome,
+                 Welcome2,
                  Test1,
                  Results_Test1,
                  Test2,

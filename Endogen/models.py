@@ -168,7 +168,7 @@ class Player(BasePlayer):
                                       "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
                                       "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"], label="Which state are you from?")
 
-    q2 = models.StringField(choices=["Democratic Party", "Republican Party", "Other", "None"], widget=widgets.RadioSelect() , label="With party do you feel closer to?")
+    q2 = models.StringField(choices=["Democratic Party", "Republican Party", "None"], widget=widgets.RadioSelect() , label="With party do you feel closer to?")
 
     q3 = models.StringField(choices=["Very opposed", "Rather opposed", "Impartial", "Rather in favour", "Very in favour", "No answer"], widget=widgets.RadioSelect() , label=
                             "Are you opposed or in favour of Anti-COVID-19 measures in your state?")
