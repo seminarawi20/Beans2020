@@ -131,7 +131,7 @@ class Player(BasePlayer):
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
 
-    give = models.IntegerField(label="How many balls do you want to give?")
+    give = models.IntegerField(label="How many points do you want to give?")
 
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
@@ -146,8 +146,8 @@ class Player(BasePlayer):
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
-    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you have in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many balls would you have in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you have in total if the pool breaks down?")
+    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you have in total if the pool does not break down?")
 
     #Now we implement a boolean condition for timeouts for all pages
 
