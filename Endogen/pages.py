@@ -34,6 +34,8 @@ class Welcome(Page):
 class Test1_init(Page):
     form_model = 'player'
 
+    timeout_seconds = 120
+
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_test1 = True
@@ -43,13 +45,6 @@ class Test1(Page):
     form_fields = ['test1']
 
     timeout_seconds = 120
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_test1 = True
-
-class Test2_init(Page):
-    form_model = 'player'
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -171,7 +166,6 @@ page_sequence = [Framing,
                  Test1_init,
                  Test1,
                  Results_Test1,
-                 Test2_init,
                  Test2,
                  Results_Test2,
                  Give,
