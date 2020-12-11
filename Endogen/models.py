@@ -120,7 +120,7 @@ class Group(BaseGroup):
         else:
             # The payoff for each player is determined by the the amount he gave and what his share of the common resource is.
             for p in self.get_players():
-                p.payoff = sum([+ p.give,
+                p.payoff = sum([+ (Constants.max - p.give),
                                 + self.resource_share,
                                 ])
 
