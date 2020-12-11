@@ -15,30 +15,30 @@ p indicates a text, br is equal to enter and div is the main block >
         {% if treatment == 1 %}
             <! This is the statement for the treatment group >
            Welcome to our experiment!<br>
-        Before explaining the rules, good news: If you play the game to the end you will get 1 Dollar for sure.
+        Before explaining the rules, good news: If you play the game to the end you will get $1 for sure.
         Depending on how you decide during the game you can <b>win even more money</b>.
            The instructions are as follows: <br><br>
-        You are {{ players }} players.<br>
-        Every player has 10 balls. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool.<br><br>
-        After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.<br>
+        There are {{ players }} players.<br>
+        Every player has 10 points. There is a common pool which is empty at the start. Every player can decide how many points
+        they want to put into the common pool.<br><br>
+        After all players made a decision, the points in the pool will be multiplied by {{ factor }} and every player
+        receives an equal share out of the pool.<br>
         Your <b>payoff</b> will then be the amount you have left plus your share from the pool.<br><br>
-        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. <br>
-        If there are not enough balls in the pool you will loose the balls you gave in the pool and your payoff will then be the amount of balls you have kept.<br>
-        The <b>more balls</b> you get paid at the end, the <b>more money</b> you win.
+
 
         {%else%}
            <! This is the statement for the control group >
         Welcome to our experiment!<br>
-        Before explaining the rules, good news: If you play the game to the end you will get 1 Dollar for sure.
+        Before explaining the rules, good news: If you play the game to the end you will get $1 for sure.
         Depending on how you decide during the game you can <b>win even more money</b>.
            The instructions are as follows: <br><br>
-        You are {{ players }} players.<br>
-        Every player has 10 balls. There is a common pool which is empty at the start. Every player can decide how many balls they want to put into the common pool.<br><br>
-        After all players made a decision the balls in the pool get multiplied by {{ factor }} and every player receives an equal share.<br>
+       There are {{ players }} players.<br>
+        Every player has 10 points. There is a common pool which is empty at the start. Every player can decide how many points
+        they want to put into the common pool.<br><br>
+        After all players made a decision, the points in the pool will be multiplied by {{ factor }} and every player
+        receives an equal share out of the pool.<br>
         Your <b>payoff</b> will then be the amount you have left plus your share from the pool.<br><br>
-        Unfortunately the balls will only be doubled and get paid out if at least 2/3 of all balls are in the pool. <br>
-        If there are not enough balls in the pool you will loose the balls you gave in the pool and your payoff will then be the amount of balls you have kept.<br>
-        The <b>more balls</b> you get paid at the end, the <b>more money</b> you win.
+
         {% endif %}
     </p>
 </div>
