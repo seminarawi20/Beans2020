@@ -2,9 +2,6 @@
 {% load otree static %}
 {% block title %}
     Results Question 1
-<img src="https://heibox.uni-heidelberg.de/f/8b76e01407a34875906e/?dl=1" style="float:right;width:200px;height:100px;"/>
-<br>
-<br>
 {% endblock %}
 <! This is a html-comment>
 <! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
@@ -21,36 +18,15 @@ p indicates a text, br is equal to enter and div is the main block >
             Your answer is <b>false</b>. <br>
         <br>
         <i>Please read the explanation carefully and make sure that you fully understand the setup,
-            because the real game starts after the next trial task:</i> <br>
-            The pool breaks down so all your earnings would be lost.
+            because the real game starts after the next trial task:</i> <br><br>
+            - the pool has a {{base}}% chance to break down. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool. <br>
+            - <b>if the pool breaks down you will not get any points from the game</b> .<br><br>
+        The pool breaks down so all your earnings would be lost.
         {%endif%}
     </p>
 
 
 
 </div>
-<br>
-<br>
-<style>
-    .button {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 4px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;}
-    .button:hover {
-        background-color: #990000; color: white;}
-    .button:active {
-  background-color: #990000;
-  transform: translateY(4px);
-}
-
-</style>
-<button class="button button1">Next</button>
-
+   {% next_button %}
 {% endblock %}

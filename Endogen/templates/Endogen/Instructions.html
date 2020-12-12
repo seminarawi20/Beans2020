@@ -2,8 +2,6 @@
 {% load otree static %}
 {% block title %}
     Instructions
-<img src="https://heibox.uni-heidelberg.de/f/8b76e01407a34875906e/?dl=1" style="float:right;width:200px;height:100px;"/>
-<br>
 {% endblock %}
 <! This is a html-comment>
 <! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
@@ -14,50 +12,32 @@ p indicates a text, br is equal to enter and div is the main block >
     <p>
 
       <br>
-            This is how the game works : <br><br>
-                You will be playing in a group of {{ players }} players.
-                At the beginning there is a pool of {{pool}} points. <br>
-                Every player can then take between 0 and  {{ max }} points from this pool. <br><br>
-                The remaining points in the pool get multiplied by {{ factor }}
-                and are distributed amongst all {{ players }} players equally. <br>
-                Additionally, after all players have made their decisions, we will ask you, <br>
-                how much you think is left in the pool. <br>
-                You get <b>1 point</b> if your guess on the amount of points remaining was correct. <br><br>
-                Therefore your payoff will be the amount you choose to take from the pool,
-                plus your share from the multiplied remaining points of the pool,
-                plus one point if your guess was correct. <br><br>
-        {% if treatment == 1 %}
-                The pool itself has a {{base}}% chance to <b>break down</b>. This chance increases by {{addition_per_take}} percentage point for every point that is taken from the pool. <br>
-                 If the pool breaks down you will not get any points from the game.<br>
+            <b>How the game works</b> : <br>
+                - you will play in a group of <b>{{ players }} players</b> <br>
+                - there is a <b>pool of {{pool}} points</b> <br>
+                - <b>a point is worth 50 cents</b> <br>
+                - each player can take between 0 and  {{ max }} points from the pool<br>
+                - the remaining points in the pool get multiplied by {{ factor }}
+                and are distributed amongst all {{ players }} players equally<br><br>
+      {% if treatment == 1 %}
+                - the <b>pool has a {{base}}% chance to break down</b>. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool. <br>
+                - <b>if the pool breaks down</b>  you will <b>not</b> get any points from the game.<br><br>
         {% else %}
-                The pool itself has a {{baseC}}% chance to <b>break down</b>. This chance increases by {{addition_per_take}} percentage point for every point that is taken from the pool.
-                 If the pool breaks down you will <b>not</b> get any points from the game.<br>
+                - the <b>pool has a {{baseC}}% chance to break down</b>. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool.
+                - <b>if the pool breaks down</b> you will <b>not</b> get any points from the game.<br><br>
         {% endif %}
+<br>
+            <b>Your tasks</b>:<br>
+                - choose how many points you want to take from the pool<br>
+                - try to guess the number of points remaining in the pool<br><br>
+            <b>Your payoff</b>:<br>
+                - the amount you take from the pool + your share from the multiplied remaining points of the pool<br>
+                - if you correctly guess the amount of points remaining in the pool you get 1 additional point.  <br><br>
+               <br><br>
+
 
     </p>
 </div>
-<br>
-<br>
-<style>
-    .button {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 4px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;}
-    .button:hover {
-        background-color: #990000; color: white;}
-    .button:active {
-  background-color: #990000;
-  transform: translateY(4px);
-}
-
-</style>
-<button class="button button1">Next</button>
+   {% next_button %}
 
 {% endblock %}

@@ -2,8 +2,7 @@
 {% load otree static %}
 {% block title %}
     Welcome
-<img src="https://heibox.uni-heidelberg.de/f/8b76e01407a34875906e/?dl=1" style="float:right;width:200px;height:100px;"/>
-<br><br>
+<br>
 {% endblock %}
 
 <! This is a html-comment>
@@ -22,33 +21,10 @@ p indicates a text, br is equal to enter and div is the main block >
             <b>15 minutes </b> in total. <br><br>
             The instructions are simple, and if you follow them carefully, you can earn a considerable amount of money. <br>
         <br>
-            <b>All the money you earn is yours to keep</b> and will be paid to you. <br>
+            Throughout the task <b>you can collect points</b> and <b>after completion each point will be worth 50 cents</b><br>
             In addition to any earnings you might have in the task, <b>you will be paid $1 for completion</b>. <br><br>
     </p>
 </div>
-<br>
-<br>
-<style>
-    .button {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 4px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;}
-    .button:hover {
-        background-color: #990000; color: white;}
-    .button:active {
-  background-color: #990000;
-  transform: translateY(4px);
-}
-
-</style>
-<button class="button button1">Next</button>
-
+   {% next_button %}
 
 {% endblock %}

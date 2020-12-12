@@ -3,9 +3,6 @@
 
 {% block title %}
     Demographics
-<img src="https://heibox.uni-heidelberg.de/f/8b76e01407a34875906e/?dl=1" style="float:right;width:200px;height:100px;"/>
-<br>
-<br>
 {% endblock %}
 
 {% block content %}
@@ -24,27 +21,5 @@
     {% formfield player.experience %}<br>
     </p>
 <br>
-<br>
-<style>
-    .button {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 4px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;}
-    .button:hover {
-        background-color: #990000; color: white;}
-    .button:active {
-  background-color: #990000;
-  transform: translateY(4px);
-}
-
-</style>
-<button class="button button1">Next</button>
-
+   {% next_button %}
 {% endblock %}
