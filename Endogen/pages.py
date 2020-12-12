@@ -113,7 +113,7 @@ class Framing(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
-    timeout_seconds = 120
+    timeout_seconds = 180
 
     def before_next_page(self):
         if self.timeout_happened:
