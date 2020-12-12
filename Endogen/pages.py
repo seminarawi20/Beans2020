@@ -9,7 +9,7 @@ from .models import Constants
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 class Welcome(Page):
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -24,10 +24,9 @@ class Instructions(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'baseC': Constants.baseC*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
-    timeout_seconds = 6000
+    timeout_seconds = 180
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -45,7 +44,7 @@ class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
 
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -55,7 +54,7 @@ class Test2(Page):
     form_model = 'player'
     form_fields = ['test2']
 
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -65,7 +64,7 @@ class Results_Test1(Page):
     def vars_for_template(self):
         return {'test1': self.player.test1}
 
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -75,7 +74,7 @@ class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -90,14 +89,24 @@ class Take(Page):
         return {'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'baseC': Constants.baseC*100,
                 }
 
-    timeout_seconds = 6000
+    timeout_seconds = 60
 
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_take = True
+
+class Belief(Page):
+    # New page in which players state their belief, how much the other players took
+    form_model = 'player'
+    form_fields = ['belief']
+
+    timeout_seconds = 60
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_belief = True
 
 class ResultsWaitPage(WaitPage):
 
@@ -126,21 +135,10 @@ class Results(Page):
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
-            tipping_pointC = round(self.group.tipping_pointC*100,1),
             completion_code= self.player.completion_code,
             belief = self.player.belief
         )
 
-class Belief(Page):
-    # New page in which players state their belief, how much the other players took
-    form_model = 'player'
-    form_fields = ['belief']
-
-    timeout_seconds = 6000
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_belief = True
 
 class Genderrole(Page):
     form_model = 'player'
@@ -153,25 +151,6 @@ class Genderrole2(Page):
 class Demographics(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'risk', 'experience']
-
-class Lotteries(Page):
-    form_model = 'player'
-    form_fields = ['R1', 'R2', 'R3', 'R4', 'R5']
-
-    timeout_seconds = 6000
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_lotteries = True
-
-class Instructions_Risk(Page):
-    form_model = 'player'
-
-    timeout_seconds = 6000
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_instructions_risk = True
 
 class End(Page):
 
@@ -186,8 +165,6 @@ class End(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
-                 Instructions_Risk,
-                 Lotteries,
                  Instructions,
                  Test1,
                  Results_Test1,

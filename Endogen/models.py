@@ -26,8 +26,7 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base = 20/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    baseC = 60/100 # the cooperative treatment (x* = 0)
+    base = 40/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
     addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available, the number of players.
@@ -61,12 +60,8 @@ class Group(BaseGroup):
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
     tipping_point = models.FloatField()
-    tipping_pointC = models.FloatField()
     def set_tipping_point(self):
         self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
-    def set_tipping_pointC(self):
-        self.tipping_pointC = np.round(Constants.baseC + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
-
 
     # To determine if a groups pool breaks down, we create a random number that takes values between 0, 1.
     # If the tipping point is higher than the random number, breakdown will be TRUE.
@@ -76,11 +71,7 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > np.random.rand()
-        else:
-            self.breakdown = self.tipping_pointC > np.random.rand()
-
+        self.breakdown = self.tipping_point > np.random.rand()
 
     # total_points_left is the number of points that do not get taken.
     # resource share is the share each player receives from the resource.
@@ -186,32 +177,12 @@ class Player(BasePlayer):
         ]
         , label="What is the highest level of education you have completed?")
 
-    risk = models.IntegerField(
-        label="How do you see yourself: are you generally a person who is fully "
-                "prepared to take risks or do you try to avoid taking risks? "
-                "Please tick a box on the scale, where the value 0 means: "
-                "'not at all willing to take risks' and the value 10 means: "
-                "'very willing to take risks'.",
-        choices=[
-                               [0, '0'],
-                               [1, '1'],
-                               [2, '2'],
-                               [3, '3'],
-                               [4, '4'],
-                               [5, '5'],
-                               [6, '6'],
-                               [7, '7'],
-                               [8, '8'],
-                               [9, '9'],
-                               [10, '10'],
-    ], widget = widgets.RadioSelectHorizontal())
-
     experience = models.IntegerField(
         choices=[
             [1, 'none'],
             [2, 'a few times'],
             [3, 'more than 10'],
-            [4, 'more than I can count'],
+            [4, 'more than 10'],
         ], widget=widgets.RadioSelect()
         , label="How much experience with experiments like this have you had so far?")
 
@@ -435,36 +406,4 @@ class Player(BasePlayer):
                                   [5, 'Often'],
                                   [6, 'Very Often'],
                                   [7, 'Always'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    # Risk elicitation
-
-    R1 = models.StringField(label="1. Which lottery do you prefer",
-                              choices=[
-                                  ['A', 'A 10% chance of $5, a 90% chance of $4'],
-                                  ['B', 'A 10% chance of $10, a 90% chance of $0.1'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    R2 = models.StringField(label="2. Which lottery do you prefer",
-                              choices=[
-                                  ['A', 'A 40% chance of $5, a 60% chance of $4'],
-                                  ['B', 'A 40% chance of $10, a 60% chance of $0.1'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    R3 = models.StringField(label="3. Which lottery do you prefer",
-                              choices=[
-                                  ['A', 'A 50% chance of $5, a 50% chance of $4'],
-                                  ['B', 'A 50% chance of $10, a 50% chance of $0.1'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    R4 = models.StringField(label="4. Which lottery do you prefer",
-                              choices=[
-                                  ['A', 'A 60% chance of $5, a 40% chance of $4'],
-                                  ['B', 'A 60% chance of $10, a 40% chance of $0.1'],
-                              ], widget=widgets.RadioSelectHorizontal())
-
-    R5 = models.StringField(label="5. Which lottery do you prefer",
-                              choices=[
-                                  ['A', 'A 90% chance of $5, a 10% chance of $4'],
-                                  ['B', 'A 90% chance of $10, a 10% chance of $0.1'],
                               ], widget=widgets.RadioSelectHorizontal())
