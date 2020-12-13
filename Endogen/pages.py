@@ -173,10 +173,20 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'experience']
 
+    def is_displayed(self):
+        return self.subsession.treatment == 0
+
+class Demographicstreatment(Page):
+    form_model = 'player'
+    form_fields = ['age', 'gender', 'education', 'experience']
+
     def vars_for_template(self):
         return dict(
-            treatment = self.subsession.treatment,
+            treatment=self.subsession.treatment,
         )
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
 
 class End(Page):
 
@@ -203,5 +213,6 @@ page_sequence = [Welcome,
                  Genderrole,
                  Genderrole2,
                  Demographics,
+                 Demographicstreatment,
                  End,
                  ]
