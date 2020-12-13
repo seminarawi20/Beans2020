@@ -22,11 +22,11 @@
         {% if breakdown == 1 %}
         <br>
              <b>Unfortunately the pool broke down.</b>
-                This means you earned {{payoff}}<br><br>
+                This means you will not get any points from the game itself.<br><br>
             {%else%}
         <br>
              <b>Fortunately the pool did not break down.</b>
-                This means your share is {{share}} points and you will earn {{payoff}}<br><br>
+                This means your share of the pool is {{share}} points and you can keep the {{take}} points you took.<br><br>
             {% endif %} <br><br>
 
         <br> <i>Additional points:</i>
@@ -61,7 +61,7 @@
             {%endif%}
 
         {% endif %}
-        <b>Total number of your points:</b> {{payoff}}
+        <b>Total number of your points from the game:</b> {{payoff}}
 
         <br><br>
         Now you only need to complete a short questionnaire to finish this study and collect your reward.
