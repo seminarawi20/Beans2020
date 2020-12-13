@@ -139,7 +139,7 @@ class Player(BasePlayer):
     test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
 
     # For beliefs:
-    belief = models.IntegerField(min=0, max=30)
+    belief = models.IntegerField(min=0, max=30, label="How many points are left in the pool?")
     correct_belief = models.IntegerField()
 
     # variable for if there was a time-out
