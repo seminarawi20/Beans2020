@@ -17,15 +17,15 @@
 
         {% if breakdown == 1 %}
         <br>
-             <b>Unfortunately the pool broke down.</b>
-                This means you will not get any points from the game itself.<br><br>
+             <b>Unfortunately the pool broke down.</b><br>
+                This means you will not get any points from the game itself.
             {%else%}
         <br>
              <b>Fortunately the pool did not break down.</b>
                 This means your share of the pool is {{share}} points and you can keep the {{take}} points you took.<br><br>
             {% endif %} <br><br>
 
-        <br> <i>Additional points:</i>
+        <br> <i>Additional points:</i><br>
             {% if correct_belief == 1 %}
                 Your guess on the amount of points left in the pool was <b>correct</b>.
             {% if breakdown == 1 %}
@@ -37,11 +37,11 @@
                 Your guess on the amount of points left in the pool was <b>false</b>, therefore
                 you do not earn the additional point. <br>
             {%endif%}
-
+<br>
         <b>Total number of your points from the game:</b> {{payoff}}
 
         <br><br>
-        Now you only need to complete a short questionnaire to finish this study and collect your reward.
+        Now you only need to complete a short questionnaire to finish this study and collect the money you earned.
     </p>
 <br>
    {% next_button %}
