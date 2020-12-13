@@ -138,7 +138,6 @@ class ResultsWaitPage(WaitPage):
 
     def after_all_players_arrive(self):
         self.group.set_tipping_point()
-        self.group.set_tipping_pointC()
         self.group.set_breakdown()
         self.group.set_payoffs()
 
@@ -157,7 +156,8 @@ class Results(Page):
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.player.completion_code,
-            belief = self.player.belief
+            belief = self.player.belief,
+            correct_belief = self.player.correct_belief
         )
 
 

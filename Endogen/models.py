@@ -96,7 +96,7 @@ class Group(BaseGroup):
 
         # Awards points if belief is correct
         for p in self.get_players():
-            p.correct_belief = 1 if p.belief == self.total_points_left else 0
+            p.correct_belief = 1 if self.total_points_left - 2 <= p.belief <= self.total_points_left + 2 else 0
 
         # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
         # If that is the case the players do not get any money
