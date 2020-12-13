@@ -26,7 +26,7 @@ class Instructions(Page):
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
-    timeout_seconds = 180
+    timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -62,7 +62,10 @@ class Test2(Page):
 
 class Results_Test1(Page):
     def vars_for_template(self):
-        return {'test1': self.player.test1}
+        return {'test1': self.player.test1,
+                'base': Constants.base*100,
+                }
+
 
     timeout_seconds = 60
 
