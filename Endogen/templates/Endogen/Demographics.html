@@ -15,7 +15,10 @@
 </style>
 <br>
 <p>
+    {% if treatment == 1 %}
+        {%else%}
     {% formfield player.gender %}<br>
+        {% endif %}
     {% formfield player.age %}<br>
     {% formfield player.education %}<br>
     {% formfield player.experience %}<br>

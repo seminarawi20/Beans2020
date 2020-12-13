@@ -144,6 +144,7 @@ class Player(BasePlayer):
 
     # variable for if there was a time-out
     timeout_welcome = models.BooleanField(initial=False)
+    timeout_gendertreatment = models.BooleanField(initial=False)
     timeout_instructions_risk = models.BooleanField(initial=False)
     timeout_lotteries = models.BooleanField(initial=False)
     timeout_test1 = models.BooleanField(initial=False)

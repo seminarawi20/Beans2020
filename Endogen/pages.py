@@ -15,6 +15,25 @@ class Welcome(Page):
         if self.timeout_happened:
             self.player.timeout_welcome = True
 
+class gendertreatment(Page):
+
+    form_model = 'player'
+    form_fields = ['gender']
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
+    timeout_seconds = 60
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_gendertreatment = True
+
+
+
+def is_displayed(self):
+    return self.player.id_in_group == 2
+
 class Instructions(Page):
 
     def vars_for_template(self):
@@ -65,8 +84,6 @@ class Results_Test1(Page):
         return {'test1': self.player.test1,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
-
-
 
     timeout_seconds = 60
 
@@ -169,6 +186,7 @@ class End(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
+                 gendertreatment,
                  Instructions,
                  Test1,
                  Results_Test1,

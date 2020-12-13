@@ -19,13 +19,9 @@ p indicates a text, br is equal to enter and div is the main block >
                 - each player can take between 0 and  {{ max }} points from the pool<br>
                 - the remaining points in the pool get multiplied by {{ factor }}
                 and are distributed amongst all {{ players }} players equally<br><br>
-      {% if treatment == 1 %}
                 - the <b>pool has a {{base}}% chance to break down</b>. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool. <br>
                 - <b>if the pool breaks down</b>  you will <b>not</b> get any points from the game.<br><br>
-        {% else %}
-                - the <b>pool has a {{baseC}}% chance to break down</b>. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool.
-                - <b>if the pool breaks down</b> you will <b>not</b> get any points from the game.<br><br>
-        {% endif %}
+
 <br>
             <b>Your tasks</b>:<br>
                 - choose how many points you want to take from the pool<br>

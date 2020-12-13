@@ -1,0 +1,23 @@
+{% extends "Endogen/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Demographic Information
+<br>
+{% endblock %}
+
+<! This is a html-comment>
+<! The building blocks of our pages are HTML. You can find more info here: https://www.w3schools.com/html/html_intro.asp
+p indicates a text, br is equal to enter and div is the main block >
+
+
+{% block content %}
+<div id="main">
+    <p>
+
+      <br>
+        {% formfield player.gender %}<br>
+    </p>
+</div>
+   {% next_button %}
+
+{% endblock %}
