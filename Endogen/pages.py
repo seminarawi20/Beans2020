@@ -171,7 +171,12 @@ class Genderrole2(Page):
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'risk', 'experience']
+    form_fields = ['age', 'gender', 'education', 'experience']
+
+    def vars_for_template(self):
+        return dict(
+            treatment = self.subsession.treatment,
+        )
 
 class End(Page):
 
@@ -180,7 +185,6 @@ class End(Page):
 
         return dict(
             payoff = self.player.payoff,
-            treatment = self.subsession.treatment,
             completion_code= self.player.completion_code,
         )
 
