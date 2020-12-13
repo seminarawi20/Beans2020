@@ -17,70 +17,57 @@
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
-            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br><br>
+
+        {% if breakdown == 1 %}
         <br>
-            {% if belief == total_points_left %}
-                Your guess on the amount of points left is <b>correct</b>, therefore
-                you earn one additional point. <br>
-            {%else%}
-                Your guess on the amount of points left is <b>false</b>, therefore
-                you do not earn the additional point.
-            {%endif%}
-            {% if breakdown == 1 %}
-        <br>
-                Unfortunately the pool broke down.
+             <b>Unfortunately the pool broke down.</b>
                 This means you earned {{payoff}}<br><br>
             {%else%}
         <br>
-                Fortunately the pool did not break down.
+             <b>Fortunately the pool did not break down.</b>
                 This means your share is {{share}} points and you will earn {{payoff}}<br><br>
             {% endif %} <br><br>
+
+        <br> <i>Additional points:</i>
+            {% if belief == total_points_left %}
+                Your guess on the amount of points left in the pool was <b>correct</b>, therefore
+                you earn one additional point. <br>
+            {%else%}
+                Your guess on the amount of points left in the pool was <b>false</b>, therefore
+                you do not earn the additional point.
+            {%endif%}
 
         {%else%}
         <! This is the statement for the control group >
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_pointC}}%.<br>
-            {% if belief == total_points_left %}
-                Your guess on the amount of points taken is <b>correct</b>. <br>
-                You earn one additional point. <br>
-            {%else%}
-                Your guess on the amount of points taken is <b>false</b>. <br>
-                You do not earn the additional point.
-            {%endif%}
-            {% if breakdown == 1 %}
-                <br>Unfortunately the pool broke down. <br><br>
+
+           {% if breakdown == 1 %}
+        <b>Unfortunately the pool broke down.</b> <br><br>
                 This means you earned {{payoff}}
             {%else%}
-                <br>Fortunately the pool did not break down. <br><br>
+                <b>Fortunately the pool did not break down. </b><br><br>
                 This means your share is {{share}} points and you will earn {{payoff}}<br><br>
             {% endif %} <br><br>
+
+        <br>  <i>Additional points:</i>
+            {% if belief == total_points_left %}
+                Your guess on the amount of points left in the pool was <b>correct</b>, therefore
+                you do earn one additional point.<br>
+            {%else%}
+                Your guess on the amount of points left in the pool was <b>false</b>, therefore
+                you do not earn the additional point.<br><br>
+            {%endif%}
+
         {% endif %}
-        Now you only need to complete a short questionnaire to finish this study and collect your reward. </b>
+        <b>Total number of your points:</b> {{payoff}}
+
+        <br><br>
+        Now you only need to complete a short questionnaire to finish this study and collect your reward.
     </p>
 <br>
-<br>
-<style>
-    .button {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: white;
-        text-align: center;
-        border-radius: 2px;
-        padding: 4px 8px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;}
-    .button:hover {
-        background-color: #990000; color: white;}
-    .button:active {
-  background-color: #990000;
-  transform: translateY(4px);
-}
-
-</style>
-<button class="button button1">Next</button>
-
+   {% next_button %}
 {% endblock %}
 
 
