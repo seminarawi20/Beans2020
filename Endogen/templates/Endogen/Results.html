@@ -29,8 +29,12 @@
 
         <br> <i>Additional points:</i>
             {% if correct_belief == 1 %}
-                Your guess on the amount of points left in the pool was <b>correct</b>, therefore
-                you earn one additional point. <br>
+                Your guess on the amount of points left in the pool was <b>correct</b>.
+            {% if breakdown == 1 %}
+                However, as the pool broke down, you will not receive the point.
+            {% else %}
+                Therefore you earn one additional point. <br>
+            {% endif %}
             {%else%}
                 Your guess on the amount of points left in the pool was <b>false</b>, therefore
                 you do not earn the additional point.
