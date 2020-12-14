@@ -18,7 +18,8 @@ class Welcome(Page):
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
                 'addition_per_give': Constants.addition_per_give*100,
-                'show_up_fee': Constants.fee}
+                'show_up_fee': Constants.fee,
+                'per_point': Constants.per_point}
 
     timeout_seconds = 180
 
@@ -115,7 +116,8 @@ class Framing(Page):
         return self.subsession.treatment == 1
 
     def vars_for_template(self):
-        return {'show_up_fee': Constants.fee}
+        return {'show_up_fee': Constants.fee,
+                'per_point': Constants.per_point}
 
     timeout_seconds = 180
 
