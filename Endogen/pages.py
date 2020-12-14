@@ -114,6 +114,9 @@ class Framing(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
+    def vars_for_template(self):
+        return {'show_up_fee': Constants.fee}
+
     timeout_seconds = 180
 
     def before_next_page(self):
