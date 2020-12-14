@@ -17,7 +17,7 @@ class Welcome(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'addition_per_give': Constants.addition_per_give*100
+                'addition_per_give': Constants.addition_per_give*100,
                 'show_up_fee': Constants.fee}
 
     timeout_seconds = 180
