@@ -178,7 +178,7 @@ class Demographics(Page):
 
 class Demographicstreatment(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'experience']
+    form_fields = ['age', 'education', 'experience']
 
     def vars_for_template(self):
         return dict(
