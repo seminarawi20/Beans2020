@@ -25,7 +25,7 @@ class Welcome(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.welcome = True
+            self.player.timeout_welcome = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
