@@ -15,12 +15,12 @@
     <p>
         <! This is a statement for both groups >
 
-            You gave {{give}} points. There were {{total_points_given}} points in the pool and increased to {{pool_mult}} points.<br>
+            You gave {{give}} points. {{total_points_given}} points in total were put into the pool.<br>
             {% if breakdown == 1 %}
-                Unfortunately, there were less than 2/3 of all points in the pool and the pool broke down. <br><br>
-                This means you earned {{payoff}}
+                This is less than 2/3 of all available points in the group, and the pool therefore broke down. <br><br>
+                This means you earned {{payoff}} points. 
             {%else%}
-                Fortunately, there were more than 2/3 of all points in the pool and the pool did not break down. <br><br>
+                This is more than 2/3 of all available points in the group, and the pool therefore did not break down.<br><br>
                 This means your share is {{share}} points and you earned {{payoff}}
             {% endif %} <br><br>
 
