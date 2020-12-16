@@ -168,7 +168,6 @@ class Results(Page):
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
                  Welcome,
-                 Welcome2,
                  Test1_init,
                  Test1,
                  Results_Test1,
