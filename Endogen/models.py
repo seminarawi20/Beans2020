@@ -161,6 +161,8 @@ class Player(BasePlayer):
     timeout_result2 = models.BooleanField(initial=False)
     timeout_give = models.BooleanField(initial=False)
     timeout_questions = models.BooleanField(initial=False)
+    timeout_test1_init = models.BooleanField(initial=False)
+    timeout_welcome2 = models.BooleanField(initial=False)
 
     #In the following we implement the questions from the questionnaire.
 
