@@ -25,7 +25,7 @@ class Welcome(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.welcome = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -40,7 +40,7 @@ class Test1_init(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_test1_init = True
 
 class Test1(Page):
     form_model = 'player'
@@ -60,7 +60,7 @@ class Test2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_test2 = True
 
 class Results_Test1(Page):
     def vars_for_template(self):
@@ -70,7 +70,7 @@ class Results_Test1(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_result1 = True
 
 class Results_Test2(Page):
     def vars_for_template(self):
@@ -80,7 +80,7 @@ class Results_Test2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_result2 = True
 
 # Now we create a page for the player to decide what to give.
 class Give(Page):
@@ -94,7 +94,7 @@ class Give(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_give = True
 
 # Page for the questionnaire.
 class Questions(Page):
@@ -106,7 +106,7 @@ class Questions(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_questions = True
 
 # Page for Framing.
 class Framing(Page):
@@ -123,7 +123,7 @@ class Framing(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_framing = True
 
 class Welcome2(Page):
 
