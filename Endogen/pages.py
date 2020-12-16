@@ -133,7 +133,7 @@ class Welcome2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_test1 = True
+            self.player.timeout_welcome2 = True
 
 class ResultsWaitPage(WaitPage):
 
