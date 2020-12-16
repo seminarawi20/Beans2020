@@ -20,5 +20,19 @@ p indicates a text, br is equal to enter and div is the main block >
 
 </div>
     {% next_button %}
+<style>
+    .otree-timer {
+        display: none;
+    }
+</style>
 
+<script>
+    $(function () {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
 {% endblock %}
