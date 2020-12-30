@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Give
+{% endblock %}
+
+{% block content %}
+    <br>
+<p>Now you make the real decision. This means you are now playing for <b>real money</b>.</p> <br>
+    <p>You can put between 0 and {{ max }} points into the pool. <br>
+       {% formfield player.give %}</p>
+    <br><br>
+    On the next page, there will be a short waiting time until the other players have finished.<br>
+    You will learn how many points you have earned after completing a short questionnaire on the next page.<br><br>
+    {% next_button %}
+
+<style>
+    .otree-timer {
+        display: none;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+
