@@ -118,21 +118,6 @@ class Welcome2(Page):
 
 
 
-class Results(Page):
-    def vars_for_template(self):
-        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
-
-        return dict(
-            payoff = self.player.payoff,
-            give = self.player.give,
-            total_points_given = self.group.total_points_given,
-            points_given = Constants.common_pool + self.group.total_points_given,
-            pool_mult = self.group.total_points_given * Constants.efficiency_factor,
-            breakdown = self.group.breakdown,
-            treatment = self.subsession.treatment,
-            share = self.group.resource_share,
-            completion_code= self.player.completion_code
-        )
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
