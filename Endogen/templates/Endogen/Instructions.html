@@ -13,14 +13,15 @@ p indicates a text, br is equal to enter and div is the main block >
 
       <br>
             <b>How the game works</b> : <br>
-                - you will play in a group of <b>{{ players }} players</b> <br>
+                - you will play in a group of <b>3 players</b> <br>
                 - there is a <b>pool of {{pool}} points</b> <br>
-                - <b>a point is worth 30 cents</b> <br>
-                - each player can take between 0 and  {{ max }} points from the pool<br>
+                - The  <b>pool has a baseline chance to break down of 20%</b>, and the more points are taken from the pool, the more likely is a breakdown:
+                For every point that you, or your co-players, take from the pool, <b>the chance of breakdown increases by 1%.</b><br>
+                - <b>a point is worth 20 cents</b> <br>
+                - each player can take between 0 and  10 points from the pool<br>
                 - the remaining points in the pool get multiplied by {{ factor }}
-                and are distributed amongst all {{ players }} players equally<br><br>
-                - the <b>pool has a {{base}}% chance to break down</b>. This chance increases by {{addition_per_take}} percent for every point that is taken from the pool. <br>
-                - <b>if the pool breaks down</b>  you will <b>not</b> get any points from the game.<br><br>
+                and are distributed amongst all 3 players equally<br>
+                - <b>if the pool breaks down </b> you will <b>not</b> get any points from the game.<br><br>
 
 <br>
             <b>Your tasks</b>:<br>

@@ -49,8 +49,8 @@ mturk_hit_settings = {
 
 
 SESSION_CONFIG_DEFAULTS= {
-    "real_world_currency_per_point": 0.30,
-    'participation_fee': 1.00,
+    "real_world_currency_per_point": 0.20,
+    'participation_fee': 1,
      'doc': "",
     "mturk_hit_settings": mturk_hit_settings
 }
@@ -63,16 +63,17 @@ SESSION_CONFIG_DEFAULTS= {
 SESSION_CONFIGS = [
     dict(name='Endogen',
         display_name="Endogen_Controll",
-        num_demo_participants=3,
-        app_sequence=['Endogen'],
+        num_demo_participants=6,
+        app_sequence=['Endogen','Take'],
         treatment = False
     ),
     dict(name='Edogen_Cont',
         display_name="Endogen",
-        num_demo_participants=3,
-        app_sequence=['Endogen'],
+        num_demo_participants=6,
+        app_sequence=['Endogen','Take'],
         treatment = True
     ),
+
 ]
 
 

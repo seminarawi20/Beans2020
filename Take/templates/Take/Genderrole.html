@@ -1,15 +1,22 @@
-{% extends "Plain/Page.html" %}
+{% extends "Endogen/Page.html" %}
 {% load otree static %}
 
 {% block title %}
-    Dear participant,
+    Questionnaire
 {% endblock %}
 
 {% block content %}
     <br>
-    <p>On this and the next pages you will find a few questions about your perception of yourself.</p> <br>
-    <p>Please rate the following characteristics on a scale ranging from 'never' to 'always', according to how often you think these apply to you.
+    <p>On this and the next pages you will find a few questions about your self-perception.</p> <br>
+    <p>Please <b>rate the following characteristics</b> on a scale ranging from <b>'never'</b> to <b>'always'</b>, according to how often you think these apply to you.
 Please answer as honestly as you can and choose the option that seems the most accurate to you. <br>
+
+<style>
+    .col-form-label {
+    font-size: 1.3rem;}
+</style>
+<br>
+<br>
        {% formfield player.G1 %}<br>
         {% formfield player.G2 %}<br>
         {% formfield player.G3 %}<br>
@@ -22,6 +29,6 @@ Please answer as honestly as you can and choose the option that seems the most a
         {% formfield player.G10 %}<br>
 
     </p>
-    {% next_button %}
-
+<br>
+ {% next_button %}
 {% endblock %}

@@ -18,12 +18,12 @@
         {% if breakdown == 1 %}
         <br>
              <b>Unfortunately the pool broke down.</b><br>
-                This means you will not get any points from the game itself.
-            {%else%}
+                This means you will not get any points from the game itself.<br>
+        {%else%}
         <br>
              <b>Fortunately the pool did not break down.</b>
-                This means your share of the pool is {{share}} points and you can keep the {{take}} points you took.<br><br>
-            {% endif %} <br>
+                This means your share of the pool is {{share}} points and you can keep the {{take}} points you took.<br>
+        {% endif %} <br>
 
         <i>Additional points:</i><br>
             {% if correct_belief == 1 %}

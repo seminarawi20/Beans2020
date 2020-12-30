@@ -1,0 +1,25 @@
+{% extends "Endogen/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Demographics
+{% endblock %}
+
+{% block content %}
+    <br>
+    <p><i>On this page you will find a few more questions about yourself, please answer truthfully.</i></p> <br>
+
+<style>
+    .col-form-label {
+    font-size: 1.3rem;}
+</style>
+<br>
+<p>
+    {% formfield player.gender %}<br>
+    {% formfield player.age %}<br>
+    {% formfield player.education %}<br>
+    {% formfield player.experience %}<br>
+    </p>
+<br>
+   {% next_button %}
+{% endblock %}
