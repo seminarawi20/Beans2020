@@ -1,6 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
+import time
 
 # Pages are responsible for retrieving and passing back data from models to templates and vice versa.
 # If you need to show something to a participant or to get his/her input, you need to indicate this in pages.py
@@ -12,7 +13,7 @@ class Welcome(Page):
 
     def vars_for_template(self):
         return {'pool': Constants.pool,
-                'players': Constants.players_per_group,
+                'players': 3,
                 'factor': Constants.efficiency_factor,
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
@@ -21,7 +22,7 @@ class Welcome(Page):
                 'show_up_fee': Constants.fee,
                 'per_point': Constants.per_point}
 
-    timeout_seconds = 180
+    timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -79,24 +80,17 @@ class Results_Test2(Page):
     timeout_seconds = 120
 
     def before_next_page(self):
+        self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
             self.player.timeout_result2 = True
 
-# Now we create a page for the player to decide what to give.
-class Give(Page):
 
-    form_model = 'player'
-    form_fields = ['give']
-    def vars_for_template(self):
-        return {'max': Constants.max}
 
-    timeout_seconds = 120
 
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_give = True
 
-# Page for the questionnaire.
+
+
+            # Page for the questionnaire.
 class Questions(Page):
 
     form_model = 'player'
@@ -119,7 +113,7 @@ class Framing(Page):
         return {'show_up_fee': Constants.fee,
                 'per_point': Constants.per_point}
 
-    timeout_seconds = 180
+    timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -135,17 +129,7 @@ class Welcome2(Page):
         if self.timeout_happened:
             self.player.timeout_welcome2 = True
 
-class ResultsWaitPage(WaitPage):
 
-    # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
-    # First we need to set the tipping point, then we check if the pool breaks down and the last step is to calculate the payoffs.
-    #This is done by calling the functions be defined on our group level.
-    # We order is important, since the tipping point is an input for the breakdown, which is an input for the payoff
-
-    def after_all_players_arrive(self):
-        self.group.set_tipping_point()
-        self.group.set_breakdown()
-        self.group.set_payoffs()
 
 
 class Results(Page):
@@ -168,12 +152,11 @@ class Results(Page):
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
                  Welcome,
-                 Test1_init,
-                 Test1,
-                 Results_Test1,
+                 #Test1_init,
+                 #Test1,
+                 #Results_Test1,
                  Test2,
                  Results_Test2,
-                 Give,
-                 ResultsWaitPage,
-                 Questions,
-                 Results]
+                 #Questions,
+                 #Results
+                 ]

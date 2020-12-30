@@ -63,14 +63,14 @@ SESSION_CONFIG_DEFAULTS= {
 SESSION_CONFIGS = [
     dict(name='Endogen',
         display_name="Endogen_Controll",
-        num_demo_participants=3,
-        app_sequence=['Endogen'],
+        num_demo_participants=6,
+        app_sequence=['Endogen','Give'],
         treatment = False
     ),
     dict(name='Edogen_Cont',
         display_name="Endogen",
-        num_demo_participants=3,
-        app_sequence=['Endogen'],
+        num_demo_participants=6,
+        app_sequence=['Endogen','Give'],
         treatment = True
     ),
 ]

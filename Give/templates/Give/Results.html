@@ -1,0 +1,50 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Result
+{% endblock %}
+
+{% block content %}
+
+
+<! Here we need an if statement, since the players in the treatment determines if he gets info of the pool breaking down or not.
+        In this special case we have a nested loop. For those the syntax remains the same as a normal loop>
+
+
+    <p>
+        <! This is a statement for both groups >
+
+            You gave {{give}} points. {{total_points_given}} points in total were put into the pool.<br>
+            {% if breakdown == 1 %}
+                This is less than 2/3 of all available points in the group, and the pool therefore broke down. <br><br>
+                This means you earned {{payoff}} points. 
+            {%else%}
+                This is more than 2/3 of all available points in the group, and the pool therefore did not break down.<br><br>
+                This means your share is {{share}} points and you earned {{payoff}}
+            {% endif %} <br><br>
+
+        <br><br>
+        Thank you for participating in this experiment. <br>
+        You completion code is <b>{{ completion_code }}</b><br><br>
+
+        Please close this window and return to MTurk and insert your completion code to collect your reward.
+    </p>
+<style>
+    .otree-timer {
+        display: none;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('.otree-timer__time-left').on('update.countdown', function (event) {
+            if (event.offset.totalSeconds === 10) {
+                $('.otree-timer').show();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+
