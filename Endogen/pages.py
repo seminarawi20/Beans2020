@@ -88,20 +88,6 @@ class Results_Test2(Page):
 
 
 
-
-
-            # Page for the questionnaire.
-class Questions(Page):
-
-    form_model = 'player'
-    form_fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']
-
-    timeout_seconds = 240
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_questions = True
-
 # Page for Framing.
 class Framing(Page):
 
@@ -152,11 +138,9 @@ class Results(Page):
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Framing,
                  Welcome,
-                 #Test1_init,
-                 #Test1,
-                 #Results_Test1,
+                 Test1_init,
+                 Test1,
+                 Results_Test1,
                  Test2,
-                 Results_Test2,
-                 #Questions,
-                 #Results
+                 Results_Test2
                  ]
