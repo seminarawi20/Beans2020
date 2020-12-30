@@ -8,7 +8,7 @@ class Grouping(WaitPage):
     group_by_arrival_time = True
 
     body_text = "Waiting for two other participants to begin the real task.\
-      This wait should be fairly short, though in some cases it could last a couple of minutes (max 2 min)."
+      This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
 
 
@@ -62,6 +62,7 @@ class Results(Page):
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.session.vars['code'],
+            total = self.participant.payoff_plus_participation_fee()
         )
 
 page_sequence = [Grouping,

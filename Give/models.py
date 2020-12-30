@@ -25,7 +25,7 @@ class Constants(BaseConstants):
 
     name_in_url = 'Give'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
-    num_rounds = 1 # You can play more than one round, but in our case we play one.
+    num_rounds = 1 # You can play b more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
     base= 30/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
@@ -69,7 +69,7 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        self.breakdown = self.tipping_point < (2 / 3)
+        self.breakdown = self.tipping_point < 0.7
 
 
     total_points_given = models.IntegerField()
@@ -105,7 +105,7 @@ class Player(BasePlayer):
 
     def waiting_too_long(self):
         import time
-        return time.time() - self.participant.vars['wait_page_arrival'] > 1 * 60
+        return time.time() - self.participant.vars['wait_page_arrival'] > 1 * 10
 
     timeout_give = models.BooleanField(initial=False)
     timeout_questions = models.BooleanField(initial=False)

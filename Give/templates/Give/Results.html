@@ -18,15 +18,17 @@
             You gave {{give}} points. {{total_points_given}} points in total were put into the pool.<br>
             {% if breakdown == 1 %}
                 This is less than 2/3 of all available points in the group, and the pool therefore broke down. <br><br>
-                This means you earned {{payoff}} points. 
+                 This means you earned {{payoff}} during the experiment. <br><br>
+                Your total payment (reward plus bonus) is <b>{{total}}</b>.
+
             {%else%}
                 This is more than 2/3 of all available points in the group, and the pool therefore did not break down.<br><br>
-                This means your share is {{share}} points and you earned {{payoff}}
-            {% endif %} <br><br>
+                This means your share is {{share}} points and you earned a total of {{payoff}} during the experiment.<br><br>
+                Your total payment (reward plus bonus) is <b>{{total}}</b>.
+            {% endif %} <br>
 
         <br><br>
-        Thank you for participating in this experiment. <br>
-        You completion code is <b>{{ completion_code }}</b><br><br>
+        Thank you for participating in this experiment, your completion code is <b>{{ completion_code }}</b>.<br><br>
 
         Please close this window and return to MTurk and insert your completion code to collect your reward.
     </p>

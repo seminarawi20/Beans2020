@@ -31,8 +31,9 @@ p indicates a text, br is equal to enter and div is the main block >
         {%else%}
            <! This is the statement for the control group >
         Welcome to our experiment!<br>
-        Before explaining the rules, good news: If you play the game to the end you will get ${{ show_up_fee }} for sure.
-        Depending on how you decide during the game you can earn <b> ${{ per_point }} per point on top</b>.
+
+        You will earn a reward of  <b>${{ show_up_fee }}</b>, if you finish the assignment. <br>
+        Additionally, you can earn a bonus of <b>${{ per_point }}</b> per point during the experiment.<br><br>
            The instructions are as follows: <br><br>
        There are {{ players }} players.<br>
         Every player has 10 points. There is a common pool which is empty at the start. Every player can decide how many points

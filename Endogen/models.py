@@ -30,7 +30,7 @@ class Constants(BaseConstants):
     addition_per_give = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
     common_pool = 0 #This is the common pool that is empty at the beginning
     fee = 1 # Show up fee in USD
-    per_point = 1 # Amount of USD players get for every point
+    per_point = 0.12 # Amount of USD players get for every point
     max = 10
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
