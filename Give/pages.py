@@ -68,5 +68,5 @@ class Results(Page):
 page_sequence = [Grouping,
                  Give,
                  ResultsWaitPage,
-                 #Questions,
+                 Questions,
                  Results]
