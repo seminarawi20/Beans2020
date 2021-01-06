@@ -19,6 +19,12 @@ class Take(Page):
     form_model = 'player'
     form_fields = ['take']
 
+    def vars_for_template(self):
+        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
+
+        return dict(
+            alone=self.player.alone )
+
     timeout_seconds = 120
 
     def before_next_page(self):

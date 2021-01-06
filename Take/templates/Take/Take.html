@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block content %}
+       {% if alone == 1 %}
+            A match with other participants was not possible.  <br>
+            Instead you will play with simulated computer players in your group that randomly take between 0 and 6 points. <br> <br>
+        {%endif%}
+
 <p>The setup of the game stays the same but now <i>you</i> make the real decision.</p> <br>
     <p>You can take between 0 and 10 points. <br>
         Remember that the chance of a breakdown starts at <b>20%</b> and increases by <b>1%</b> per point taken from the pool.
