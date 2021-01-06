@@ -87,7 +87,7 @@ class Results_Test2(Page):
     def before_next_page(self):
         self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_result2 = True
+            self.player.timeout_results_test2 = True
 
 page_sequence = [Welcome,
                  gendertreatment,
