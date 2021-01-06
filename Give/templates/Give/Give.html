@@ -7,11 +7,18 @@
 
 {% block content %}
     <br>
+       {% if alone == 1 %}
+            A match with other participants was not possible.  <br>
+            Instead you will play with simulated computer players in your group that randomly contribute between 4 and 10 points. <br> <br>
+        {%endif%}
+
 <p>Now you make the real decision. This means you are now playing for <b>real money</b>.</p> <br>
     <p>You can put between 0 and {{ max }} points into the pool. <br>
        {% formfield player.give %}</p>
     <br><br>
-    On the next page, there will be a short waiting time until the other players have finished.<br>
+      {% if alone == 0 %}
+        On the next page, there will be a short waiting time until the other players have finished.<br>
+      {%endif%}
     You will learn how many points you have earned after completing a short questionnaire on the next page.<br><br>
     {% next_button %}
 
