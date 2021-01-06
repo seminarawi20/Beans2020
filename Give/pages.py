@@ -18,7 +18,7 @@ class Give(Page):
     form_fields = ['give']
     def vars_for_template(self):
         return {'max': Constants.max,
-               'alone': self.payer.alone}
+               'alone': self.player.give}
 
     timeout_seconds = 120
 
