@@ -56,6 +56,7 @@ class Results(Page):
 
         return dict(
             payoff = self.player.payoff,
+            payoff_real =self.player.payoff.to_real_world_currency(self.session),
             take = self.player.take,
             total_points_left = self.group.total_points_left,
             points_taken = Constants.pool - self.group.total_points_left,
