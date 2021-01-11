@@ -5,7 +5,7 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'keywords': ['academic','study','common pool','experiment'],
+        'keywords': ['academic','study','common pool','experiment','money','short'],
         'title': "common ressource experiment (few minutes to complete, earn real money)",
         'description': 'Academic decision making experiment',
         'frame_height':500,
