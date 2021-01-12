@@ -5,8 +5,8 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'keywords': ['academic','study','group decision','exeriment'],
-        'title': "Group decision task (few minutes to complete, earn real money)",
+        'keywords': ['academic','study','common pool','experiment','money','short'],
+        'title': "common resource experiment (few minutes to complete, earn real money)",
         'description': 'Academic decision making experiment',
         'frame_height':500,
         'template': 'global/mturk_template.html',
@@ -30,6 +30,10 @@ mturk_hit_settings = {
                 'QualificationTypeId': "000000000000000000L0",
                 'Comparator': "GreaterThanOrEqualTo",
                 'IntegerValues': [95]
+            },
+            {
+                'QualificationTypeId': "3RATMYZWZZZG4KUH0L0UJ5Q3TR01Y9",
+                'Comparator': "DoesNotExist",
             },
         ]
 
