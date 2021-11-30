@@ -9,7 +9,7 @@ from .models import Constants
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 class Welcome(Page):
-    "hallo"
+
     def vars_for_template(self):
         return {'pool': Constants.pool,
                 'players': Constants.players_per_group,
