@@ -61,36 +61,14 @@ SESSION_CONFIG_DEFAULTS= {
 ####### ENTER THE SESSIONS YOU WANT TO PLAY ######
 #################################################
 SESSION_CONFIGS = [
-     dict(
-        name='Exogen_Cont',
-        display_name="Exogen_Controll",
-        num_demo_participants=3,
-        app_sequence=['Exogen'],
-        treatment = False
-     ),
-    dict(name='Exogen',
-        display_name="Exogen",
-        num_demo_participants=3,
-        app_sequence=['Exogen'],
-        treatment = True
-    ),
-    dict(name='Endogen',
-        display_name="Endogen_Controll",
-        num_demo_participants=3,
-        app_sequence=['Endogen'],
-        treatment = False
-    ),
+
     dict(name='Edogen_Cont',
         display_name="Endogen",
         num_demo_participants=3,
         app_sequence=['Endogen'],
         treatment = True
     ),
-    dict(name='Plain',
-         display_name="Plain",
-         num_demo_participants=3,
-         app_sequence=['Plain']
-         )
+
 ]
 
 

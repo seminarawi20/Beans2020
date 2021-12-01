@@ -2,13 +2,13 @@ from otree.api import (
     models,
     widgets,
     BaseConstants,
-    BaseSubsession,
     BaseGroup,
     BasePlayer,
 )
 
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
+from otree.models import player
 
 author = 'Moritz Sommerlad'
 
@@ -34,24 +34,10 @@ class Constants(BaseConstants):
     completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
-class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
-
-    # Here we define the different treatments that are available in the different subversions.
-
-    # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
-
-    # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
-    #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
-    def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
-        # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
-        for player in self.get_players():
-            player.completion_code = Constants.completion_code
-
-
+class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
+
 
     #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
@@ -73,8 +59,7 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > np.random.rand()
+        self.breakdown = self.tipping_point > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.

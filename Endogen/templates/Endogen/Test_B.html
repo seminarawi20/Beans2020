@@ -4,18 +4,22 @@
     Task 1
 {% endblock %}
 
-
 {% block content %}
 <div id="main">
-    <p><! This is the statement for the treatment group >
-        This is the first task where you will be asked to answer two questions on a a fictional example.
+    <p><! This is the statement for Type B >
+        This is the first task where you will be asked to answer one questions on a a fictional example.
       <br><br>
-            Question 1: <br><br>
+
 
             The pool has 30 points. <br>
             Imagine you take 5 points from the pool and the other two players each take 5 points from the pool.
             There are 15 points left in the pool.
-            {% formfield player.test1 %}
+
+            {% formfield player.test_control %}
+
+    </p>
+
+
 
 </div>
     {% next_button %}

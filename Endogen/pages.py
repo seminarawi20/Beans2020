@@ -14,8 +14,8 @@ class Welcome(Page):
         return {'pool': Constants.pool,
                 'players': Constants.players_per_group,
                 'factor': Constants.efficiency_factor,
+                'group' : self.subsession.player.id_in_group,
                 'max': Constants.max,
-                'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
 
@@ -26,49 +26,62 @@ class Welcome(Page):
 ## a form field is something the participant can interact with. Since we defined it on a player level, we must specify it in the form_model section.
 
 
-class Test_Control(Page):
-    form_model = 'player'
+class Test_A(Page):
+    form_model = 'group'
     form_fields = ['test_control']
 
     def is_displayed(self):
-        return self.subsession.treatment == 0
+        return self.subsession.player.id_in_group == 1,2
 
-class Results_Control(Page):
+class Test_B(Page):
+    form_model = 'group'
+    form_fields = ['test_control']
+
+    def is_displayed(self):
+        return self.subsession.player.id_in_group == 3
+
+class Results_A(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0
+        return self.subsession.player.id_in_group == 1,2
 
-
-class Test1(Page):
-    form_model = 'player'
-    form_fields = ['test1']
+class Results_B(Page):
+    def vars_for_template(self):
+        return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatment == 1
+        return self.subsession.player.id_in_group == 3
 
-class Test2(Page):
-    form_model = 'player'
+
+class Test2A(Page):
+    form_model = 'group'
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.subsession.treatment == 1
+        return self.subsession.player.id_in_group == 1,2
 
-class Results_Test1(Page):
-    def vars_for_template(self):
-        return {'test1': self.player.test1}
+class Test2B(Page):
+    form_model = 'group'
+    form_fields = ['test2']
 
     def is_displayed(self):
-        return self.subsession.treatment == 1
+        return self.subsession.player.id_in_group == 3
 
-class Results_Test2(Page):
+class Results_Test2A(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.subsession.treatment == 1
+        return self.subsession.player.id_in_group == 1,2
 
+class Results_Test2B(Page):
+    def vars_for_template(self):
+        return {'test2': self.player.test2}
+
+    def is_displayed(self):
+        return self.subsession.player.id_in_group == 3
 
 # Now we create a page for the player to decide what to take.
 class Take(Page):
@@ -105,7 +118,6 @@ class Results(Page):
             points_taken = Constants.pool - self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
-            treatment = self.subsession.treatment,
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code= self.player.completion_code
@@ -114,12 +126,14 @@ class Results(Page):
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
 page_sequence = [Welcome,
-                 Test_Control,
-                 Results_Control,
-                 Test1,
-                 Results_Test1,
-                 Test2,
-                 Results_Test2,
+                 Test_A,
+                 Test_B,
+                 Results_A,
+                 Results_B,
+                 Test2A,
+                 Test2B,
+                 Results_Test2A,
+                 Results_Test2B,
                  Take,
                  ResultsWaitPage,
                  Results]
