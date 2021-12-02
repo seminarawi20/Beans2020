@@ -3,6 +3,7 @@ from otree.api import (
     widgets,
     BaseConstants,
     BaseGroup,
+    BaseSubsession,
     BasePlayer,
 )
 
@@ -35,6 +36,7 @@ class Constants(BaseConstants):
     #after they complete the experiment.
 
 class Subsession(BaseSubsession):
+    pass
 
 class Group(BaseGroup):
 
