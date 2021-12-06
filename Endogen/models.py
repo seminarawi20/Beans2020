@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 10/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    base= 25/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
     addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
@@ -36,10 +36,10 @@ class Constants(BaseConstants):
     #after they complete the experiment.
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        self.group_randomly(fixed_id_in_group=True)
 
 class Group(BaseGroup):
-
 
     #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
     # To set a variable you need to define it in as a model field. If you the value is not fixed (e.g. the payoff), you can leave the field empty and
@@ -101,6 +101,12 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+
+    def role(self):
+        if self.id_in_group <= 2:
+            return 'type A'
+        if self.id_in_group > 2:
+            return 'type B'
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
