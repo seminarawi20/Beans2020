@@ -73,8 +73,7 @@ class Group(BaseGroup):
     breakdown = models.BooleanField(initial=False)
 
     def set_breakdown(self):
-        if self.subsession.treatment == 1:
-            self.breakdown = self.tipping_point > np.random.rand()
+        self.breakdown = self.tipping_point > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
@@ -121,22 +120,32 @@ class Group(BaseGroup):
                                 #+ self.resource_share,
                                 #])
 
+        if self.subsession.treatment == 1:
+            if self.breakdown == True:
+                p1.payoff = 0
+                p2.payoff = 0
+                p3.payoff = p3.take
 
-        if self.breakdown == True:
-            p1.payoff = 0
-            p2.payoff = 0
-            p3.payoff = p3.take
 
-
-        else:
+            else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            for p in self.get_players():
-                p.payoff = sum([+ p.take,
-                                + self.resource_share,
-                                ])
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
 
-
+        else:
+            if self.breakdown == True:
+                for p in self.get_players():
+                    p.payoff = 0
+            else:
+            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
 
 
 
