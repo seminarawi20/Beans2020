@@ -2,14 +2,13 @@ from otree.api import (
     models,
     widgets,
     BaseConstants,
-    BaseGroup,
     BaseSubsession,
+    BaseGroup,
     BasePlayer,
 )
 
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
-from otree.models import player
 
 author = 'Moritz Sommerlad'
 
@@ -27,17 +26,30 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 25/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+    base= 0/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    addition_per_take = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
-    completion_code = 564637 # Please change this number in your live version. This is just a random code all participants in the live version get
+    completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
-class Subsession(BaseSubsession):
+class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
+
+    # Here we define the different treatments that are available in the different subversions.
+
+    # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
+    treatment = models.BooleanField()
+
+    # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
+    #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
     def creating_session(self):
-        self.group_randomly(fixed_id_in_group=True)
+        self.treatment = self.session.config.get('treatment')
+        # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
+        for player in self.get_players():
+            player.completion_code = Constants.completion_code
+
+
 
 class Group(BaseGroup):
 
@@ -74,6 +86,9 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
+        p1 = self.get_player_by_id(1)
+        p2 = self.get_player_by_id(2)
+        p3 = self.get_player_by_id(3)
 
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
@@ -88,25 +103,53 @@ class Group(BaseGroup):
 
         # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
         # If that is the case the players do not get any money
-        if self.breakdown == True:
-            for p in self.get_players():
-                p.payoff = 0
-        else:
+
+
+        # HIER MÜSSEN WIR DOCH NUR DIE SPIELER UNTERSCHEIDEN. SPIELER MIT DER ID 1 UND 2 HABEN DAS AUSZAHLUNGSMUSTER:
+        #WENN ZUSAMMENBRICHT BEKOMMEN SIE NICHT. FÜR SPIELER MIT DER ID 3 IST DAS AUSZAHLUNGSMUSTER ANDERS, DIE BEKOMMEN DANN IMMER VARIABLE P.TAKE ODER SO:
+
+
+        #if self.breakdown == True:
+            #for p in self.get_players():
+                #p.payoff = 0
+        #else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            for p in self.get_players():
-                p.payoff = sum([+ p.take,
-                                + self.resource_share,
-                                ])
+            #for p in self.get_players():
+                #p.payoff = sum([+ p.take,
+                                #+ self.resource_share,
+                                #])
+
+        if self.subsession.treatment == 1:
+            if self.breakdown == True:
+                p1.payoff = 0
+                p2.payoff = 0
+                p3.payoff = p3.take
+
+
+            else:
+            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
+
+        else:
+            if self.breakdown == True:
+                for p in self.get_players():
+                    p.payoff = 0
+            else:
+            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
+
 
 
 class Player(BasePlayer):
-
-    def role(self):
-        if self.id_in_group <= 2:
-            return 'type A'
-        if self.id_in_group > 2:
-            return 'type B'
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
