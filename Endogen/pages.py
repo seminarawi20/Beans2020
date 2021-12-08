@@ -18,7 +18,8 @@ class WelcomeA(Page):
                 'group': BasePlayer.id_in_group,
                 'max': Constants.max,
                 'base': Constants.base*100,
-                'addition_per_take': Constants.addition_per_take*100}
+                'addition_per_take': Constants.addition_per_take*100
+                }
     def is_displayed(self):
         return self.player.id_in_group <= 2
 
@@ -43,27 +44,27 @@ class WelcomeB(Page):
 
 
 class Test_A(Page):
-    form_model = 'group'
+    form_model = 'player'
     form_fields = ['test_control']
 
     def is_displayed(self):
         return self.player.id_in_group <= 2
 
 class Test_B(Page):
-    form_model = 'group'
+    form_model = 'player'
     form_fields = ['test_control']
 
     def is_displayed(self):
         return self.player.id_in_group > 2
 
-class Results_A(Page):
+class Results_Test_A(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
         return self.player.id_in_group <= 2
 
-class Results_B(Page):
+class Results_Test_B(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
@@ -72,18 +73,18 @@ class Results_B(Page):
 
 
 class Test2A(Page):
-    form_model = 'group'
+    form_model = 'player'
     form_fields = ['test2']
 
     def is_displayed(self):
         return self.player.id_in_group <= 2
 
 class Test2B(Page):
-    form_model = 'group'
+    form_model = 'player'
     form_fields = ['test2']
 
     def is_displayed(self):
-        return player.id_in_group > 2
+        return self.player.id_in_group > 2
 
 class Results_Test2A(Page):
     def vars_for_template(self):
@@ -123,7 +124,7 @@ class ResultsWaitPage(WaitPage):
 
 
 
-class Results(Page):
+class ResultsA(Page):
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
@@ -136,8 +137,30 @@ class Results(Page):
             breakdown = self.group.breakdown,
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
-            completion_code= self.player.completion_code
+            completion_code = self.player.completion_code
         )
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
+
+
+class ResultsB(Page):
+    def vars_for_template(self):
+        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
+
+        return dict(
+            payoff = self.player.payoff,
+            take = self.player.take,
+            total_points_left = self.group.total_points_left,
+            points_taken = Constants.pool - self.group.total_points_left,
+            pool_mult = self.group.total_points_left * Constants.efficiency_factor,
+            breakdown = self.group.breakdown,
+            share = self.group.resource_share,
+            tipping_point = round(self.group.tipping_point*100,1),
+            completion_code = self.player.completion_code
+        )
+
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
@@ -145,12 +168,13 @@ page_sequence = [WelcomeA,
                  WelcomeB,
                  Test_A,
                  Test_B,
-                 Results_A,
-                 Results_B,
+                 Results_Test_A,
+                 Results_Test_B,
                  Test2A,
                  Test2B,
                  Results_Test2A,
                  Results_Test2B,
                  Take,
                  ResultsWaitPage,
-                 Results]
+                 ResultsA,
+                 ResultsB]

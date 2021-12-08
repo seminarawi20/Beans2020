@@ -32,7 +32,7 @@ class Constants(BaseConstants):
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
-    completion_code = 142675 # Please change this number in your live version. This is just a random code all participants in the live version get
+    completion_code = 564637 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
 
 class Subsession(BaseSubsession):

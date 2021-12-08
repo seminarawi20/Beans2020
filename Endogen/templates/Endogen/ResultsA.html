@@ -14,7 +14,7 @@
 
     <p>
         <! This is the statement for the treatment group >
-        {% if treatment == 1 %}
+
             You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
@@ -25,14 +25,7 @@
                 This means your share is {{share}} points and you earned {{payoff}}
             {% endif %} <br><br>
 
-        {%else%}
-        <! This is the statement for the control group >
-        You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
-        This means your share is {{share}} points and you earned {{payoff}}
-        {% endif %}
-        <br><br>
-        Thank you for participating in this experiment. <br>
-        You completion code is <b>{{ completion_code }}</b>
+
     </p>
 
 {% endblock %}
