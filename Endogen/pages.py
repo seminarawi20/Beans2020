@@ -1,6 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
+from .models import BasePlayer
 
 # Pages are responsible for retrieving and passing back data from models to templates and vice versa.
 # If you need to show something to a participant or to get his/her input, you need to indicate this in pages.py
@@ -14,7 +15,7 @@ class Welcome(Page):
         return {'pool': Constants.pool,
                 'players': Constants.players_per_group,
                 'factor': Constants.efficiency_factor,
-                'group': self.id_in_group,
+                'group': BasePlayer.id_in_group,
                 'max': Constants.max,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
@@ -30,58 +31,58 @@ class Test_A(Page):
     form_model = 'group'
     form_fields = ['test_control']
 
-    def is_displayed(self):
-        return self.id_in_group <= 2
+    def is_displayed(player):
+        return player.id_in_group <= 2
 
 class Test_B(Page):
     form_model = 'group'
     form_fields = ['test_control']
 
-    def is_displayed(self):
-        return self.id_in_group > 2
+    def is_displayed(player):
+        return player.id_in_group > 2
 
 class Results_A(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
-    def is_displayed(self):
-        return self.id_in_group <= 2
+    def is_displayed(player):
+        return player.id_in_group <= 2
 
 class Results_B(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
-    def is_displayed(self):
-        return self.id_in_group > 2
+    def is_displayed(player):
+        return player.id_in_group > 2
 
 
 class Test2A(Page):
     form_model = 'group'
     form_fields = ['test2']
 
-    def is_displayed(self):
-        return self.id_in_group <= 2
+    def is_displayed(player):
+        return player.id_in_group <= 2
 
 class Test2B(Page):
     form_model = 'group'
     form_fields = ['test2']
 
-    def is_displayed(self):
-        return self.id_in_group > 2
+    def is_displayed(player):
+        return player.id_in_group > 2
 
 class Results_Test2A(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-    def is_displayed(self):
-        return self.id_in_group <= 2
+    def is_displayed(player):
+        return player.id_in_group <= 2
 
 class Results_Test2B(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-    def is_displayed(self):
-        return self.id_in_group > 2
+    def is_displayed(player):
+        return player.id_in_group > 2
 
 # Now we create a page for the player to decide what to take.
 class Take(Page):
