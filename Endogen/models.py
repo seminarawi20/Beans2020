@@ -87,6 +87,9 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
+        p1 = self.get_player_by_id(1)
+        p2 = self.get_player_by_id(2)
+        p3 = self.get_player_by_id(3)
 
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
@@ -101,9 +104,30 @@ class Group(BaseGroup):
 
         # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
         # If that is the case the players do not get any money
+
+
+        # HIER MÜSSEN WIR DOCH NUR DIE SPIELER UNTERSCHEIDEN. SPIELER MIT DER ID 1 UND 2 HABEN DAS AUSZAHLUNGSMUSTER:
+        #WENN ZUSAMMENBRICHT BEKOMMEN SIE NICHT. FÜR SPIELER MIT DER ID 3 IST DAS AUSZAHLUNGSMUSTER ANDERS, DIE BEKOMMEN DANN IMMER VARIABLE P.TAKE ODER SO:
+
+
+        #if self.breakdown == True:
+            #for p in self.get_players():
+                #p.payoff = 0
+        #else:
+            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
+            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
+            #for p in self.get_players():
+                #p.payoff = sum([+ p.take,
+                                #+ self.resource_share,
+                                #])
+
+
         if self.breakdown == True:
-            for p in self.get_players():
-                p.payoff = 0
+            p1.payoff = 0
+            p2.payoff = 0
+            p3.payoff = p3.take
+
+
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
@@ -111,6 +135,9 @@ class Group(BaseGroup):
                 p.payoff = sum([+ p.take,
                                 + self.resource_share,
                                 ])
+
+
+
 
 
 class Player(BasePlayer):
