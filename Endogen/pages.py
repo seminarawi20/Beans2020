@@ -9,7 +9,7 @@ from .models import BasePlayer
 #If you want to display something other than text (e.g. a variable) you need to use the function
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
-class Welcome(Page):
+class WelcomeA(Page):
 
     def vars_for_template(self):
         return {'pool': Constants.pool,
@@ -19,6 +19,21 @@ class Welcome(Page):
                 'max': Constants.max,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
+
+class WelcomeB(Page):
+
+    def vars_for_template(self):
+        return {'pool': Constants.pool,
+                'players': Constants.players_per_group,
+                'factor': Constants.efficiency_factor,
+                'group': BasePlayer.id_in_group,
+                'max': Constants.max,
+                'base': Constants.base*100,
+                'addition_per_take': Constants.addition_per_take*100}
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -31,58 +46,58 @@ class Test_A(Page):
     form_model = 'group'
     form_fields = ['test_control']
 
-    def is_displayed(player):
-        return player.id_in_group <= 2
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
 
 class Test_B(Page):
     form_model = 'group'
     form_fields = ['test_control']
 
-    def is_displayed(player):
-        return player.id_in_group > 2
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 class Results_A(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
-    def is_displayed(player):
-        return player.id_in_group <= 2
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
 
 class Results_B(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
-    def is_displayed(player):
-        return player.id_in_group > 2
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 
 class Test2A(Page):
     form_model = 'group'
     form_fields = ['test2']
 
-    def is_displayed(player):
-        return player.id_in_group <= 2
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
 
 class Test2B(Page):
     form_model = 'group'
     form_fields = ['test2']
 
-    def is_displayed(player):
+    def is_displayed(self):
         return player.id_in_group > 2
 
 class Results_Test2A(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-    def is_displayed(player):
-        return player.id_in_group <= 2
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
 
 class Results_Test2B(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
 
-    def is_displayed(player):
-        return player.id_in_group > 2
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 # Now we create a page for the player to decide what to take.
 class Take(Page):
@@ -126,7 +141,8 @@ class Results(Page):
 
 
 # here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
-page_sequence = [Welcome,
+page_sequence = [WelcomeA,
+                 WelcomeB,
                  Test_A,
                  Test_B,
                  Results_A,
