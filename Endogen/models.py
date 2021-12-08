@@ -26,8 +26,8 @@ class Constants(BaseConstants):
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
-    base= 0/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
-    addition_per_take = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
+    base= 25/100 #This is the baseline for the tipping point. The first number indicates the percentage, which you can adjust.
+    addition_per_take = 1/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
 
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
@@ -98,7 +98,7 @@ class Group(BaseGroup):
         # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
         # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
         self.resource_share = np.round(
-            self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+            self.total_points_left * Constants.efficiency_factor / Constants.efficiency_factor, 0)
 
 
         # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
@@ -120,32 +120,24 @@ class Group(BaseGroup):
                                 #+ self.resource_share,
                                 #])
 
-        if self.subsession.treatment == 1:
-            if self.breakdown == True:
-                p1.payoff = 0
-                p2.payoff = 0
+
+        if self.breakdown == True:
+                p1.payoff = p1.take
+                p2.payoff = p2.take
                 p3.payoff = p3.take
 
 
-            else:
+        else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
                 for p in self.get_players():
-                    p.payoff = sum([+ p.take,
+                    p1.payoff = sum([+ p.take,
                                     + self.resource_share,
                                     ])
-
-        else:
-            if self.breakdown == True:
-                for p in self.get_players():
-                    p.payoff = 0
-            else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-                for p in self.get_players():
-                    p.payoff = sum([+ p.take,
+                    p2.payoff = sum([+ p.take,
                                     + self.resource_share,
                                     ])
+                    p3.payoff = p3.take
 
 
 
