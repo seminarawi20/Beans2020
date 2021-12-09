@@ -131,10 +131,10 @@ class Group(BaseGroup):
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
                 for p in self.get_players():
-                    p1.payoff = sum([+ p.take,
+                    p1.payoff = sum([+ p1.take,
                                     + self.resource_share,
                                     ])
-                    p2.payoff = sum([+ p.take,
+                    p2.payoff = sum([+ p2.take,
                                     + self.resource_share,
                                     ])
                     p3.payoff = p3.take
@@ -163,8 +163,8 @@ class Player(BasePlayer):
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
 
-    test_control = models.IntegerField(choices=[5 , 10, 15], widget=widgets.RadioSelect(), label = "How many points would you earn in total?")
+    test_control = models.IntegerField(choices=[5 , 10, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total if the pool does not break down?")
 
-    test1 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[5, 10, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
+    test2 = models.IntegerField(choices=[0, 5, 10], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
 

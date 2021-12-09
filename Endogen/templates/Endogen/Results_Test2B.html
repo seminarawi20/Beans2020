@@ -8,14 +8,14 @@
 {% block content %}
 <div id="main">
     <p><! This is the statement for Type A >
-        {% if test2 == 15 %}
+        {% if test2 == 10 %}
             Your answer is <b>correct</b>. <br>
-            The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool. <br>
+            Since the pool breaks down every player will only get the points he or she took. <br>
+
         {%else%}
             Your answer is <b>false</b>. <br>
-            The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool. <br>
+            Since the pool breaks down every player will only get the points he or she took out. <br>
+            Therefore you would get 10 points. <br>
         {%endif%}
     </p>
 
