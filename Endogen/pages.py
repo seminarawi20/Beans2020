@@ -33,12 +33,53 @@ class Test_Control(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
+
 class Results_Control(Page):
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
         return self.subsession.treatment == 0
+
+
+     ###HIER HABE ICH EINE WEITERE SEITE EINGEFÜGT, DIE DER CONTROLLGRUPPE ANGEZEIGT WIRD, SOBALD
+     #SIE DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN:
+
+
+class Test_Control2(Page):
+    form_model = 'player'
+    form_fields = ['test_control2']
+
+    def vars_for_template(self):
+        return {'factor': Constants.efficiency_factor}
+
+    #   DAS HIER IST SCHON EINMAL GUT!!!!! #
+    #def is_displayed(self):
+        #return self.subsession.treatment == 0 and self.player.test_control == 5
+
+    #def is_displayed(self):
+        #return self.subsession.treatment == 0 and self.player.test_control == 5 or 10
+
+
+
+    #def is_displayed(self):
+        #return self.player.test_control == 5
+
+    #def is_displayed(self):
+        #return self.player.test_control == {5 or
+                                            #10
+                                            #}
+
+        #def is_displayed(self):
+            #return {self.subsession.treatment == 0,
+                    #self.player.test_control == 5,
+                    #self.player.test_control == 10}
+
+    #def is_displayed(self):
+        #return self.player.test_control == 5, 10
+
+
+    #DAS GLEICHE SOLLTE MAN JETZT NOCH FÜR DIE TREATMENT-GRUPPE MACHEN...
 
 
 class Test1(Page):
@@ -141,6 +182,7 @@ class End(Page):
 page_sequence = [Welcome,
                  Test_Control,
                  Results_Control,
+                 Test_Control2,
                  Test1,
                  Results_Test1,
                  Test2,
