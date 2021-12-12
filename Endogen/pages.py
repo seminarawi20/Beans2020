@@ -18,7 +18,7 @@ class Welcome(Page):
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100,
-                'player': self.group.get_player_by_id,
+                'id_in_group': self.player.id_in_group
                 }
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
@@ -41,7 +41,7 @@ class Results_Control(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0 and self.player.test_control == 15
+        return self.subsession.treatment == 0 and self.player.test_control == 0
 
     ## DIESE SEITE IST NEU: FRAGT DIEJEINIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN NOCHEINMAL MIT NEUEM BSP:##
 class Test_Control2(Page):
@@ -176,6 +176,7 @@ page_sequence = [Welcome,
                  Results_Control,
                  Test_Control2,
                  Results_Control2,
+                 Test1,
                  Results_Test1,
                  Test2,
                  Results_Test2,
