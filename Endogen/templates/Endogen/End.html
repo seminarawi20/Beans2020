@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}End{% endblock %}
+
+{% block content %}
+    <br>
+    <p>You have completed the experiment.</p> <br>
+    <p>Thank you for participating! <br>
+
+<p>
+        Your completion code is <b>{{ completion_code }}</b>
+
+{% endblock %}

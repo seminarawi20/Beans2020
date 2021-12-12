@@ -132,8 +132,11 @@ class Survey(Page):
 
 #das müssen wir noch löschen, aber ertsmal als Hilfe stehen lassen
 
-
-
+class End(Page):
+    def vars_for_template(self):
+        return dict(
+            completion_code=self.player.completion_code
+        )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [Welcome,
                  Test_Control,
@@ -146,6 +149,7 @@ page_sequence = [Welcome,
                  ResultsWaitPage,
                  Results,
                  Survey,
+                 End,
                  ]
 
 #Hallo Julius, siehst du das hier?

@@ -10,10 +10,10 @@ from otree.api import (
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
 
-authors = 'Moritz Sommerlad, Julius Groß, Emi Röttgers, Linda Aldehoff'
+authors = 'Moritz Sommerlad, Julius Gross, Emeli Röttgers, Linda Aldehoff'
 
 doc = """
-This is the second out of three experiments for the Seminar on Experimental Economics in the WS 2020 at the AWI Heidelberg
+This is the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
 """
 
 
@@ -23,6 +23,7 @@ class Constants(BaseConstants):
 
     name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
+    id_in_group = () #Selbst hinzugefügt könnte sein, dass wir es löschen müssen
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
@@ -60,6 +61,7 @@ class Group(BaseGroup):
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
     tipping_point = models.FloatField()
+
     def set_tipping_point(self):
         self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
@@ -71,6 +73,7 @@ class Group(BaseGroup):
     # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
 
     breakdown = models.BooleanField(initial=False)
+
 
     def set_breakdown(self):
         self.breakdown = self.tipping_point > np.random.rand()
