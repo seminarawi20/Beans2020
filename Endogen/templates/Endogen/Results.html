@@ -15,20 +15,27 @@
     <p>
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
-            You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br>
+            You took {{take}} points. {{total_points_left}} points remained in the pool.<br>
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
-                Unfortunately the pool broke down. <br><br>
+        <b>Unfortunately the pool broke down</b>. <br><br>
                 This means you earned {{payoff}}
             {%else%}
-                Fortunately the pool did not break down. <br><br>
+                <b>Fortunately the pool did not break down</b>. <br><br>
                 This means your share is {{share}} points and you earned {{payoff}}
             {% endif %} <br><br>
 
         {%else%}
         <! This is the statement for the control group >
-        You took {{take}} points. {{total_points_left}} points remained in the pool and increased to {{pool_mult}} points.<br><br>
-        This means your share is {{share}} points and you earned {{payoff}}
+        You took {{take}} points. {{total_points_left}} points remained in the pool.<br><br>
+        Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+            {% if breakdown == 1 %}
+                <b>Unfortunately the pool broke down</b>. <br><br>
+                This means you earned {{payoff}}
+            {%else%}
+                <b>Fortunately the pool did not break down</b>. <br><br>
+                This means your share is {{share}} points and you earned {{payoff}}
+            {% endif %} <br><br>
         {% endif %}
         <br><br>
 

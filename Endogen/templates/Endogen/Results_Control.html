@@ -7,12 +7,14 @@
 
 {% block content %}
 <div id="main">
+
+
     <p><! This is the statement for the control group >
         {% if test_control == 0 %}
-            Your answer is <b>correct</b>. <br>
+            Your answer is <b style="color:green;" <b>correct</b>. <br>
             Since the pool broke down, no one gets points.
         {%else%}
-            Your answer is <b>false</b>. <br>
+            Your answer is <b style="color:red;" <b>false</b>. <br>
             Since the pool broke down, no one gets points.
             Please read the instructions more carefully.
 
@@ -22,3 +24,5 @@
     {% next_button %}
 
 {% endblock %}
+
+

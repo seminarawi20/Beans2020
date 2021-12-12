@@ -1,7 +1,7 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 {% block title %}
-    Welcome
+    Welcome to our experiment!
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
                 There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately for every point that is taken from the pool the pools probability to collapse increases by {{addition_per_take}}%. <br>
+        Unfortunately for every point that is taken from the pool the pools <b>probability to collapse increases by {{addition_per_take}}%</b>. <br>
                  If the pool breaks down you will only get the points you took from the pool.<br>
 
             {%else%}
@@ -26,7 +26,7 @@
                 There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately for every point that is taken from the pool the pools probability to collapse increases by {{addition_per_take}}%. <br>
+                Unfortunately for every point that is taken from the pool the pools <b>probability to collapse increases by {{addition_per_take}}%</b>. <br>
                 If the pool breaks down your payoff will be 0.<br>
             {% endif %}
         {%else%}
@@ -36,7 +36,7 @@
                 There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately for every point that is taken from the pool the pools probability to collapse increases by {{addition_per_take}}%. <br>
+                Unfortunately for every point that is taken from the pool the pools <b>probability to collapse increases by {{addition_per_take}}%</b>. <br>
                  If the pool breaks down you will only get the points you took from the pool.<br>
         {% endif %}
     </p>
