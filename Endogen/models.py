@@ -10,7 +10,7 @@ from otree.api import (
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
 
-author = 'Moritz Sommerlad'
+authors = 'Moritz Sommerlad, Julius Groß, Emi Röttgers, Linda Aldehoff'
 
 doc = """
 This is the second out of three experiments for the Seminar on Experimental Economics in the WS 2020 at the AWI Heidelberg
@@ -162,6 +162,25 @@ class Player(BasePlayer):
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
+
+    age = models.IntegerField(label='How old are you?', min=18, max=125)
+    gender = models.StringField(
+        choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
+        label='What is your gender?',
+        widget=widgets.RadioSelect,
+    )
+    education = models.StringField(
+        choices=[['High School', 'High School'], ['Bachelor', 'Bachelor'], ['Master', 'Master'], ['PhD', 'PhD'],
+                 ['None', 'None']],
+        label='What is your highest level of education? (If currently enrolled highest degree received)',
+        widget=widgets.RadioSelect,
+    )
+    occupation = models.StringField(label='What is your occupation?')
+    environment = models.StringField(
+        label='Do you care about the environment?',
+        choices=[['yes', 'yes'], ['no', 'no'], ['a little', 'a little']],
+        widget=widgets.RadioSelect,
+    )
 
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)

@@ -70,6 +70,7 @@ class Results_Test2(Page):
         return self.subsession.treatment == 1
 
 
+
 # Now we create a page for the player to decide what to take.
 class Take(Page):
 
@@ -111,8 +112,29 @@ class Results(Page):
             completion_code= self.player.completion_code
         )
 
+class Survey(Page):
+    form_model = 'player'
+    form_fields = ['age', 'gender', 'education', 'occupation', 'environment']
 
-# here we indicate in which sequence we want the pages to the played. You can repeat pages as well.
+    def vars_for_template(self):
+        return dict(
+            completion_code=self.player.completion_code
+        )
+    #def vars_for_template(self):
+        #age = player.age
+        #gender = player.gender
+
+    #def vars_for_template(self):
+        #return dict(
+            #age = self.player.age,
+            #gender = self.player.gender
+        #)
+
+#das müssen wir noch löschen, aber ertsmal als Hilfe stehen lassen
+
+
+
+# here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [Welcome,
                  Test_Control,
                  Results_Control,
@@ -122,4 +144,9 @@ page_sequence = [Welcome,
                  Results_Test2,
                  Take,
                  ResultsWaitPage,
-                 Results]
+                 Results,
+                 Survey,
+                 ]
+
+#Hallo Julius, siehst du das hier?
+#wäre good to know bro
