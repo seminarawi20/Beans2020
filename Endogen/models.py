@@ -152,7 +152,6 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
@@ -192,11 +191,8 @@ class Player(BasePlayer):
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
 
-    test_control = models.IntegerField(choices=[0, 5, 10, 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total if the pool breaks down?")
-    test_control2 = models.IntegerField(choices=[0, 5, 10, 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total if the pool does not break down?")
-
-    test2_control = models.IntegerField(choices=[6, 13, 17, 22], widget=widgets.RadioSelect(), label = "How many points would you earn in total if the pool breaks down?")
-    test2_control2 = models.IntegerField(choices=[6, 13, 17, 22], widget=widgets.RadioSelect(), label = "How many points would you earn in total if the pool does not break down?")
+    test_control = models.IntegerField(choices=[0, 5 , 10, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total when the pool breaks down?")
+    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total? This time the pool does not break down?")
 
     test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")

@@ -41,19 +41,15 @@ class Results_Control(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0 and self.player.test_control == 0
+        return self.subsession.treatment == 0
 
     ## DIESE SEITE IST NEU: FRAGT DIEJEINIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN NOCHEINMAL MIT NEUEM BSP:##
 class Test_Control2(Page):
-
     form_model = 'player'
     form_fields = ['test_control2']
 
-    def vars_for_template(self):
-        return {'factor': Constants.efficiency_factor}
-
     def is_displayed(self):
-        return self.subsession.treatment == 0 and self.player.test_control != 15
+        return self.subsession.treatment == 0
     ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: ##
 class Results_Control2(Page):
 
@@ -63,7 +59,6 @@ class Results_Control2(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0 and self.player.test_control != 15
 
-
 class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
@@ -71,15 +66,6 @@ class Test1(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
-class Test1_cont(Page):
-    form_model = 'player'
-    form_fields = ['test1_cont']
-
-    def vars_for_template(self):
-        return {'test_control': self.player.test_control}
-
-    def is_displayed(self):
-        return self.subsession.treatment == 0 and self.player.test_control == 15
 
 class Test2(Page):
     form_model = 'player'
@@ -90,7 +76,9 @@ class Test2(Page):
 
 class Results_Test1(Page):
     def vars_for_template(self):
-        return {'test1': self.player.test1}
+        return {'test1': self.player.test1,
+                'id_in_group': self.player.id_in_group
+                }
 
     def is_displayed(self):
         return self.subsession.treatment == 1
@@ -186,6 +174,3 @@ page_sequence = [Welcome,
                  Survey,
                  End,
                  ]
-
-#Hallo Julius, siehst du das hier?
-#wäre good to know bro

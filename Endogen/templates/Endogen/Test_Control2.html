@@ -1,24 +1,18 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 {% block title %}
-    Task 1 continued
+    Task 2
 {% endblock %}
 
 {% block content %}
 <div id="main">
-    <b> Unfortunately your previous answer was wrong.</b>  <br><br>  #das wrong sollten wir noch rot machen...
-        Remember: After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and
-        every player receives an equal share. <br><br>
-        Your payoff will then be the amount you took plus your share from the pool. >
-        <br><br>
-
+    <p><!   Please answer <b>another</b> question:
 
             The pool has 30 points. <br>
-            Imagine <b>you now take 3 points</b> from the pool and the other two players each take 6 points from the pool.
+            Imagine <b>you now take 5 points</b> from the pool and the other two players each take 5 points from the pool.
             There are 15 points left in the pool.
 
             {% formfield player.test_control2 %}
-
     </p>
 
 
