@@ -10,16 +10,25 @@
       <br>
       
         {% if treatment == 1 %}
-            <! This is the statement for the treatment group >
+            <! This is the statement for the treatment group: player3 >
+            {% if player == group.get_player_by_id(3) %}
             The instructions are as follows: <br><br>
                 You are {{ players }} players. <br>
-                There is a pool of {{pool}} points. Every player can take between 0 and {{ max }} points from the pool. <br>
+                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
                 After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
                 Your payoff will then be the amount you took plus your share from the pool.<br>
-                Unfortunately the pool has a  chance to break down. If no one takes anything out of the pool, there will be no breakdown.<br>
-                With each point taken out of the pool, the chance of a breakdown increases by {{addition_per_take}}% for every point that is taken from the pool. <br>
-                The breakdown affects every player in the same way: Your payoff will be zero, as you lose all the points you have taken and the pool will be empty.<br>
-                This means, that if the pool breaks down you will not get any points. If it doesn't break down, you will receive the point taken and your fair share from the points in the group that were multiplied.<br>
+                Unfortunately for every point that is taken from the pool the pools probability to collapse increases by {{addition_per_take}}%. <br>
+                 If the pool breaks down you will only get the points you took from the pool.<br>
+
+            {%else%}
+
+            You are {{ players }} players. <br>
+                There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
+                After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
+                Your payoff will then be the amount you took plus your share from the pool.<br>
+                Unfortunately for every point that is taken from the pool the pools probability to collapse increases by {{addition_per_take}}%. <br>
+                If the pool breaks down your payoff will be 0.<br>
+            {% endif %}
         {%else%}
            <! This is the statement for the control group >
            The instructions are as follows: <br><br>

@@ -17,7 +17,9 @@ class Welcome(Page):
                 'max': Constants.max,
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
-                'addition_per_take': Constants.addition_per_take*100}
+                'addition_per_take': Constants.addition_per_take*100,
+                'player': self.group.get_player_by_id,
+                }
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -33,53 +35,33 @@ class Test_Control(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
-
 class Results_Control(Page):
+
     def vars_for_template(self):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0
+        return self.subsession.treatment == 0 and self.player.test_control == 15
 
-
-     ###HIER HABE ICH EINE WEITERE SEITE EINGEFÜGT, DIE DER CONTROLLGRUPPE ANGEZEIGT WIRD, SOBALD
-     #SIE DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN:
-
-
+    ## DIESE SEITE IST NEU: FRAGT DIEJEINIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN NOCHEINMAL MIT NEUEM BSP:##
 class Test_Control2(Page):
+
     form_model = 'player'
     form_fields = ['test_control2']
 
     def vars_for_template(self):
         return {'factor': Constants.efficiency_factor}
 
-    #   DAS HIER IST SCHON EINMAL GUT!!!!! #
-    #def is_displayed(self):
-        #return self.subsession.treatment == 0 and self.player.test_control == 5
+    def is_displayed(self):
+        return self.subsession.treatment == 0 and self.player.test_control != 15
+    ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: ##
+class Results_Control2(Page):
 
-    #def is_displayed(self):
-        #return self.subsession.treatment == 0 and self.player.test_control == 5 or 10
+    def vars_for_template(self):
+        return {'test_control2': self.player.test_control2}
 
-
-
-    #def is_displayed(self):
-        #return self.player.test_control == 5
-
-    #def is_displayed(self):
-        #return self.player.test_control == {5 or
-                                            #10
-                                            #}
-
-        #def is_displayed(self):
-            #return {self.subsession.treatment == 0,
-                    #self.player.test_control == 5,
-                    #self.player.test_control == 10}
-
-    #def is_displayed(self):
-        #return self.player.test_control == 5, 10
-
-
-    #DAS GLEICHE SOLLTE MAN JETZT NOCH FÜR DIE TREATMENT-GRUPPE MACHEN...
+    def is_displayed(self):
+        return self.subsession.treatment == 0 and self.player.test_control != 15
 
 
 class Test1(Page):
@@ -88,6 +70,16 @@ class Test1(Page):
 
     def is_displayed(self):
         return self.subsession.treatment == 1
+
+class Test1_cont(Page):
+    form_model = 'player'
+    form_fields = ['test1_cont']
+
+    def vars_for_template(self):
+        return {'test_control': self.player.test_control}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 0 and self.player.test_control == 15
 
 class Test2(Page):
     form_model = 'player'
@@ -183,7 +175,7 @@ page_sequence = [Welcome,
                  Test_Control,
                  Results_Control,
                  Test_Control2,
-                 Test1,
+                 Results_Control2,
                  Results_Test1,
                  Test2,
                  Results_Test2,

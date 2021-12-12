@@ -1,22 +1,24 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 {% block title %}
-    Results Task 1
+    Results Task 2
 {% endblock %}
 
 
 {% block content %}
 <div id="main">
-    <p><! This is the statement for the control group >
-        {% if test_control == 15 %}
+    </p><! This is the statement for the players who didn`t get the first answer right
+        {% if test_control2 == 13 %}
             Your answer is <b>correct</b>. <br>
             The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
+            In total you would earn 13 points because you took 3 points and earned another 10 points from the pool.
         {%else%}
             Your answer is <b>false</b>. <br>
             The remaining 15 points are doubled to 30 and then equally split between all three players. <br>
-            In total you would earn 15 points because you took 5 points and earned another 10 points from the pool.
+            In total you would earn 13 points because you took 3 points and earned another 10 points from the pool.
         {%endif%}
+
+
 
 </div>
     {% next_button %}

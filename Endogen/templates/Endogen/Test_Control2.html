@@ -6,13 +6,15 @@
 
 {% block content %}
 <div id="main">
-    <p><! Unfortunately your previous answer was <b>wrong</b>. Please remember: After all players make a decision,
-        the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
+    <b> Unfortunately your previous answer was wrong.</b>  <br><br>  #das wrong sollten wir noch rot machen...
+        Remember: After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and
+        every player receives an equal share. <br><br>
         Your payoff will then be the amount you took plus your share from the pool. >
         <br><br>
 
+
             The pool has 30 points. <br>
-            Imagine now you take 3 points from the pool and the other two players each take 6 points from the pool.
+            Imagine <b>you now take 3 points</b> from the pool and the other two players each take 6 points from the pool.
             There are 15 points left in the pool.
 
             {% formfield player.test_control2 %}
