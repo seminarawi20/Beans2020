@@ -10,7 +10,7 @@ from otree.api import (
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
 
-authors = 'Moritz Sommerlad, Julius Gross, Emeli Röttgers, Linda Aldehoff'
+authors = '(Moritz Sommerlad), Julius Gross, Emeli Röttgers, Linda Aldehoff'
 
 doc = """
 This is the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
