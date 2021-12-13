@@ -8,6 +8,12 @@ from .models import Constants
 #If you want to display something other than text (e.g. a variable) you need to use the function
 #vars_for_template and make it return a dictionary. The index of the dictionary can then be used to display it on the page with {{ index }}.
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
+
+class Preview(Page):
+
+    def vars_for_template(self):
+        return {'base_payment': Constants.base_payment}
+
 class Welcome(Page):
 
     def vars_for_template(self):
@@ -159,7 +165,9 @@ class End(Page):
             completion_code=self.player.completion_code
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Welcome,
+page_sequence = [
+                 Preview,
+                 Welcome,
                  Test_Control,
                  Results_Control,
                  Test_Control2,

@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Preview
+{% endblock %}
+
+{% block content %}
+
+<div id="main">
+    <p>
+      <br> Please read this carefully before clicking "Accept".<br><br>
+           This HIT is an academic research study on decision making.<br><br>
+        <b>Research goal:</b>   <br>
+           In this study, we are interested in decision making.<br>
+           You will be matched with other players and you will be asked to take a decision.<br><br>
+        <b>Duration and reward:</b> <br>
+           The entire study will take about 7 minutes. Your payment consists of a fixed reward of ${{ base_payment }}
+           via Amazon Mechanical Turk for successful completion and a bonus that depends on your and the other players’ decisions as well as on chance.<br>
+           Please note that the task should be completed without delay.<br><br>
+        <b>Confidentiality:</b><br>
+           All data we collect is treated confidentially and will only be used for our research purpose. <br>
+           Your name will not be linked to the results in any way.<br><br>
+        <b>Requirements:</b><br>
+           To participate, you need to be located in the United States of America. You may not have participated in this study before.<br>
+           There are no other formal requirements for participation.<br><br>
+        <b>Voluntary participation:</b><br>
+           Participation in this study is voluntary. If you do not want to take part in the study, please do not click "Accept". If you want to participate, please be sure you can commit to completing the HIT.<br>
+           If you discontinue participation, you will not receive any bonus.
+           By clicking "Accept", you agree to those terms. <br><br>
+        <b>Contact:</b><br>
+           If you have any questions regarding this study, please contact Florian Diekert natcoop@awi.uni-heidelberg.de.<br><br> <br><br>
+    </p>
+</div>
+  <button type="submit" class="button">Accept</button>
+
+
+
+{% endblock %}

@@ -33,6 +33,7 @@ class Constants(BaseConstants):
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
+    base_payment = 0.5  # The amount of money (in $) the player gets just for participating
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
