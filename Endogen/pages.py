@@ -14,6 +14,11 @@ class Preview(Page):
     def vars_for_template(self):
         return {'base_payment': Constants.base_payment}
 
+class Introduction(Page):
+
+    def vars_for_template(self):
+        return
+
 class Welcome(Page):
 
     def vars_for_template(self):
@@ -167,6 +172,7 @@ class End(Page):
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [
                  Preview,
+                 Introduction,
                  Welcome,
                  Test_Control,
                  Results_Control,
