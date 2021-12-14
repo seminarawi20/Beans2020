@@ -1,3 +1,4 @@
+from numpy import take
 from otree.api import (
     models,
     widgets,
@@ -93,6 +94,7 @@ class Group(BaseGroup):
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
         self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
+
 
         # the resource_share is the amount every player gets back from the pool.
         # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.

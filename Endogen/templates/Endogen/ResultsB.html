@@ -19,16 +19,22 @@
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
                 Unfortunately the pool broke down. <br><br>
-                This means you earned {{payoff}}
+                This means you get {{payoff}} <br><br>
+
+
             {%else%}
                 Fortunately the pool did not break down. <br><br>
-                This means you earned {{payoff}}
+                This means you get {{payoff}} <br><br>
+
+
             {% endif %} <br><br>
 
         <! This is the statement for the control group >
 
         <br><br>
         Thank you for participating in this experiment. <br>
+        Thank you for participating in this experiment. You will receive the money if you type in your completion code on
+        Amazon Mechanical Turk. <br>
         You completion code is <b>{{ completion_code }}</b>
     </p>
 
