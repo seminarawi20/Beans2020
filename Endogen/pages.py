@@ -170,7 +170,7 @@ class End(Page):
             completion_code=self.player.completion_code
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [
+page_sequence = [Survey,
                  Preview,
                  Introduction,
                  Welcome,
@@ -185,6 +185,5 @@ page_sequence = [
                  Take,
                  ResultsWaitPage,
                  Results,
-                 Survey,
                  End,
                  ]
