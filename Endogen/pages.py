@@ -114,7 +114,13 @@ class Take(Page):
     def vars_for_template(self):
         return {'max': Constants.max}
 
+class ExitSurvey(Page):
 
+    form_model = 'player'
+    form_fields = ['age', 'gender', 'education', 'education', 'mothertongue', 'mturkmoney', 'coplayerA', 'coplayerB']
+
+    def is_displayed(self):
+        return self.player.id_in_group <= 3
 
 class ResultsWaitPage(WaitPage):
 
@@ -182,6 +188,7 @@ page_sequence = [Welcome,
                  Results_Test2A,
                  Results_Test2B,
                  Take,
+                 ExitSurvey,
                  ResultsWaitPage,
                  ResultsA,
                  ResultsB]

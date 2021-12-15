@@ -148,6 +148,14 @@ class Player(BasePlayer):
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
+    age = models.IntegerField(label='What is your age?')
+    gender = models.StringField(choices=('female', 'male', 'other'), widget=widgets.RadioSelect(), label= 'What is your gender?')
+    education = models.StringField(choices=('High School', 'University', 'other'), widget=widgets.RadioSelect(), label='What is your educational degree?')
+    mothertongue = models.StringField(label='What is your mothertongue?')
+    mturkmoney = models.CurrencyField(label='What do you normally earn on Amazon MTurk?')
+    coplayerA = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type A choose?')
+    coplayerB = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type B choose?')
+
 
     take = models.IntegerField(label="How many points do you want to take ?")
 
@@ -169,4 +177,5 @@ class Player(BasePlayer):
 
     test1 = models.IntegerField(choices=[5, 10, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 10], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
+
 
