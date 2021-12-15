@@ -177,13 +177,25 @@ class Player(BasePlayer):
         label='What is your highest level of education? (If currently enrolled highest degree received)',
         widget=widgets.RadioSelect,
     )
-    occupation = models.StringField(label='What is your occupation?')
-    environment = models.StringField(
-        label='Do you care about the environment?',
-        choices=[['yes', 'yes'], ['no', 'no'], ['a little', 'a little']],
-        widget=widgets.RadioSelect,
+    employment = models.StringField(
+        label='What is your employment status?',
+        choices=[['Employed', 'Employed'], ['Unemployed', 'Unemployed'], ['Other', 'Other']],
+        widget=widgets.RadioSelect
     )
-
+    answer_same = models.IntegerField(
+        choices=[1,2,3,4,5,6,7,8,9,10],
+        label='Out of 10 participants with your role, how many, do you think, decided like you <b>in the game</b>?'
+    )
+    environment= models.IntegerField(
+        label='How much do you agree with this sentence: "I care about the environment":',
+        choices=[
+            [1, 'Strongly Agree'],
+            [2,'Agree'],
+            [3,'Neutral'],
+            [4,'Disagree'],
+            [5, 'Strongly Disagree'],
+        ]
+    )
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 

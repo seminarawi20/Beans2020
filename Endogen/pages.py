@@ -146,7 +146,7 @@ class Results(Page):
 
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'occupation', 'environment']
+    form_fields = ['age', 'gender', 'education', 'employment', 'environment', 'answer_same']
 
     def vars_for_template(self):
         return dict(
