@@ -17,7 +17,10 @@ class Preview(Page):
 class Introduction(Page):
 
     def vars_for_template(self):
-        return
+        return dict( base =Constants.base_payment,
+                     rate=Constants.money_per_point,
+                     maxmoney=Constants.maxmoney
+                    )
 
 class Welcome(Page):
 
@@ -134,6 +137,8 @@ class Results(Page):
         return dict(
             money = Constants.money_per_point * self.player.payoff + Constants.base_payment,
             payoff = self.player.payoff,
+            rate = Constants.money_per_point,
+            base = Constants.base_payment,
             take = self.player.take,
             total_points_left = self.group.total_points_left,
             points_taken = Constants.pool - self.group.total_points_left,
@@ -142,7 +147,7 @@ class Results(Page):
             treatment = self.subsession.treatment,
             share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
-            completion_code= self.player.completion_code
+            completion_code= self.player.completion_code,
         )
 
 class Survey(Page):
