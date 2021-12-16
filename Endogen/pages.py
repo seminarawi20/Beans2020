@@ -132,6 +132,7 @@ class Results(Page):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
         return dict(
+            money = Constants.money_per_point * self.player.payoff + Constants.base_payment,
             payoff = self.player.payoff,
             take = self.player.take,
             total_points_left = self.group.total_points_left,
@@ -152,17 +153,7 @@ class Survey(Page):
         return dict(
             completion_code=self.player.completion_code
         )
-    #def vars_for_template(self):
-        #age = player.age
-        #gender = player.gender
 
-    #def vars_for_template(self):
-        #return dict(
-            #age = self.player.age,
-            #gender = self.player.gender
-        #)
-
-#das müssen wir noch löschen, aber ertsmal als Hilfe stehen lassen
 
 class End(Page):
     def vars_for_template(self):
@@ -170,8 +161,7 @@ class End(Page):
             completion_code=self.player.completion_code
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Survey,
-                 Preview,
+page_sequence = [Preview,
                  Introduction,
                  Welcome,
                  Test_Control,
@@ -185,5 +175,6 @@ page_sequence = [Survey,
                  Take,
                  ResultsWaitPage,
                  Results,
+                 Survey,
                  End,
                  ]

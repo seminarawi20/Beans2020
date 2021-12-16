@@ -23,7 +23,7 @@ class Constants(BaseConstants):
 
     name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
-    id_in_group = () #Selbst hinzugefügt könnte sein, dass wir es löschen müssen
+    id_in_group = ()
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
@@ -34,6 +34,7 @@ class Constants(BaseConstants):
     completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
     base_payment = 0.5  # The amount of money (in $) the player gets just for participating
+    money_per_point = 0.2
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
@@ -103,24 +104,6 @@ class Group(BaseGroup):
             self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
 
-        # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
-        # If that is the case the players do not get any money
-
-
-        # HIER MÜSSEN WIR DOCH NUR DIE SPIELER UNTERSCHEIDEN. SPIELER MIT DER ID 1 UND 2 HABEN DAS AUSZAHLUNGSMUSTER:
-        #WENN ZUSAMMENBRICHT BEKOMMEN SIE NICHT. FÜR SPIELER MIT DER ID 3 IST DAS AUSZAHLUNGSMUSTER ANDERS, DIE BEKOMMEN DANN IMMER VARIABLE P.TAKE ODER SO:
-
-
-        #if self.breakdown == True:
-            #for p in self.get_players():
-                #p.payoff = 0
-        #else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            #for p in self.get_players():
-                #p.payoff = sum([+ p.take,
-                                #+ self.resource_share,
-                                #])
 
         if self.subsession.treatment == 1:
             if self.breakdown == True:
@@ -182,18 +165,24 @@ class Player(BasePlayer):
         choices=[['Employed', 'Employed'], ['Unemployed', 'Unemployed'], ['Other', 'Other']],
         widget=widgets.RadioSelect
     )
-    answer_same = models.IntegerField(
-        choices=[1,2,3,4,5,6,7,8,9,10],
-        label='Out of 10 participants with your role, how many, do you think, decided like you <b>in the game</b>?'
+    answer_same= models.IntegerField(
+        label='Compared to other participants who were assigned the same role, do you think your decision was socially fair?',
+        choices=[
+            [1,'Very fair'],
+            [2,'Fair'],
+            [3,'Average'],
+            [4,'Not fair'],
+            [5,'Not fair at all'],
+        ]
     )
     environment= models.IntegerField(
         label='How much do you agree with this sentence: "I care about the environment":',
         choices=[
-            [1, 'Strongly Agree'],
+            [1,'Strongly Agree'],
             [2,'Agree'],
             [3,'Neutral'],
             [4,'Disagree'],
-            [5, 'Strongly Disagree'],
+            [5,'Strongly Disagree'],
         ]
     )
     def take_choices(self):
