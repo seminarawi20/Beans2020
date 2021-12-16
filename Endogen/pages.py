@@ -135,7 +135,7 @@ class Results(Page):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
         return dict(
-            money = Constants.money_per_point * self.player.payoff + Constants.base_payment,
+            money = (Constants.money_per_point * self.player.payoff + Constants.base_payment),
             payoff = self.player.payoff,
             rate = Constants.money_per_point,
             base = Constants.base_payment,

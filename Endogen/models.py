@@ -10,6 +10,8 @@ from otree.api import (
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
 
+import settings
+
 authors = '(Moritz Sommerlad), Julius Gross, Emeli Röttgers, Linda Aldehoff'
 
 doc = """
@@ -37,6 +39,7 @@ class Constants(BaseConstants):
     money_per_point = 0.2
     maxmoney = int(np.floor(money_per_point*23.33+base_payment))
 
+
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
 
@@ -62,7 +65,6 @@ class Group(BaseGroup):
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
     tipping_point = models.FloatField()
-
     def set_tipping_point(self):
         self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
 
@@ -94,6 +96,7 @@ class Group(BaseGroup):
         p2 = self.get_player_by_id(2)
         p3 = self.get_player_by_id(3)
 
+
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
         self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
@@ -111,7 +114,6 @@ class Group(BaseGroup):
                 p1.payoff = 0
                 p2.payoff = 0
                 p3.payoff = p3.take
-
 
             else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
@@ -140,15 +142,12 @@ class Player(BasePlayer):
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
-
     take = models.IntegerField(label="How many points do you want to take ?")
-
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
-
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
         choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
