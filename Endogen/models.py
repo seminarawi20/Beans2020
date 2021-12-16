@@ -35,7 +35,7 @@ class Constants(BaseConstants):
     #after they complete the experiment.
     base_payment = 0.5  # The amount of money (in $) the player gets just for participating
     money_per_point = 0.2
-    maxmoney = (money_per_point*23.33+base_payment)
+    maxmoney = int(np.floor(money_per_point*23.33+base_payment))
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
