@@ -107,12 +107,25 @@ class Results_Test2B(Page):
         return self.player.id_in_group > 2
 
 # Now we create a page for the player to decide what to take.
-class Take(Page):
+class TakeA(Page):
 
     form_model = 'player'
     form_fields = ['take']
     def vars_for_template(self):
         return {'max': Constants.max}
+
+    def is_displayed(self):
+        return self.player.id_in_group <= 2
+
+class TakeB(Page):
+
+    form_model = 'player'
+    form_fields = ['take']
+    def vars_for_template(self):
+        return {'max': Constants.max}
+
+    def is_displayed(self):
+        return self.player.id_in_group > 2
 
 class ExitSurvey(Page):
 
@@ -187,7 +200,8 @@ page_sequence = [Welcome,
                  Test2B,
                  Results_Test2A,
                  Results_Test2B,
-                 Take,
+                 TakeA,
+                 TakeB,
                  ExitSurvey,
                  ResultsWaitPage,
                  ResultsA,
