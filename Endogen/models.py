@@ -101,6 +101,7 @@ class Group(BaseGroup):
 
 
     def set_breakdown(self):
+        self.chance = round(np.random.rand(), 2)
         self.breakdown = self.tipping_point > np.random.rand()
 
 
@@ -114,24 +115,19 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
+        p1 = self.get_player_by_id(1)
+        p2 = self.get_player_by_id(2)
+        p3 = self.get_player_by_id(3)
 
         if sum([p.alone for p in self.get_players()]) > 0:
-            p1 = self.get_player_by_id(1)
-            p2 = self.otherplayer1_take
-            p3 = self.otherplayer2_take
+            self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
+            self.resource_share = np.round(self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
-            self.total_points_left = Constants.pool - sum(
-                [p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
-            self.resource_share = np.round(
-                self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
         else:
-            p1 = self.get_player_by_id(1)
-            p2 = self.get_player_by_id(2)
-            p3 = self.get_player_by_id(3)
-
             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
             self.resource_share = np.round(
                 self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+
 
         if self.subsession.treatment == 1:
             if self.breakdown == True:
@@ -162,7 +158,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     def waiting_too_long(self):
-        #import time
+        import time
         return time.time() - self.participant.vars['wait_page_arrival'] > 180
 
     alone = models.BooleanField(initial=False)

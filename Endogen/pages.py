@@ -12,8 +12,8 @@ import time
 
 class Preview(Page):
 
-    def vars_for_template(self):
-        return {'base_payment': Constants.base_payment}
+    # def vars_for_template(self):
+    #    return {'base_payment': Constants.base_payment}
 
     timeout_seconds = 120
 
@@ -169,8 +169,9 @@ class Results_Test2(Page):
     timeout_seconds = 120
 
     def before_next_page(self):
+        self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_results_test2 = True
 
 class Grouping(WaitPage):
     group_by_arrival_time = True
@@ -262,8 +263,7 @@ class End(Page):
             completion_code=self.player.completion_code
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Grouping,
-                 Preview,
+page_sequence = [Preview,
                  Introduction,
                  Welcome,
                  Test_Control,
@@ -274,6 +274,7 @@ page_sequence = [Grouping,
                  Results_Test1,
                  Test2,
                  Results_Test2,
+                 Grouping,
                  Take,
                  ResultsWaitPage,
                  Results,
