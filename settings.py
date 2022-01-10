@@ -5,8 +5,8 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'keywords': ['academic','study','common pool','exeriment'],
-        'title': "common ressource experiment (few minutes to complete, earn real money",
+        'keywords': ['academic','study','exeriment'],
+        'title': "Study on decision making (5 minutes, earn real money)",
         'description': 'Academic decision making experiment',
         'frame_height':500,
         'template': 'global/mturk_template.html',
@@ -55,7 +55,7 @@ SESSION_CONFIG_DEFAULTS= {
     "mturk_hit_settings": mturk_hit_settings
 }
 
-
+#PARTICIPANT_FIELDS = ["wait_page_arrival"]
 
 ##################################################
 ####### ENTER THE SESSIONS YOU WANT TO PLAY ######
@@ -72,12 +72,7 @@ SESSION_CONFIGS = [
         num_demo_participants=3,
         app_sequence=['Endogen'],
         treatment = True
-    ),
-    dict(name='surveyapp',
-         display_name="Survey for gathering information on participants",
-         num_demo_participants=3,
-         app_sequence=['Endogen' , 'surveyapp']
-         )
+    )
 ]
 
 

@@ -5,10 +5,14 @@ from otree.api import (
     BaseSubsession,
     BaseGroup,
     BasePlayer,
+    Currency as c,
+    currency_range,
 )
+
 
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
+import time
 
 import settings
 
@@ -54,7 +58,13 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
         for player in self.get_players():
             player.completion_code = Constants.completion_code
 
-
+    def group_by_arrival_time_method(self, waiting_players):
+        if len(waiting_players) >= 3:
+            return waiting_players[:3]
+        for p in waiting_players:
+            if p.waiting_too_long():
+                p.alone = 1
+                return [p]
 
 class Group(BaseGroup):
 
@@ -65,10 +75,22 @@ class Group(BaseGroup):
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
     tipping_point = models.FloatField()
+    otherplayer1_take = models.IntegerField()
+    otherplayer2_take = models.IntegerField()
+    chance = models.FloatField()
+
+    def set_up_otherplayer(self):
+        self.otherplayer1_take = np.random.randint(0, 6)
+        self.otherplayer2_take = np.random.randint(0, 6)
+
+
     def set_tipping_point(self):
-        self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take),4)
-
-
+        if sum([p.alone for p in self.get_players()]) > 0:
+            self.tipping_point = np.round(Constants.base + ((sum([p.take for p in
+                                                                  self.get_players()]) + self.otherplayer1_take + self.otherplayer2_take) * Constants.addition_per_take),
+                                          4)
+        else:
+            self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take), 4)
 
     # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
     # If the tipping point is higher than the random number, breakdown will be TRUE.
@@ -92,22 +114,24 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p3 = self.get_player_by_id(3)
 
+        if sum([p.alone for p in self.get_players()]) > 0:
+            p1 = self.get_player_by_id(1)
+            p2 = self.otherplayer1_take
+            p3 = self.otherplayer2_take
 
-        # to calculate the points left we need the sum of all points the players took.
-        # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
-        self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
+            self.total_points_left = Constants.pool - sum(
+                [p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
+            self.resource_share = np.round(
+                self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+        else:
+            p1 = self.get_player_by_id(1)
+            p2 = self.get_player_by_id(2)
+            p3 = self.get_player_by_id(3)
 
-        # the resource_share is the amount every player gets back from the pool.
-        # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
-        # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
-        self.resource_share = np.round(
-            self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
-
-
+            self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
+            self.resource_share = np.round(
+                self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
         if self.subsession.treatment == 1:
             if self.breakdown == True:
@@ -135,9 +159,13 @@ class Group(BaseGroup):
                                     + self.resource_share,
                                     ])
 
-
-
 class Player(BasePlayer):
+
+    def waiting_too_long(self):
+        #import time
+        return time.time() - self.participant.vars['wait_page_arrival'] > 180
+
+    alone = models.BooleanField(initial=False)
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.

@@ -1,6 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
+import time
 
 # Pages are responsible for retrieving and passing back data from models to templates and vice versa.
 # If you need to show something to a participant or to get his/her input, you need to indicate this in pages.py
@@ -14,6 +15,12 @@ class Preview(Page):
     def vars_for_template(self):
         return {'base_payment': Constants.base_payment}
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_welcome = True
+
 class Introduction(Page):
 
     def vars_for_template(self):
@@ -21,6 +28,12 @@ class Introduction(Page):
                      rate=Constants.money_per_point,
                      maxmoney=Constants.maxmoney
                     )
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 class Welcome(Page):
 
@@ -34,6 +47,12 @@ class Welcome(Page):
                 'addition_per_take': Constants.addition_per_take*100,
                 'id_in_group': self.player.id_in_group
                 }
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -49,6 +68,12 @@ class Test_Control(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
 class Results_Control(Page):
 
     def vars_for_template(self):
@@ -57,6 +82,12 @@ class Results_Control(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
     ## DIESE SEITE IST NEU: FRAGT DIEJEINIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN NOCHEINMAL MIT NEUEM BSP:##
 class Test_Control2(Page):
     form_model = 'player'
@@ -64,6 +95,13 @@ class Test_Control2(Page):
 
     def is_displayed(self):
         return self.subsession.treatment == 0
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
     ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: ##
 class Results_Control2(Page):
 
@@ -73,12 +111,24 @@ class Results_Control2(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0 and self.player.test_control != 15
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
 class Test1(Page):
     form_model = 'player'
     form_fields = ['test1']
 
     def is_displayed(self):
         return self.subsession.treatment == 1
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 
 class Test2(Page):
@@ -87,6 +137,12 @@ class Test2(Page):
 
     def is_displayed(self):
         return self.subsession.treatment == 1
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 class Results_Test1(Page):
     def vars_for_template(self):
@@ -97,6 +153,12 @@ class Results_Test1(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
 class Results_Test2(Page):
     def vars_for_template(self):
         return {'test2': self.player.test2}
@@ -104,15 +166,35 @@ class Results_Test2(Page):
     def is_displayed(self):
         return self.subsession.treatment == 1
 
+    timeout_seconds = 120
 
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
+class Grouping(WaitPage):
+    group_by_arrival_time = True
+
+    body_text = "Waiting for two other participants to begin the real task.\
+      This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
 # Now we create a page for the player to decide what to take.
 class Take(Page):
 
     form_model = 'player'
     form_fields = ['take']
+
     def vars_for_template(self):
-        return {'max': Constants.max}
+        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
+
+        return dict(
+            alone=self.player.alone )
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
 
 
 
@@ -124,9 +206,11 @@ class ResultsWaitPage(WaitPage):
     # We order is important, since the tipping point is an input for the breakdown, which is an input for the payoff
 
     def after_all_players_arrive(self):
+        self.group.set_up_otherplayer()
         self.group.set_tipping_point()
         self.group.set_breakdown()
         self.group.set_payoffs()
+
 
 
 
@@ -150,6 +234,12 @@ class Results(Page):
             completion_code= self.player.completion_code,
         )
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
 class Survey(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'employment', 'environment', 'answer_same']
@@ -159,6 +249,12 @@ class Survey(Page):
             completion_code=self.player.completion_code
         )
 
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_take = True
+
 
 class End(Page):
     def vars_for_template(self):
@@ -166,7 +262,8 @@ class End(Page):
             completion_code=self.player.completion_code
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Preview,
+page_sequence = [Grouping,
+                 Preview,
                  Introduction,
                  Welcome,
                  Test_Control,
