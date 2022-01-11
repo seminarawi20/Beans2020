@@ -14,7 +14,7 @@ import time
 class Grouping(WaitPage):
     group_by_arrival_time = True
 
-    body_text = "Waiting for two other participants to begin the real task.\
+    body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
 # Now we create a page for the player to decide what to take.
@@ -24,10 +24,12 @@ class TakeA(Page):
     form_model = 'player'
     form_fields = ['take']
     def vars_for_template(self):
-        return {'max': Constants.max}
+        return dict (max = Constants.max,
+                    alone = self.player.alone)
 
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
+
 
     timeout_seconds = 120
 
@@ -43,7 +45,7 @@ class TakeB(Page):
         return {'max': Constants.max}
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
@@ -96,7 +98,7 @@ class ResultsA(Page):
             completion_code = self.session.vars['code']
         )
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
 
 class ResultsB(Page):
@@ -116,7 +118,7 @@ class ResultsB(Page):
         )
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
 
 

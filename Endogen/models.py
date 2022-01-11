@@ -40,19 +40,24 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
 
     # Here we define the different treatments that are available in the different subversions.
-
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
+    category = models.StringField()
 
     # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
     #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
+
     def creating_session(self):
+
         self.treatment = self.session.config.get('treatment')
         self.session.vars['treatment'] = self.session.config.get('treatment')
         # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
         for player in self.get_players():
             player.completion_code = Constants.completion_code
             self.session.vars['code'] = Constants.completion_code
+
+
+
 
 
 class Group(BaseGroup):
@@ -68,6 +73,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    def participant_category(self):
+        if self.id_in_group <= 2:
+            self.participant.category = 'A'
+
+        else:
+            self.participant.category = 'B'
+
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
@@ -77,6 +89,8 @@ class Player(BasePlayer):
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
+
+
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 

@@ -43,9 +43,23 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
 
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
 
-    def group_by_arrival_time_method(self, waiting_players):
-        if len(waiting_players) >= 3:
-            return waiting_players[:3]
+    #def group_by_arrival_time_method(self, waiting_players):
+    #    if len(waiting_players) >= 3:
+    #        return waiting_players[:3]
+    #    for p in waiting_players:
+    #        if p.waiting_too_long():
+    #            p.alone = 1
+    #            return [p]
+    def group_by_arrival_time_method(subsession, waiting_players):
+        print('in group_by_arrival_time_method')
+        a_players = [self for self in waiting_players if self.participant.category == 'A']
+        b_players = [self for self in waiting_players if self.participant.category == 'B']
+
+        if len(a_players) >= 2 and len(b_players) >= 1:
+            print('about to create a group')
+            return [a_players[0], a_players[1], b_players[0]]
+        print('not enough players yet to create a group')
+
         for p in waiting_players:
             if p.waiting_too_long():
                 p.alone = 1
@@ -99,9 +113,7 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p3 = self.get_player_by_id(3)
+
 
         if sum([p.alone for p in self.get_players()]) > 0:
             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
@@ -110,7 +122,7 @@ class Group(BaseGroup):
         else:
             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
             self.resource_share = np.round(
-                self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+                self.total_points_left * Constants.efficiency_factor / Constants.efficiency_factor, 0)
 
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
@@ -144,22 +156,34 @@ class Group(BaseGroup):
 
 
         if self.breakdown == True:
-                p1.payoff = p1.take
-                p2.payoff = p2.take
-                p3.payoff = p3.take
+            if sum([p.alone for p in self.get_players()]) > 0:
+                self.payoff = self.take
+
+            else:
+                self.payoff = self.take
 
 
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-                for p in self.get_players():
-                    p1.payoff = sum([+ p1.take,
+            if sum([p.alone for p in self.get_players()]) > 0:
+
+                if self.participant.category == 'A':
+                    self.payoff = sum ([+self.take,
                                     + self.resource_share,
                                     ])
-                    p2.payoff = sum([+ p2.take,
-                                    + self.resource_share,
-                                    ])
-                    p3.payoff = p3.take
+                else:
+                    self.payoff = self.take
+
+            else:
+
+                if self.participant.category == 'A':
+                    self.payoff = sum([+self.take,
+                                       + self.resource_share,
+                                       ])
+
+                else:
+                    self.payoff = self.take
 
 
 

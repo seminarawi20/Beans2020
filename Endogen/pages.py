@@ -33,8 +33,9 @@ class InstructionsA(Page):
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100
                 }
+
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
     timeout_seconds = 120
 
@@ -53,7 +54,7 @@ class InstructionsB(Page):
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
@@ -73,7 +74,7 @@ class Test_A(Page):
     form_fields = ['test_control']
 
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
     timeout_seconds = 120
 
@@ -86,7 +87,7 @@ class Test_B(Page):
     form_fields = ['test_control']
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
@@ -99,7 +100,7 @@ class Results_Test_A(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
     timeout_seconds = 120
 
@@ -112,7 +113,7 @@ class Results_Test_B(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
@@ -126,7 +127,7 @@ class Test2A(Page):
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
     timeout_seconds = 120
 
@@ -139,7 +140,7 @@ class Test2B(Page):
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
@@ -152,7 +153,7 @@ class Results_Test2A(Page):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.player.id_in_group <= 2
+        return self.participant.category == 'A'
 
     timeout_seconds = 120
 
@@ -166,7 +167,7 @@ class Results_Test2B(Page):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.player.id_in_group > 2
+        return self.participant.category == 'B'
 
     timeout_seconds = 120
 
