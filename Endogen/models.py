@@ -27,7 +27,7 @@ class Constants(BaseConstants):
 
     # Here we define the different values that are valid in every form of the game.
 
-    name_in_url = 'Endogen_part2'#The name can be set to whatever you want it to be. It will show in the URL.
+    name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
     id_in_group = ()
     num_rounds = 1 # You can play more than one round, but in our case we play one.
@@ -83,6 +83,13 @@ class Group(BaseGroup):
     #This is we add +1 to the range
 
 class Player(BasePlayer):
+
+    def participant_category(self):
+        if self.id_in_group <= 2:
+            self.participant.category = 'A'
+
+        else:
+            self.participant.category = 'B'
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 
