@@ -84,12 +84,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    def participant_category(self):
-        if self.id_in_group <= 2:
-            self.participant.category = 'A'
-
-        else:
-            self.participant.category = 'B'
+    category = models.StringField()
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 
