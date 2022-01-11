@@ -12,7 +12,7 @@ from otree.api import (
 
 # Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
 import numpy as np
-import time
+
 
 import settings
 
@@ -27,7 +27,7 @@ class Constants(BaseConstants):
 
     # Here we define the different values that are valid in every form of the game.
 
-    name_in_url = 'Endogen'#The name can be set to whatever you want it to be. It will show in the URL.
+    name_in_url = 'Endogen2'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
     id_in_group = ()
     num_rounds = 1 # You can play more than one round, but in our case we play one.
@@ -48,15 +48,6 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # Here we define the different treatments that are available in the different subversions.
 
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
-
-    # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
-    #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
-    def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
-        # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
-        for player in self.get_players():
-            player.completion_code = Constants.completion_code
 
     def group_by_arrival_time_method(self, waiting_players):
         if len(waiting_players) >= 3:
@@ -161,6 +152,7 @@ class Player(BasePlayer):
         import time
         return time.time() - self.participant.vars['wait_page_arrival'] > 180
 
+
     alone = models.BooleanField(initial=False)
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
@@ -212,14 +204,4 @@ class Player(BasePlayer):
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
-    completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
-
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
-
-
-    test_control = models.IntegerField(choices=[0, 5 , 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total when the <b>pool breaks down</b>?")
-    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total? This time the <b>pool does not break down</b>?")
-
-    test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the <b>pool breaks down</b>?")
-    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the <b>pool does not break down</b>?")
-
