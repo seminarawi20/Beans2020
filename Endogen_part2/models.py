@@ -52,8 +52,8 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     #            return [p]
     def group_by_arrival_time_method(subsession, waiting_players):
         print('in group_by_arrival_time_method')
-        a_players = [self for self in waiting_players if self.participant.category == 'A']
-        b_players = [self for self in waiting_players if self.participant.category == 'B']
+        a_players = [p for p in waiting_players if p.participant.category == 'A']
+        b_players = [p for p in waiting_players if p.participant.category == 'B']
 
         if len(a_players) >= 2 and len(b_players) >= 1:
             print('about to create a group')
@@ -112,6 +112,7 @@ class Group(BaseGroup):
 
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
+
     def set_payoffs(self):
 
 
@@ -157,43 +158,53 @@ class Group(BaseGroup):
 
         if self.breakdown == True:
             if sum([p.alone for p in self.get_players()]) > 0:
-                self.payoff = self.take
+                for p in self.get_players():
+                    p.payoff = p.take
 
             else:
-                self.payoff = self.take
+                for p in self.get_players():
+                    p.payoff = p.take
 
 
         else:
             # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
             if sum([p.alone for p in self.get_players()]) > 0:
-
-                if self.participant.category == 'A':
-                    self.payoff = sum ([+self.take,
-                                    + self.resource_share,
+                for p in self.get_players():
+                    if p.participant.category == 'A':
+                        p.payoff = sum ([+p.take,
+                                    + p.resource_share,
                                     ])
                 else:
-                    self.payoff = self.take
+                    for p in self.get_players():
+                        p.payoff = p.take
 
             else:
-
-                if self.participant.category == 'A':
-                    self.payoff = sum([+self.take,
-                                       + self.resource_share,
+                for p in self.get_players():
+                    if p.participant.category == 'A':
+                        p.payoff = sum([+p.take,
+                                       + p.resource_share,
                                        ])
 
                 else:
-                    self.payoff = self.take
-
+                    for p in self.get_players():
+                        p.payoff = p.take
 
 
 class Player(BasePlayer):
+
+
 
     def waiting_too_long(self):
         import time
         return time.time() - self.participant.vars['wait_page_arrival'] > 180
 
     alone = models.BooleanField(initial=False)
+
+    timeout_take_a = models.BooleanField(initial=False)
+    timeout_take_b = models.BooleanField(initial=False)
+
+    timeout_survey = models.BooleanField(initial=False)
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.

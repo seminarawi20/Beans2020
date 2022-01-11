@@ -20,7 +20,7 @@ class Welcome(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_welcome = True
 
 class InstructionsA(Page):
 
@@ -41,7 +41,7 @@ class InstructionsA(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_instruction_a = True
 
 class InstructionsB(Page):
 
@@ -53,14 +53,15 @@ class InstructionsB(Page):
                 'max': Constants.max,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100}
-    def is_displayed(self):
-        return self.participant.category == 'B'
+
+    def is_displayed(p):
+        return p.participant.category == 'B'
 
     timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_instruction_b = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -80,7 +81,7 @@ class Test_A(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test_a = True
 
 class Test_B(Page):
     form_model = 'player'
@@ -93,7 +94,7 @@ class Test_B(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test_b = True
 
 class Results_Test_A(Page):
     def vars_for_template(self):
@@ -106,7 +107,7 @@ class Results_Test_A(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_result_test_a = True
 
 class Results_Test_B(Page):
     def vars_for_template(self):
@@ -119,7 +120,7 @@ class Results_Test_B(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_result_test_b = True
 
 
 class Test2A(Page):
@@ -133,7 +134,7 @@ class Test2A(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test_2a = True
 
 class Test2B(Page):
     form_model = 'player'
@@ -146,7 +147,7 @@ class Test2B(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test_2b = True
 
 class Results_Test2A(Page):
     def vars_for_template(self):
@@ -160,7 +161,7 @@ class Results_Test2A(Page):
     def before_next_page(self):
         self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_results_test2 = True
+            self.player.timeout_results_test2a = True
 
 class Results_Test2B(Page):
     def vars_for_template(self):
@@ -174,7 +175,7 @@ class Results_Test2B(Page):
     def before_next_page(self):
         self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_results_test2 = True
+            self.player.timeout_results_test2b = True
 
 
 

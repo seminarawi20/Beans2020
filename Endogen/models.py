@@ -42,10 +42,10 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
-    category = models.StringField()
 
     # We then create a session. Here we need to specify if the session should have any special properties. In this case we choose that we
     #want a treatment based on our Boolean in line 35. If we wanted another treatment, like different tipping points, we need to add a bool here.
+
 
     def creating_session(self):
 
@@ -55,9 +55,11 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
         for player in self.get_players():
             player.completion_code = Constants.completion_code
             self.session.vars['code'] = Constants.completion_code
-
-
-
+            if player.id_in_group % 3 == 0:
+                player.participant.vars['category'] = 'A'
+            else:
+                player.participant.vars['category'] = 'B'
+            player.category = player.participant.vars['category']
 
 
 class Group(BaseGroup):
@@ -73,13 +75,6 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    def participant_category(self):
-        if self.id_in_group <= 2:
-            self.participant.category = 'A'
-
-        else:
-            self.participant.category = 'B'
-
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
@@ -90,7 +85,7 @@ class Player(BasePlayer):
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
 
-
+    category = models.StringField()
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 
@@ -102,4 +97,14 @@ class Player(BasePlayer):
     test1 = models.IntegerField(choices=[5, 10, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
     test2 = models.IntegerField(choices=[0, 5, 10], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
 
-
+    timeout_welcome = models.BooleanField(initial=False)
+    timeout_instruction_a = models.BooleanField(initial=False)
+    timeout_instruction_b = models.BooleanField(initial=False)
+    timeout_test_a = models.BooleanField(initial=False)
+    timeout_test_b = models.BooleanField(initial=False)
+    timeout_restult_test_a = models.BooleanField(initial=False)
+    timeout_restult_test_b = models.BooleanField(initial=False)
+    timeout_test_2a = models.BooleanField(initial=False)
+    timeout_test_2b = models.BooleanField(initial=False)
+    timeout_restult_test_2a = models.BooleanField(initial=False)
+    timeout_restult_test_2b = models.BooleanField(initial=False)

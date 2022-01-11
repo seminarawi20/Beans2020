@@ -36,7 +36,7 @@ mturk_hit_settings = {
 }
 #############################################
 
-
+PARTICIPANT_FIELDS = {'category'}
 
 ################################################################
 #Only touch real_world_currency per point in alignment with us
@@ -51,7 +51,7 @@ mturk_hit_settings = {
 SESSION_CONFIG_DEFAULTS= {
     "real_world_currency_per_point": 0.05,
     'participation_fee': 0.50,
-     'doc': "",
+    'doc': "",
     "mturk_hit_settings": mturk_hit_settings
 }
 

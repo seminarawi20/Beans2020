@@ -35,14 +35,15 @@ class TakeA(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_take_a = True
 
 class TakeB(Page):
 
     form_model = 'player'
     form_fields = ['take']
     def vars_for_template(self):
-        return {'max': Constants.max}
+        return dict(max=Constants.max,
+                    alone=self.player.alone)
 
     def is_displayed(self):
         return self.participant.category == 'B'
@@ -51,7 +52,7 @@ class TakeB(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_take_b = True
 
 class ExitSurvey(Page):
 
@@ -65,7 +66,7 @@ class ExitSurvey(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_survey = True
 
 class ResultsWaitPage(WaitPage):
 
