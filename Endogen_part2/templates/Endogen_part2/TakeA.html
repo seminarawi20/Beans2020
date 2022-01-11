@@ -6,6 +6,10 @@
 {% endblock %}
 
 {% block content %}
+        {% if alone == 1 %}
+            A match with other participants was not possible.  <br>
+            Instead you will play with simulated computer players in your group that randomly take between 0 and 6 points. <br> <br>
+        {%endif%}
     <br>
     <p>Now you make the real decision.</p>
     <p>Remember that you are player <b>type A</b>. </p>
