@@ -27,7 +27,8 @@ class Take(Page):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
         return dict(
-            alone=self.player.alone )
+            max = Constants.max,
+            alone = self.player.alone )
 
     timeout_seconds = 120
 
@@ -67,10 +68,9 @@ class Results(Page):
             points_taken = Constants.pool - self.group.total_points_left,
             pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
-            treatment = self.subsession.treatment,
+            treatment = self.session.treatment,
             share = self.group.resource_share,
-            tipping_point = round(self.group.tipping_point*100,1),
-            completion_code= self.player.completion_code,
+            tipping_point = round(self.group.tipping_point*100,1)
         )
 
     timeout_seconds = 120
@@ -83,11 +83,6 @@ class Survey(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'employment', 'environment', 'answer_same']
 
-    def vars_for_template(self):
-        return dict(
-            completion_code=self.player.completion_code
-        )
-
     timeout_seconds = 120
 
     def before_next_page(self):
@@ -98,7 +93,7 @@ class Survey(Page):
 class End(Page):
     def vars_for_template(self):
         return dict(
-            completion_code=self.player.completion_code
+            completion_code = self.session.vars['code']
         )
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [Grouping,

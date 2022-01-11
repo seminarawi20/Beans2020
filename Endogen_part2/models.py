@@ -135,7 +135,7 @@ class Group(BaseGroup):
                 self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
 
-        if self.subsession.treatment == 1:
+        if self.session.treatment == 1:
             if self.breakdown == True:
                 if sum([p.alone for p in self.get_players()]) > 0:
                     for p in self.get_players():
