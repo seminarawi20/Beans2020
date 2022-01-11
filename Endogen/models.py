@@ -54,13 +54,6 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
             player.completion_code = Constants.completion_code
             self.session.vars['code'] = Constants.completion_code
 
-    def group_by_arrival_time_method(self, waiting_players):
-        if len(waiting_players) >= 3:
-            return waiting_players[:3]
-        for p in waiting_players:
-            if p.waiting_too_long():
-                p.alone = 1
-                return [p]
 
 class Group(BaseGroup):
 
@@ -70,134 +63,20 @@ class Group(BaseGroup):
 
     #First we need to define the tipping point. It consists of the base plus the additional percentage based on the the number of points taken.
 
-    tipping_point = models.FloatField()
-    otherplayer1_take = models.IntegerField()
-    otherplayer2_take = models.IntegerField()
-    chance = models.FloatField()
-
-    def set_tipping_point(self):
-        if sum([p.alone for p in self.get_players()]) > 0:
-            self.tipping_point = np.round(Constants.base + ((sum([p.take for p in self.get_players()]) + self.otherplayer1_take + self.otherplayer2_take) * Constants.addition_per_take),4)
-        else:
-            self.tipping_point = np.round(Constants.base + (sum([p.take for p in self.get_players()]) * Constants.addition_per_take), 4)
-
-
-
-
-    # To determine if a groups pool breaks down, we create a random number that takes values between 0 and 1.
-    # If the tipping point is higher than the random number, breakdown will be TRUE.
-    # We set this breakdown as a function that can be called during the experiment.
-    # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
-
-    breakdown = models.BooleanField(initial=False)
-
-    def set_breakdown(self):
-        self.chance = round(np.random.rand(), 2)
-        self.breakdown = self.tipping_point > np.random.rand()
-
-
-    # total_points_left is the number of points that do not get taken.
-    # resource share is the share each player receives from the resource.
-    total_points_left = models.IntegerField()
-    resource_share = models.IntegerField()
-    # We could define functions here to fill the fields, but we will do it in the payoff function, since it speeds up the programm and
-    # keeps the code a little "cleaner"
-
-    #Now we need to set the payoff.
-    # If we want the player we need to use player. or for p in self get._players()
-    def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p3 = self.get_player_by_id(3)
-
-        if sum([p.alone for p in self.get_players()]) > 0:
-            self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
-            self.resource_share = np.round(self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
-
-        else:
-            self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
-            self.resource_share = np.round(
-                self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
-
-        # to calculate the points left we need the sum of all points the players took.
-        # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
-
-
-
-        # the resource_share is the amount every player gets back from the pool.
-        # to calculate the resource_share we need to know how much remained in the pool , multiply it by the factor and devide it by the number of players.
-        # Here we use np.round(number, number of decimals) to aviod getting a number like 13,33333333333
-
-
-
-        # we need to add an if statement since our payoff is 0 if the pool breaks down. Remember it can only break down if we are in the treatment version.
-        # If that is the case the players do not get any money
-
-
-        # HIER MÜSSEN WIR DOCH NUR DIE SPIELER UNTERSCHEIDEN. SPIELER MIT DER ID 1 UND 2 HABEN DAS AUSZAHLUNGSMUSTER:
-        #WENN ZUSAMMENBRICHT BEKOMMEN SIE NICHT. FÜR SPIELER MIT DER ID 3 IST DAS AUSZAHLUNGSMUSTER ANDERS, DIE BEKOMMEN DANN IMMER VARIABLE P.TAKE ODER SO:
-
-
-        #if self.breakdown == True:
-            #for p in self.get_players():
-                #p.payoff = 0
-        #else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-            #for p in self.get_players():
-                #p.payoff = sum([+ p.take,
-                                #+ self.resource_share,
-                                #])
-
-
-        if self.breakdown == True:
-                p1.payoff = p1.take
-                p2.payoff = p2.take
-                p3.payoff = p3.take
-
-
-        else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-                for p in self.get_players():
-                    p1.payoff = sum([+ p1.take,
-                                    + self.resource_share,
-                                    ])
-                    p2.payoff = sum([+ p2.take,
-                                    + self.resource_share,
-                                    ])
-                    p3.payoff = p3.take
-
+    pass
 
 
 class Player(BasePlayer):
 
-    def waiting_too_long(self):
-        import time
-        return time.time() - self.participant.vars['wait_page_arrival'] > 180
-
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
-    age = models.IntegerField(label='What is your age?')
-    gender = models.StringField(choices=('female', 'male', 'other'), widget=widgets.RadioSelect(), label= 'What is your gender?')
-    education = models.StringField(choices=('High School', 'University', 'other'), widget=widgets.RadioSelect(), label='What is your educational degree?')
-    mothertongue = models.StringField(label='What is your mothertongue?')
-    mturkmoney = models.StringField(choices= ('0-5$', '5-10$', '10-20$', '>20$'), wisget=widgets.RadioSelect(), label='What do you normally earn on Amazon MTurk per week?')
-    coplayerA = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type A choose?')
-    coplayerB = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type B choose?')
-
-
-    take = models.IntegerField(label="How many points do you want to take ?")
 
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
-
-    def take_choices(self):
-        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     completion_code = models.IntegerField() # Do not worry about this. it does not effect the functionality
 

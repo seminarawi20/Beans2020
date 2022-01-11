@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p>
+
+      <br>
+
+
+           <! This is the Welcome page for the all players >
+        Please read this carefully before clicking <b>Next</b>. <br><br>
+        This is an academic research study on decision making under uncertainty of a tipping point. You will be matched with
+        co-players and you will be asked to make a decision after answering two questions that test your general understanding of the topic. <br><br>
+
+        <u>Duration and reward:</u> <br>
+        The task will take around 5 minutes. Your payment consists of a fixed reward of <b>$0.50 for completion of the task </b> and a bonus of <b>$0.05</b> for every point
+        you earn during the task. The points you earn depend on your decision, the decision of your co-players as well as on chance. <br>
+        The maximum amount you can earn is $2.00. <br><br>
+
+        <u>Confidentiality:</u> <br>
+        All data we collect is treated confidentially and will only be used for our research purpose. Your name will not be linked to the results in any way. <br><br>
+
+        <u>Requirements:</u> <br>
+        To participate, you need to be located in the United States of America. You may not have participated in this study before. There are no other formal requirements for participation.<br><br>
+
+        <u>Voluntary participation:</u> <br>
+        Participation in this study is voluntary. If you do not want to take part in the study, please do not click <b>Next</b>. If you discontinue participation during the game, you will not receive any
+        payment. <br><br>
+
+        <u>Contact:</u> <br>
+        If you have any questions regarding this study please contact <br>
+        <b>tillmann.eymess@awi.uni-heidelberg.de</b> <br><br>
+
+
+    </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

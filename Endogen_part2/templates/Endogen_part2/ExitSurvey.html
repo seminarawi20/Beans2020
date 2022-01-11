@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+Exit Survey
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p><! This is the statement for both types >
+      <br><br>
+
+            Thank you, you nearly made it! <br>
+            This is the last survey where you have to answer 7 short questions before you find out your result and how much money you earned. <br>
+
+    {% formfield player.age %}
+    {% formfield player.gender %}
+    {% formfield player.education %}
+    {% formfield player.mothertongue %}
+    {% formfield player.mturkmoney %}
+    {% formfield player.coplayerA %}
+    {% formfield player.coplayerB %}
+
+</div>
+    {% next_button %}
+
+{% endblock %}

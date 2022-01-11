@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p>
+
+      <br>
+
+            <! This is the statement for the treatment group >
+            The instructions are as follows: <br><br>
+                There are {{ players }} players. <br>
+        Two of them are of <b>type A</b> and the other one is of <b>type B</b>. <br>
+                There is a pool of {{pool}} points. Each player can take between 0 and  {{ max }} points from the pool. Every player will get the points he or she took. <br>
+        After all players made a decision, the remaining points in the pool will be doubled and shared equally between the two players of <b>type A</b>. The player of type B cannot get any extra points.<br><br>
+        Unfortunately, the pool has a {{base}}% chance to break down which increases by {{addition_per_take}}% for every point that is taken from the pool <b>by any of the players</b>. <br>
+                If the pool breaks down, every player will only get the points they originally took. <br>
+        Each point is worth <b>$0.05.</b> <br><br>
+        In this game you are player <b>type B</b>. <br>
+
+
+    </p>
+</div>
+    {% next_button %}
+
+{% endblock %}

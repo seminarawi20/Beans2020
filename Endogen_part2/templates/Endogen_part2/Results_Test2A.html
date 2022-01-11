@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Results Task 2
+{% endblock %}
+
+
+{% block content %}
+<div id="main">
+    <p><! This is the statement for Type A >
+        {% if test2 == 10 %}
+            Your answer is <b>correct</b>. <br><br>
+            Since the pool breaks down you will only get the points you originally took out.  <br>
+
+        {%else%}
+            Your answer is <b>false</b>. <br><br>
+            Remember that you are player <b>type A</b> and you only earn bonus points if the pool does not break down. <br>
+            Since the pool breaks down every player will only get the points they took out. <br>
+            Therefore you would get 10 points. <br>
+
+        {%endif%}
+    </p>
+
+
+
+</div>
+    {% next_button %}
+
+{% endblock %}
