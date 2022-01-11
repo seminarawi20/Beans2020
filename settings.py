@@ -66,7 +66,7 @@ SESSION_CONFIGS = [
         display_name="Endogen",
         num_demo_participants=3,
         app_sequence=['Endogen', 'Endogen_part2'],
-        treatment = True
+        treatment = False
     ),
 
 ]
