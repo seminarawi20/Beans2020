@@ -56,9 +56,9 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
             player.completion_code = Constants.completion_code
             self.session.vars['code'] = Constants.completion_code
             if player.id_in_group % 3 == 0:
-                player.participant.vars['category'] = 'A'
-            else:
                 player.participant.vars['category'] = 'B'
+            else:
+                player.participant.vars['category'] = 'A'
             player.category = player.participant.vars['category']
 
 
