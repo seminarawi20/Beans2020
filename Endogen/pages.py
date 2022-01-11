@@ -19,7 +19,7 @@ class Preview(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_welcome = True
+            self.player.timeout_preview = True
 
 class Introduction(Page):
 
@@ -33,7 +33,7 @@ class Introduction(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_intro = True
 
 class Welcome(Page):
 
@@ -45,14 +45,15 @@ class Welcome(Page):
                 'treatment': self.subsession.treatment,
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100,
-                'id_in_group': self.player.id_in_group
+                'id_in_group': self.player.id_in_group,
+                'category': self.participant.category
                 }
 
     timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_welcome = True
 
 # I split the Pages for the comprehension tests since the structure looks nicer. Does not have a practical meaning.
 # For each Question and Answer pair i created a new page. You can decide if you want to show the page by the
@@ -72,7 +73,7 @@ class Test_Control(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_ctest1 = True
 
 class Results_Control(Page):
 
@@ -86,7 +87,7 @@ class Results_Control(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_ctest_result1 = True
 
     ## DIESE SEITE IST NEU: FRAGT DIEJEINIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN NOCHEINMAL MIT NEUEM BSP:##
 class Test_Control2(Page):
@@ -100,7 +101,7 @@ class Test_Control2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_ctest2 = True
 
     ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: ##
 class Results_Control2(Page):
@@ -115,7 +116,7 @@ class Results_Control2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_ctest_result2 = True
 
 class Test1(Page):
     form_model = 'player'
@@ -128,7 +129,7 @@ class Test1(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test1 = True
 
 
 class Test2(Page):
@@ -142,7 +143,7 @@ class Test2(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test2 = True
 
 class Results_Test1(Page):
     def vars_for_template(self):
@@ -157,7 +158,7 @@ class Results_Test1(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_test_result1 = True
 
 class Results_Test2(Page):
     def vars_for_template(self):
@@ -171,7 +172,7 @@ class Results_Test2(Page):
     def before_next_page(self):
         self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_results_test2 = True
+            self.player.timeout_test_result2 = True
 
 
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.

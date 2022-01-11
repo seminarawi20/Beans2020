@@ -60,13 +60,16 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
             player.completion_code = Constants.completion_code
             self.session.vars['code'] = Constants.completion_code
 
-            if self.subsession.treatment == 1:
+            if self.session.vars['treatment'] == 1:
                 if player.id_in_group % 3 == 0:
                     player.participant.vars['category'] = 'B'
                 else:
                     player.participant.vars['category'] = 'A'
-                player.category = player.participant.vars['category']
 
+            else:
+                player.participant.vars['category'] = 'A'
+
+            player.category = player.participant.vars['category']
 
 
 class Group(BaseGroup):
@@ -105,3 +108,14 @@ class Player(BasePlayer):
     test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the <b>pool breaks down</b>?")
     test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the <b>pool does not break down</b>?")
 
+    timeout_preview = models.BooleanField(initial=False)
+    timeout_intro = models.BooleanField(initial=False)
+    timeout_welcome = models.BooleanField(initial=False)
+    timeout_ctest1 = models.BooleanField(initial=False)
+    timeout_ctest_result1 = models.BooleanField(initial=False)
+    timeout_ctest2 = models.BooleanField(initial=False)
+    timeout_ctest_result2 = models.BooleanField(initial=False)
+    timeout_test1 = models.BooleanField(initial=False)
+    timeout_test2 = models.BooleanField(initial=False)
+    timeout_test_result1 = models.BooleanField(initial=False)
+    timeout_test_result2 = models.BooleanField(initial=False)

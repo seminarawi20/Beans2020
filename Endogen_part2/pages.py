@@ -14,7 +14,7 @@ import time
 class Grouping(WaitPage):
     group_by_arrival_time = True
 
-    body_text = "Waiting for two other participants to begin the real task.\
+    body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
 # Now we create a page for the player to decide what to take.
@@ -77,7 +77,7 @@ class Results(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_endresults = True
 
 class Survey(Page):
     form_model = 'player'
@@ -92,7 +92,7 @@ class Survey(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.timeout_take = True
+            self.player.timeout_survey = True
 
 
 class End(Page):

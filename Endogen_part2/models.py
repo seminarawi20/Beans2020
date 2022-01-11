@@ -46,16 +46,35 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
-
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
+        def group_by_arrival_time_method(subsession, waiting_players):
+            if subsession.session.treatment == 1:
+                print('in group_by_arrival_time_method')
+                a_players = [p for p in waiting_players if p.participant.category == 'A']
+                b_players = [p for p in waiting_players if p.participant.category == 'B']
 
-    def group_by_arrival_time_method(self, waiting_players):
-        if len(waiting_players) >= 3:
-            return waiting_players[:3]
-        for p in waiting_players:
-            if p.waiting_too_long():
-                p.alone = 1
-                return [p]
+                if len(a_players) >= 2 and len(b_players) >= 1:
+                    print('about to create a group')
+                    return [a_players[0], a_players[1], b_players[0]]
+                    print('not enough players yet to create a group')
+
+                for p in waiting_players:
+                    if p.waiting_too_long():
+                        p.alone = 1
+                        return [p]
+            else:
+                print('in group_by_arrival_time_method')
+                a_players = [p for p in waiting_players if p.participant.category == 'A']
+
+                if len(a_players) >= 2:
+                    print('about to create a group')
+                    return [a_players[0], a_players[1], a_players[2]]
+                    print('not enough players yet to create a group')
+
+                for p in waiting_players:
+                    if p.waiting_too_long():
+                        p.alone = 1
+                        return [p]
 
 class Group(BaseGroup):
 
@@ -106,10 +125,6 @@ class Group(BaseGroup):
     #Now we need to set the payoff.
     # If we want the player we need to use player. or for p in self get._players()
     def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p3 = self.get_player_by_id(3)
-
         if sum([p.alone for p in self.get_players()]) > 0:
             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
             self.resource_share = np.round(self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
@@ -122,29 +137,50 @@ class Group(BaseGroup):
 
         if self.subsession.treatment == 1:
             if self.breakdown == True:
-                p1.payoff = 0
-                p2.payoff = 0
-                p3.payoff = p3.take
+                if sum([p.alone for p in self.get_players()]) > 0:
+                    for p in self.get_players():
+                        if p.participant.category == 'A':
+                            p.payoff = 0
+                        else:
+                            p.payoff = p.take
 
+                else:
+                    for p in self.get_players():
+                        if p.participant.category == 'A':
+                            p.payoff = 0
+                        else:
+                            p.payoff = p.take
             else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-            # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-                for p in self.get_players():
-                    p.payoff = sum([+ p.take,
-                                    + self.resource_share,
-                                    ])
+                if sum([p.alone for p in self.get_players()]) > 0:
+                    for p in self.get_players():
+                        p.payoff = sum([+ p.take,
+                                        + self.resource_share,
+                                        ])
+                else:
+                    for p in self.get_players():
+                        p.payoff = sum([+ p.take,
+                                        + self.resource_share,
+                                        ])
 
         else:
-            if self.breakdown == True:
-                for p in self.get_players():
-                    p.payoff = 0
+            if sum([p.alone for p in self.get_players()]) > 0:
+                if self.breakdown == True:
+                    for p in self.get_players():
+                        p.payoff = 0
+                else:
+                    for p in self.get_players():
+                        p.payoff = sum([+ p.take,
+                                        + self.resource_share,
+                                        ])
             else:
-            # The payoff for each player is determined by the the amount he took and what his share of the common resource is.
-             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
-                for p in self.get_players():
-                    p.payoff = sum([+ p.take,
-                                    + self.resource_share,
-                                    ])
+                if self.breakdown == True:
+                    for p in self.get_players():
+                        p.payoff = 0
+                else:
+                    for p in self.get_players():
+                        p.payoff = sum([+ p.take,
+                                        + self.resource_share,
+                                        ])
 
 class Player(BasePlayer):
 
@@ -164,6 +200,12 @@ class Player(BasePlayer):
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
     #This will yield a dropdown the player can choose from. We use the function range. The issue here is that it excludes the max value.
     #This is we add +1 to the range
+
+    timeout_take = models.BooleanField(initial=False)
+    timeout_endresults = models.BooleanField(initial=False)
+    timeout_survey = models.BooleanField(initial=False)
+
+
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
         choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
