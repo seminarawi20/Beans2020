@@ -5,12 +5,12 @@ from os import environ
 #############################################
 
 mturk_hit_settings = {
-        'keywords': ['academic','study','common pool','exeriment'],
-        'title': "common ressource experiment (few minutes to complete, earn real money",
-        'description': 'Academic decision making experiment',
+        'keywords': ['study','common pool','exeriment'],
+        'title': "Study on decision making (5 minutes)",
+        'description': 'Decision making experiment',
         'frame_height':500,
         'template': 'global/mturk_template.html',
-        'minutes_allotted_per_assignment':40,
+        'minutes_allotted_per_assignment':100,
         'expiration_hours':2*24,
         'qualification_requirements':[
             # Only US
