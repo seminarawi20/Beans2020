@@ -173,7 +173,7 @@ class Group(BaseGroup):
                 for p in self.get_players():
                     if p.participant.category == 'A':
                         p.payoff = sum ([+p.take,
-                                    + p.resource_share,
+                                    + self.resource_share,
                                     ])
                 else:
                     for p in self.get_players():
@@ -183,7 +183,7 @@ class Group(BaseGroup):
                 for p in self.get_players():
                     if p.participant.category == 'A':
                         p.payoff = sum([+p.take,
-                                       + p.resource_share,
+                                       + self.resource_share,
                                        ])
 
                 else:

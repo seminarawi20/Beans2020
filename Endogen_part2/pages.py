@@ -54,20 +54,6 @@ class TakeB(Page):
         if self.timeout_happened:
             self.player.timeout_take_b = True
 
-class ExitSurvey(Page):
-
-    form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'education', 'mothertongue', 'mturkmoney', 'coplayerA', 'coplayerB']
-
-    def is_displayed(self):
-        return self.player.id_in_group <= 3
-
-    timeout_seconds = 120
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_survey = True
-
 class ResultsWaitPage(WaitPage):
 
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
@@ -82,6 +68,19 @@ class ResultsWaitPage(WaitPage):
         self.group.set_payoffs()
 
 
+class ExitSurvey(Page):
+
+    form_model = 'player'
+    form_fields = ['age', 'gender', 'education', 'education', 'mothertongue', 'mturkmoney', 'coplayerA', 'coplayerB']
+
+    def is_displayed(self):
+        return self.player.id_in_group <= 3
+
+    timeout_seconds = 120
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_survey = True
 
 class ResultsA(Page):
     def vars_for_template(self):
@@ -127,7 +126,7 @@ class ResultsB(Page):
 page_sequence = [Grouping,
                  TakeA,
                  TakeB,
-                 ExitSurvey,
                  ResultsWaitPage,
+                 ExitSurvey,
                  ResultsA,
                  ResultsB]
