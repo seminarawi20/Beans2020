@@ -51,7 +51,7 @@ SESSION_FIELDS = {'treatment'}
 
 SESSION_CONFIG_DEFAULTS= {
     "real_world_currency_per_point": 0.05,
-    'participation_fee': 0.60,
+    'participation_fee': 0.70,
     'doc': "",
     "mturk_hit_settings": mturk_hit_settings
 }
