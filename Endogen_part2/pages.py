@@ -83,17 +83,18 @@ class ExitSurvey(Page):
             self.player.timeout_survey = True
 
 class ResultsA(Page):
+
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
 
         return dict(
             payoff = self.player.payoff,
             take = self.player.take,
-            total_points_left = self.player.total_points_left,
-            points_taken = Constants.pool - self.player.total_points_left,
-            pool_mult = self.player.total_points_left * Constants.efficiency_factor,
+            total_points_left = self.group.total_points_left,
+            points_taken = Constants.pool - self.group.total_points_left,
+            pool_mult = self.group.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
-            share = self.player.resource_share,
+            share = self.group.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code = self.session.vars['code']
         )
