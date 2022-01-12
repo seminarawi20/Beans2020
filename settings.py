@@ -6,11 +6,11 @@ from os import environ
 
 mturk_hit_settings = {
         'keywords': ['academic','study','exeriment'],
-        'title': "Study on decision making (5 minutes, earn real money)",
-        'description': 'Academic decision making experiment',
+        'title': "Study on decision making (5 minutes)",
+        'description': 'Decision making experiment',
         'frame_height':500,
         'template': 'global/mturk_template.html',
-        'minutes_allotted_per_assignment':40,
+        'minutes_allotted_per_assignment':100,
         'expiration_hours':2*24,
         'qualification_requirements':[
             # Only US
@@ -56,7 +56,7 @@ SESSION_CONFIG_DEFAULTS= {
     "mturk_hit_settings": mturk_hit_settings
 }
 
-#PARTICIPANT_FIELDS = ["wait_page_arrival"]
+
 
 ##################################################
 ####### ENTER THE SESSIONS YOU WANT TO PLAY ######
