@@ -110,8 +110,7 @@ class Group(BaseGroup):
 
     # total_points_left is the number of points that do not get taken.
     # resource share is the share each player receives from the resource.
-    total_points_left = models.IntegerField()
-    resource_share = models.IntegerField()
+
     # We could define functions here to fill the fields, but we will do it in the payoff function, since it speeds up the programm and
     # keeps the code a little "cleaner"
 
@@ -181,7 +180,7 @@ class Group(BaseGroup):
                     p.category = p.participant.vars['category']
                     if p.category == 'A':
                         p.payoff = sum ([+p.take,
-                                    + self.resource_share,
+                                    + p.resource_share,
                                     ])
                 else:
                     for p in self.get_players():
@@ -192,7 +191,7 @@ class Group(BaseGroup):
                     p.category = p.participant.vars['category']
                     if p.category == 'A':
                         p.payoff = sum([+p.take,
-                                       + self.resource_share,
+                                       + p.resource_share,
                                        ])
 
                 else:
@@ -203,6 +202,8 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     category = models.StringField()
+    total_points_left = models.IntegerField()
+    resource_share = models.IntegerField()
 
     def waiting_too_long(self):
 
