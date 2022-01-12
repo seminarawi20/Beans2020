@@ -102,6 +102,8 @@ class Group(BaseGroup):
     # Since we only evaluate it if we are playing the treatment, we condition it by an if statement.
 
     breakdown = models.BooleanField(initial=False)
+    total_points_left = models.IntegerField()
+    resource_share = models.IntegerField()
 
     def set_breakdown(self):
         self.chance = round(np.random.rand(), 2)
@@ -121,15 +123,13 @@ class Group(BaseGroup):
 
 
         if sum([p.alone for p in self.get_players()]) > 0:
-            for p in self.get_players():
-                p.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
-                p.resource_share = np.round(p.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
+            self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
+            self.resource_share = np.round(self.total_points_left * Constants.efficiency_factor / Constants.efficiency_factor, 0)
 
         else:
-            for p in self.get_players():
-                p.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
-                p.resource_share = np.round(
-                    p.total_points_left * Constants.efficiency_factor / Constants.efficiency_factor, 0)
+             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()])
+             self.resource_share = np.round(
+                    self.total_points_left * Constants.efficiency_factor / Constants.efficiency_factor, 0)
 
         # to calculate the points left we need the sum of all points the players took.
         # This is done with sum([p.take for p in self.get_players()]). Take is defined in the player class.
@@ -180,7 +180,7 @@ class Group(BaseGroup):
                     p.category = p.participant.vars['category']
                     if p.category == 'A':
                         p.payoff = sum([+p.take,
-                                    + p.resource_share,
+                                    + self.resource_share,
                                     ])
                 else:
                     for p in self.get_players():
@@ -191,7 +191,7 @@ class Group(BaseGroup):
                     p.category = p.participant.vars['category']
                     if p.category == 'A':
                         p.payoff = sum([+p.take,
-                                       + p.resource_share,
+                                       +self.resource_share,
                                        ])
 
                 else:
@@ -202,8 +202,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     category = models.StringField()
-    total_points_left = models.IntegerField()
-    resource_share = models.IntegerField()
+
 
     def waiting_too_long(self):
 
