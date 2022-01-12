@@ -127,6 +127,6 @@ page_sequence = [Grouping,
                  TakeA,
                  TakeB,
                  ResultsWaitPage,
-                 ExitSurvey,
+                 #ExitSurvey,
                  ResultsA,
                  ResultsB]
