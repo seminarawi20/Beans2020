@@ -39,8 +39,8 @@ class Constants(BaseConstants):
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
     completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
-    base_payment = 0.5  # The amount of money (in $) the player gets just for participating
-    money_per_point = 0.1
+    base_payment = 0.6  # The amount of money (in $) the player gets just for participating
+    money_per_point = 0.05
     maxmoney = int(np.floor(money_per_point*23.33+base_payment))
 
 
