@@ -123,7 +123,7 @@ class Group(BaseGroup):
 
         if sum([p.alone for p in self.get_players()]) > 0:
             for p in self.get_players():
-                p.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - p.otherplayer1_take - p.otherplayer2_take
+                p.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
                 p.resource_share = np.round(p.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
         else:
