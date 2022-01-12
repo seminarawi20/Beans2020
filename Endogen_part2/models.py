@@ -213,7 +213,7 @@ class Player(BasePlayer):
     gender = models.StringField(choices=('female', 'male', 'other'), widget=widgets.RadioSelect(), label= 'What is your gender?')
     education = models.StringField(choices=('High School', 'University', 'other'), widget=widgets.RadioSelect(), label='What is your educational degree?')
     mothertongue = models.StringField(label='What is your mothertongue?')
-    mturkmoney = models.StringField(choices= ('0-5 Dollar', '5-10 Dollar', '10-20 Dollar', '>20 Dollar'), wisget=widgets.RadioSelect(), label='What do you normally earn on Amazon MTurk per week?')
+    mturkmoney = models.StringField(choices= ('0-5 Dollar', '5-10 Dollar', '10-20 Dollar', '>20 Dollar'), widget=widgets.RadioSelect(), label='What do you normally earn on Amazon MTurk per week?')
     coplayerA = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type A choose?')
     coplayerB = models.IntegerField(choices= (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), widget=widgets.RadioSelect(), label= 'What do you think did your coplayer of type B choose?')
 
