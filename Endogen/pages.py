@@ -117,7 +117,7 @@ class Results_Control2(Page):
     def before_next_page(self):
         self.participant.vars['wait_page_arrival'] = time.time()
         if self.timeout_happened:
-            self.player.timeout_test_result2 = True
+            self.player.timeout_ctest_result2 = True
 
 class Test1(Page):
     form_model = 'player'
