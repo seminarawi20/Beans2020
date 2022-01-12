@@ -168,7 +168,7 @@ class Results_Test2B(Page):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
     timeout_seconds = 120
 
