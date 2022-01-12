@@ -176,7 +176,8 @@ class Group(BaseGroup):
             # We do not need to check for the treatment or anything else, since we added the if statement. in case it breaks down.
             if sum([p.alone for p in self.get_players()]) > 0:
                 for p in self.get_players():
-                    if p.participant.category == 'A':
+                    p.category = p.participant.vars['category']
+                    if p.category == 'A':
                         p.payoff = sum ([+p.take,
                                     + self.resource_share,
                                     ])
@@ -186,7 +187,8 @@ class Group(BaseGroup):
 
             else:
                 for p in self.get_players():
-                    if p.participant.category == 'A':
+                    p.category = p.participant.vars['category']
+                    if p.category == 'A':
                         p.payoff = sum([+p.take,
                                        + self.resource_share,
                                        ])
