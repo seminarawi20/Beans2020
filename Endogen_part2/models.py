@@ -47,34 +47,27 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-        def group_by_arrival_time_method(subsession, waiting_players):
-            if subsession.session.treatment == 1:
-                print('in group_by_arrival_time_method')
-                a_players = [p for p in waiting_players if p.participant.category == 'A']
-                b_players = [p for p in waiting_players if p.participant.category == 'B']
 
-                if len(a_players) >= 2 and len(b_players) >= 1:
-                    print('about to create a group')
-                    return [a_players[0], a_players[1], b_players[0]]
-                    print('not enough players yet to create a group')
-
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
-            else:
-                print('in group_by_arrival_time_method')
-                a_players = [p for p in waiting_players if p.participant.category == 'A']
-
-                if len(a_players) >= 2:
-                    print('about to create a group')
-                    return [a_players[0], a_players[1], a_players[2]]
-                    print('not enough players yet to create a group')
-
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
+    def group_by_arrival_time_method(subsession, waiting_players):
+        if subsession.session.treatment == 1:
+            print('in group_by_arrival_time_method')
+            a_players = [p for p in waiting_players if p.participant.category == 'A']
+            b_players = [p for p in waiting_players if p.participant.category == 'B']
+            if len(a_players) >= 2 and len(b_players) >= 1:
+                print('about to create a group')
+                return [a_players[0], a_players[1], b_players[0]]
+            print('not enough players yet to create a group')
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
+        else:
+            if len(waiting_players) >= 3:
+                return waiting_players[:3]
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
 
 class Group(BaseGroup):
 
