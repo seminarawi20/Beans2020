@@ -35,7 +35,7 @@ class InstructionsA(Page):
                 }
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
     timeout_seconds = 120
 
@@ -55,7 +55,7 @@ class InstructionsB(Page):
                 'addition_per_take': Constants.addition_per_take*100}
 
     def is_displayed(p):
-        return p.participant.category == 'B'
+        return p.player.category == 'B'
 
     timeout_seconds = 120
 
