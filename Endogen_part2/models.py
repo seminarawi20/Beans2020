@@ -52,10 +52,12 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     #            p.alone = 1
     #            return [p]
     def group_by_arrival_time_method(subsession, waiting_players):
+        for p in waiting_players:
+            p.category = p.participant.vars['category']
 
         print('in group_by_arrival_time_method')
-        a_players = [p for p in waiting_players if p.participant.category == 'A']
-        b_players = [p for p in waiting_players if p.participant.category == 'B']
+        a_players = [p for p in waiting_players if p.category == 'A']
+        b_players = [p for p in waiting_players if p.category == 'B']
 
         if len(a_players) >= 2 and len(b_players) >= 1:
             print('about to create a group')
