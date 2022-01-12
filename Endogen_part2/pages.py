@@ -89,11 +89,11 @@ class ResultsA(Page):
         return dict(
             payoff = self.player.payoff,
             take = self.player.take,
-            total_points_left = self.group.total_points_left,
-            points_taken = Constants.pool - self.group.total_points_left,
-            pool_mult = self.group.total_points_left * Constants.efficiency_factor,
+            total_points_left = self.player.total_points_left,
+            points_taken = Constants.pool - self.player.total_points_left,
+            pool_mult = self.player.total_points_left * Constants.efficiency_factor,
             breakdown = self.group.breakdown,
-            share = self.group.resource_share,
+            share = self.player.resource_share,
             tipping_point = round(self.group.tipping_point*100,1),
             completion_code = self.session.vars['code']
         )
