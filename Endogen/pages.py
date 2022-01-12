@@ -110,7 +110,7 @@ class Results_Control2(Page):
         return {'test_control2': self.player.test_control2}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0 and self.player.test_control != 15
+        return self.subsession.treatment == 0 #and self.player.test_control != 15
 
     timeout_seconds = 120
 
