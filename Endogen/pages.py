@@ -75,7 +75,7 @@ class Test_A(Page):
     form_fields = ['test_control']
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
     timeout_seconds = 120
 
@@ -88,7 +88,7 @@ class Test_B(Page):
     form_fields = ['test_control']
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
     timeout_seconds = 120
 
@@ -101,7 +101,7 @@ class Results_Test_A(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
     timeout_seconds = 120
 
@@ -114,7 +114,7 @@ class Results_Test_B(Page):
         return {'test_control': self.player.test_control}
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
     timeout_seconds = 120
 
@@ -128,7 +128,7 @@ class Test2A(Page):
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
     timeout_seconds = 120
 
@@ -141,7 +141,7 @@ class Test2B(Page):
     form_fields = ['test2']
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
     timeout_seconds = 120
 
@@ -154,7 +154,7 @@ class Results_Test2A(Page):
         return {'test2': self.player.test2}
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
     timeout_seconds = 120
 

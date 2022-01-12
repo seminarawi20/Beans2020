@@ -28,7 +28,7 @@ class TakeA(Page):
                     alone = self.player.alone)
 
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
 
     timeout_seconds = 120
@@ -46,7 +46,7 @@ class TakeB(Page):
                     alone=self.player.alone)
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
     timeout_seconds = 120
 
@@ -98,7 +98,7 @@ class ResultsA(Page):
             completion_code = self.session.vars['code']
         )
     def is_displayed(self):
-        return self.participant.category == 'A'
+        return self.player.category == 'A'
 
 
 class ResultsB(Page):
@@ -118,7 +118,7 @@ class ResultsB(Page):
         )
 
     def is_displayed(self):
-        return self.participant.category == 'B'
+        return self.player.category == 'B'
 
 
 
