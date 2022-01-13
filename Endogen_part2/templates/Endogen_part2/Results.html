@@ -15,32 +15,32 @@
     <p>
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
-            You took {{take}} points. {{total_points_left}} points remained in the pool.<br>
-            Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+            You took {{ take }} points. {{ total_points_left }} points remained in the pool.<br>
+            Since {{ points_taken }} points were taken, the chance that the pool broke down was at {{ tipping_point }}%.<br>
             {% if breakdown == 1 %}
         <b>Unfortunately, the pool broke down</b>. <br><br>
                 This means you earned a total of {{payoff}}. <br>
-                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
-            {%else%}
+                Reminder: Each point ist worth ${{ rate }} and you receive ${{ base }} for participating.
+            {% else %}
                 <b>Fortunately, the pool did not break down</b>. <br><br>
-                This means your share is {{share}} points and you earned a total of {{payoff}}.
+                This means your share is {{ share }} points and you earned a total of {{ payoff }}.
                 <br>
-                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
+                Reminder: Each point ist worth ${{ rate }} and you receive ${{ base }} for participating.
             {% endif %} <br><br>
 
-        {%else%}
+        {% else %}
         <! This is the statement for the control group >
-        You took {{take}} points. {{total_points_left}} points remained in the pool.<br><br>
-        Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
+        You took {{ take }} points. {{ total_points_left }} points remained in the pool.<br><br>
+        Since {{points_taken}} points were taken, the chance that the pool broke down was at {{ tipping_point }}%.<br>
             {% if breakdown == 1 %}
                 <b>Unfortunately, the pool broke down</b>. <br><br>
-                This means you earned a total of {{payoff}} points. <br>
-                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
-            {%else%}
+                This means you earned a total of {{ payoff }} points. <br>
+                Reminder: Each point ist worth ${{ rate }} and you receive ${{base}} for participating.
+            {% else %}
                 <b>Fortunately, the pool did not break down</b>. <br><br>
-                This means your share is {{share}} points and you earned a total of {{payoff}}.
+                This means your share is {{ share }} points and you earned a total of {{payoff}}.
                 <br>
-                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
+                Reminder: Each point ist worth ${{ rate }} and you receive ${{ base }} for participating.
             {% endif %} <br><br>
         {% endif %}
         <br><br>
