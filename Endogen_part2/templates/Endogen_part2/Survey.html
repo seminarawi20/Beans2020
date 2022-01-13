@@ -7,7 +7,13 @@
 <div id="likert">
     <p>Now we would like to ask you a few questions about yourself.</p>
     <p>Everything will be kept completely anonymous. <br>
-        <p>{{ formfields }}</p>
+
+        {% formfield player.age %}
+        {% formfield player.gender %}
+        {% formfield player.education %}
+        {% formfield player.employment %}
+        {% formfield player.environment %}
+        {% formfield player.answer_same %}
 </div>
 <p>{% next_button %}<br>
     {% endblock %}
