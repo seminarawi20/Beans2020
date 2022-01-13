@@ -49,11 +49,11 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
 
-    def group_by_arrival_time_method(subsession, waiting_players):
+    def group_by_arrival_time_method(self, waiting_players):
         for p in waiting_players:
             p.category = p.participant.vars['category']
 
-        if subsession.session.treatment == 1:
+        if self.session.treatment == 1:
             print('in group_by_arrival_time_method')
             a_players = [p for p in waiting_players if p.category == 'A']
             b_players = [p for p in waiting_players if p.category == 'B']
