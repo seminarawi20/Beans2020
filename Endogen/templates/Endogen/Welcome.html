@@ -14,11 +14,11 @@
             {% if id_in_group == 3 %}
             The instructions are as follows: <br><br>
             You are a group of {{ players }} players. <br>
-            There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
+            There is a pool of {{ pool }} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
             After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
             Your payoff will then be the amount you took plus your share from the pool.<br>
 
-            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to break down increases by {{addition_per_take}}%</b>. <br>
+            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to break down increases by {{ addition_per_take }}%</b>. <br>
 
             <b>In case of a breakdown</b>, players have either role A or role B.<br>
             - <u>Role A:</u> If the pool breaks down, your payoff will be 0 (2 players have this role)<br>
@@ -32,11 +32,11 @@
 
             The instructions are as follows: <br><br>
             You are a group of {{ players }} players. <br>
-            There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
+            There is a pool of {{ pool }} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
             After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
             Your payoff will then be the amount you took plus your share from the pool.<br>
 
-            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to collapse increases by {{addition_per_take}}%</b>. <br>
+            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to collapse increases by {{ addition_per_take }}%</b>. <br>
 
             <b>In case of a breakdown</b>, players are either assigned role A or role B.<br>
             - <u>Role A:</u> If the pool breaks down, you will earn 0 points (2 players have this role)<br>
@@ -51,11 +51,11 @@
            <! This is the statement for the control group >
             The instructions are as follows: <br><br>
             You are {{ players }} players. <br>
-            There is a pool of {{pool}} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
+            There is a pool of {{ pool }} points. Every player can take between 0 and  {{ max }} points from the pool. <br>
             After all players make a decision, the remaining points in the pool get multiplied by {{ factor }} and every player receives an equal share. <br><br>
             Your payoff will then be the amount you took plus your share from the pool.<br>
 
-            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to collapse increases by {{addition_per_take}}%</b>. <br>
+            Unfortunately, for every point that is taken from the pool, the pool's <b>probability to collapse increases by {{ addition_per_take }}%</b>. <br>
 
             If the pool collapses, you will earn 0 points.
 
