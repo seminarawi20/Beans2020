@@ -47,6 +47,7 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
+    treatment = models.BooleanField()
 
     def group_by_arrival_time_method(subsession, waiting_players):
         for p in waiting_players:
