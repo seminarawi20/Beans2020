@@ -57,21 +57,22 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
     def vars_for_template(self):
         # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
-
-        return dict(
-            money = (Constants.money_per_point * self.player.payoff + Constants.base_payment),
-            payoff = self.player.payoff,
-            rate = Constants.money_per_point,
-            base = Constants.base_payment,
-            take = self.player.take,
-            total_points_left = self.group.total_points_left,
-            points_taken = Constants.pool - self.group.total_points_left,
-            pool_mult = self.group.total_points_left * Constants.efficiency_factor,
-            breakdown = self.group.breakdown,
-            treatment = self.session.treatment,
-            share = self.group.resource_share,
-            tipping_point = round(self.group.tipping_point*100,1)
-        )
+        for p in self.get_players():
+            p.treatment = p.session.vars['treatment']
+            return dict(
+                money = (Constants.money_per_point * self.player.payoff + Constants.base_payment),
+                payoff = self.player.payoff,
+                rate = Constants.money_per_point,
+                base = Constants.base_payment,
+                take = self.player.take,
+                total_points_left = self.group.total_points_left,
+                points_taken = Constants.pool - self.group.total_points_left,
+                pool_mult = self.group.total_points_left * Constants.efficiency_factor,
+                breakdown = self.group.breakdown,
+                treatment = p.treatment,
+                share = self.group.resource_share,
+                tipping_point = round(self.group.tipping_point*100,1)
+            )
 
     timeout_seconds = 120
 
