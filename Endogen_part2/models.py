@@ -81,7 +81,7 @@ class Group(BaseGroup):
     tipping_point = models.FloatField()
     otherplayer1_take = models.IntegerField()
     otherplayer2_take = models.IntegerField()
-    chance = models.FloatField()
+    #chance = models.FloatField()
 
     def set_up_otherplayer(self):
         self.otherplayer1_take = np.random.randint(0, 6)
@@ -106,8 +106,8 @@ class Group(BaseGroup):
     resource_share = models.IntegerField()
 
     def set_breakdown(self):
-        self.chance = round(np.random.rand(), 2)
-        self.breakdown = self.tipping_point > self.chance
+        #self.chance = round(np.random.rand(), 2)
+        self.breakdown = self.tipping_point > np.random.rand()
 
 
     # total_points_left is the number of points that do not get taken.
