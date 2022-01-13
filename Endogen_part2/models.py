@@ -47,13 +47,14 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
+    # treatment = models.BooleanField()
 
     def group_by_arrival_time_method(subsession, waiting_players):
         for p in waiting_players:
             p.category = p.participant.vars['category']
+            p.treatment = p.session.vars['treatment']
 
-        if subsession.session.treatment == 1:
+        if p.treatment == 1:
             print('in group_by_arrival_time_method')
             a_players = [p for p in waiting_players if p.category == 'A']
             b_players = [p for p in waiting_players if p.category == 'B']
@@ -69,7 +70,6 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
             if len(waiting_players) >= 3:
                 return waiting_players[:3]
             for p in waiting_players:
-                p.category = p.participant.vars['category']
                 if p.waiting_too_long():
                     p.alone = 1
                     return [p]
@@ -163,7 +163,7 @@ class Player(BasePlayer):
         return time.time() - self.participant.vars['wait_page_arrival'] > 180
 
     category = models.StringField()
-    #treatment = models.BooleanField()
+    treatment = models.BooleanField()
     alone = models.BooleanField(initial=False)
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
