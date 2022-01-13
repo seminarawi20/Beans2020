@@ -19,13 +19,13 @@
             Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
         <b>Unfortunately, the pool broke down</b>. <br><br>
-                This means you earned {{payoff}}. <br>
-                Reminder: One point ist worth ${{rate}} and you receive ${{base}} for participating.
+                This means you earned a total of {{payoff}}. <br>
+                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
             {%else%}
                 <b>Fortunately, the pool did not break down</b>. <br><br>
-                This means your share is {{share}} and you earned {{payoff}} points.
+                This means your share is {{share}} points and you earned a total of {{payoff}}.
                 <br>
-                Reminder: One point ist worth ${{rate}} and you receive ${{base}} for participating.
+                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
             {% endif %} <br><br>
 
         {%else%}
@@ -34,19 +34,19 @@
         Since {{points_taken}} points were taken, the chance that the pool broke down was at {{tipping_point}}%.<br>
             {% if breakdown == 1 %}
                 <b>Unfortunately, the pool broke down</b>. <br><br>
-                This means you earned {{payoff}}. <br>
-                Reminder: One point ist worth ${{rate}} and you receive ${{base}} for participating.
+                This means you earned a total of {{payoff}} points. <br>
+                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
             {%else%}
                 <b>Fortunately, the pool did not break down</b>. <br><br>
-                This means your share is {{share}} and you earned {{payoff}}
+                This means your share is {{share}} points and you earned a total of {{payoff}}.
                 <br>
-                Reminder: One point ist worth ${{rate}} and you receive ${{base}} for participating.
+                Reminder: Each point ist worth ${{rate}} and you receive ${{base}} for participating.
             {% endif %} <br><br>
         {% endif %}
         <br><br>
 
     </p>
-</p>  {% next_button %}
+{% next_button %}
 {% endblock %}
 
 

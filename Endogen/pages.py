@@ -46,7 +46,7 @@ class Welcome(Page):
                 'base': Constants.base*100,
                 'addition_per_take': Constants.addition_per_take*100,
                 'id_in_group': self.player.id_in_group,
-                'category': self.participant.category
+                'category': self.player.category
                 }
 
     timeout_seconds = 120
