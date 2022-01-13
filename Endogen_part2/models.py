@@ -49,11 +49,11 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
 
-    def group_by_arrival_time_method(self, waiting_players):
+    def group_by_arrival_time_method(subsession, waiting_players):
         for p in waiting_players:
             p.category = p.participant.vars['category']
 
-        if self.session.treatment == 1:
+        if subsession.session.treatment == 1:
             print('in group_by_arrival_time_method')
             a_players = [p for p in waiting_players if p.category == 'A']
             b_players = [p for p in waiting_players if p.category == 'B']
@@ -132,55 +132,29 @@ class Group(BaseGroup):
             self.resource_share = np.round(
                 self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
-
         if self.session.treatment == 1:
             if self.breakdown == True:
-                if sum([p.alone for p in self.get_players()]) > 0:
-                    for p in self.get_players():
-                        p.category = p.participant.vars['category']
-                        if p.category == 'A':
-                            p.payoff = 0
-                        else:
-                            p.payoff = p.take
-
-                else:
-                    for p in self.get_players():
-                        p.category = p.participant.vars['category']
-                        if p.category == 'A':
-                            p.payoff = 0
-                        else:
-                            p.payoff = p.take
+                for p in self.get_players():
+                    p.category = p.participant.vars['category']
+                    if p.category == 'A':
+                        p.payoff = 0
+                    else:
+                        p.payoff = p.take
             else:
-                if sum([p.alone for p in self.get_players()]) > 0:
-                    for p in self.get_players():
-                        p.payoff = sum([+ p.take,
-                                        + self.resource_share,
-                                        ])
-                else:
-                    for p in self.get_players():
-                        p.payoff = sum([+ p.take,
-                                        + self.resource_share,
-                                        ])
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
 
         else:
-            if sum([p.alone for p in self.get_players()]) > 0:
-                if self.breakdown == True:
-                    for p in self.get_players():
-                        p.payoff = 0
-                else:
-                    for p in self.get_players():
-                        p.payoff = sum([+ p.take,
-                                        + self.resource_share,
-                                        ])
+            if self.breakdown == True:
+                for p in self.get_players():
+                    p.payoff = 0
             else:
-                if self.breakdown == True:
-                    for p in self.get_players():
-                        p.payoff = 0
-                else:
-                    for p in self.get_players():
-                        p.payoff = sum([+ p.take,
-                                        + self.resource_share,
-                                        ])
+                for p in self.get_players():
+                    p.payoff = sum([+ p.take,
+                                    + self.resource_share,
+                                    ])
 
 class Player(BasePlayer):
 

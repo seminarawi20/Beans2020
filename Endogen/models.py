@@ -55,6 +55,7 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     def creating_session(self):
         self.treatment = self.session.config.get('treatment')
         self.session.vars['treatment'] = self.session.config.get('treatment')
+
         # This gives the player the completion code for the payout. Do not worry about this, since it does not effect the functionality
         for player in self.get_players():
             player.completion_code = Constants.completion_code
