@@ -132,16 +132,17 @@ class Group(BaseGroup):
             self.resource_share = np.round(
                 self.total_points_left * Constants.efficiency_factor / Constants.players_per_group, 0)
 
-        if self.session.treatment == 1:
-            if self.breakdown == True:
-                for p in self.get_players():
+        for p in self.get_players():
+            p.category = p.participant.vars['category']
+            p.treatment = p.session.vars['treatment']
+            if p.treatment == 1:
+                if self.breakdown == True:
                     p.category = p.participant.vars['category']
                     if p.category == 'A':
                         p.payoff = 0
                     else:
                         p.payoff = p.take
             else:
-                for p in self.get_players():
                     p.payoff = sum([+ p.take,
                                     + self.resource_share,
                                     ])
