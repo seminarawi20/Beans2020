@@ -10,16 +10,16 @@ from otree.api import (
 )
 
 
-# Numpy is a mathematical python library which is used from more complex calculations. When we want to call it we can use np.
+
 import numpy as np
 
 
 import settings
 
-authors = '(Moritz Sommerlad), Julius Gross, Emeli Röttgers, Linda Aldehoff'
+authors = 'Linda Aldehoff based on the work of Moritz Sommerlad, Julius Gross, Emeli Röttgers'
 
 doc = """
-This is the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
+This is the bachelor thesis of Linda ALdehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
 """
 
 
@@ -44,7 +44,7 @@ class Constants(BaseConstants):
     maxmoney = int(np.floor(money_per_point*23.33+base_payment))
 
 
-class Subsession(BaseSubsession): # Ideally you do not need to change anything here.
+class Subsession(BaseSubsession):
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     # treatment = models.BooleanField()
@@ -199,24 +199,28 @@ class Player(BasePlayer):
         choices=[['Employed', 'Employed'], ['Unemployed', 'Unemployed'], ['Other', 'Other']],
         widget=widgets.RadioSelect
     )
+    children = models.StringField(
+        label='Do you have children?',
+        choices=[['yes', 'yes'], ['no', 'no']]
+    )
     answer_same= models.IntegerField(
         label='Compared to other participants who were assigned the same role, do you think your decision was socially fair?',
         choices=[
-            [1,'Very fair'],
-            [2,'Fair'],
+            [1,'Not fair at all'],
+            [2,'Not fair'],
             [3,'Average'],
-            [4,'Not fair'],
-            [5,'Not fair at all'],
+            [4,'Fair'],
+            [5,'Very fair'],
         ]
     )
     environment= models.IntegerField(
         label='How much do you agree with this sentence: "I care about the environment":',
         choices=[
-            [1,'Strongly Agree'],
-            [2,'Agree'],
+            [1,'Strongly Disagree'],
+            [2,'Disagree'],
             [3,'Neutral'],
-            [4,'Disagree'],
-            [5,'Strongly Disagree'],
+            [4,'Agree'],
+            [5,'Strongly Agree'],
         ]
     )
     def take_choices(self):

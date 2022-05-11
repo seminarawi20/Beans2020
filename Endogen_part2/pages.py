@@ -14,7 +14,8 @@ import time
 
 class Grouping(WaitPage):
     group_by_arrival_time = True
-
+    fixed_id_in_group = True
+    get_player_by_id = True
     body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
@@ -79,7 +80,7 @@ class Results(Page):
 
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'employment', 'environment', 'answer_same']
+    form_fields = ['age', 'gender', 'education', 'employment', 'children', 'environment', 'answer_same']
 
     timeout_seconds = 120
 
