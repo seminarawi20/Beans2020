@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Results Question 1
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p><! This is the statement for the treatment group >
+        {% if id_in_group == 3 %}
+            {% if test1 == 5 %}
+            Your answer is <b style="color:green;" <b>correct</b>. <br>
+            The pool breaks down, so you earn what you took.
+            Since you took 5 points, you earned 5 points. <br>
+
+            {%else%}
+            Your answer is <b style="color:red;" <b>wrong</b>. <br>
+            The pool breaks down, so you earn what you took.
+            Since you took 5 points, you would have earned 5 points.
+            {%endif%}
+        {%else%}
+            {% if test1 == 0 %}
+            Your answer is <b style="color:green;" <b>correct</b>. <br>
+            The pool breaks down, so you earn nothing.
+            {%else%}
+            Your answer is <b style="color:red;" <b>wrong</b>. <br>
+            The pool breaks down, so you earn nothing.
+            {%endif%}
+        {%endif%}
+    </p>
+
+
+
+</div>
+    {% next_button %}
+
+{% endblock %}
