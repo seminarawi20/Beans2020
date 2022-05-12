@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}Expectations{% endblock %}
+
+{% block content %}
+
+    <p>Now, please indicate what you expected your group members would choose to withdraw from the pool when you made your withdrawal decision.</p>
+
+        {% formfield player.expectations1 %}
+        {% formfield player.expectations2 %}
+
+</div>
+<p>{% next_button %}<br>
+    {% endblock %}

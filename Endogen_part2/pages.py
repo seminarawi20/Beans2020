@@ -85,7 +85,7 @@ class Expectations(Page):
 
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'employment', 'children', 'environment', 'answer_same']
+    form_fields = ['age', 'gender', 'education', 'children', 'environment', 'answer_same']
 
     timeout_seconds = 120
 
