@@ -181,6 +181,8 @@ class Player(BasePlayer):
     timeout_endresults = models.BooleanField(initial=False)
     timeout_survey = models.BooleanField(initial=False)
 
+    expectations1 = models.IntegerField(label='How many points did you expect your first team members to take?')
+    expectations2 = models.IntegerFiel(label='How many points did you expect your second team member to take?')
 
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
@@ -193,11 +195,6 @@ class Player(BasePlayer):
                  ['None', 'None']],
         label='What is your highest level of education? (If currently enrolled highest degree received)',
         widget=widgets.RadioSelect,
-    )
-    employment = models.StringField(
-        label='What is your employment status?',
-        choices=[['Employed', 'Employed'], ['Unemployed', 'Unemployed'], ['Other', 'Other']],
-        widget=widgets.RadioSelect
     )
     children = models.StringField(
         label='Do you have children?',
@@ -223,6 +220,9 @@ class Player(BasePlayer):
             [5,'Strongly Agree'],
         ]
     )
+    def expectation_choices(self):
+        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 

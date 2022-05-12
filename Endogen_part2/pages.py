@@ -77,6 +77,11 @@ class Results(Page):
         if self.timeout_happened:
             self.player.timeout_endresults = True
 
+class Expectations(Page):
+    form_model = 'player'
+    form_fields = ['expectations1', 'expectations2']
+
+    timeout_seconds = 120
 
 class Survey(Page):
     form_model = 'player'
@@ -99,6 +104,7 @@ class End(Page):
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [Grouping,
                  Take,
+                 Expectations,
                  ResultsWaitPage,
                  Results,
                  Survey,
