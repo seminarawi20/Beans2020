@@ -5,13 +5,13 @@
 
 {% block content %}
 <div id="likert">
-    <p>Now we would like to ask you a few questions about yourself.</p>
+    <p>Now please answer a few questions about yourself.</p>
     <p>Everything will be kept completely anonymous. <br>
 
         {% formfield player.age %}
         {% formfield player.gender %}
+        {% formfield player.children %}
         {% formfield player.education %}
-        {% formfield player.employment %}
         {% formfield player.environment %}
         {% formfield player.answer_same %}
 </div>

@@ -78,8 +78,28 @@ class Results(Page):
             self.player.timeout_endresults = True
 
 class Expectations(Page):
+
+    def vars_for_template(self):
+        return {'id_in_group': self.player.id_in_group}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 1
+
     form_model = 'player'
-    form_fields = ['expectations1', 'expectations2']
+    form_fields = ['expectations1T', 'expectations2T', 'expectations2TB']
+
+    timeout_seconds = 120
+
+class Expectations_Control(Page):
+
+    def vars_for_template(self):
+        return {'id_in_group': self.player.id_in_group}
+
+    def is_displayed(self):
+        return self.subsession.treatment == 0
+
+    form_model = 'player'
+    form_fields = ['expectations1C', 'expectations2C']
 
     timeout_seconds = 120
 
@@ -105,6 +125,7 @@ class End(Page):
 page_sequence = [Grouping,
                  Take,
                  Expectations,
+                 Expectations_Control,
                  ResultsWaitPage,
                  Results,
                  Survey,

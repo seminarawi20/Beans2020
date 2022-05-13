@@ -47,32 +47,36 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    # treatment = models.BooleanField()
+    treatment = models.BooleanField()
+    def creating_session(self):
+        self.treatment = self.session.config.get('treatment')
+        self.session.vars['treatment'] = self.session.config.get('treatment')
+
 
     def group_by_arrival_time_method(subsession, waiting_players):
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
 
-        if p.treatment == 1:
-            print('in group_by_arrival_time_method')
-            a_players = [p for p in waiting_players if p.category == 'A']
-            b_players = [p for p in waiting_players if p.category == 'B']
-            if len(a_players) >= 2 and len(b_players) >= 1:
-                print('about to create a group')
-                return [a_players[0], a_players[1], b_players[0]]
-            print('not enough players yet to create a group')
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
-        else:
-            if len(waiting_players) >= 3:
-                return waiting_players[:3]
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
+            if p.treatment == 1:
+                print('in group_by_arrival_time_method')
+                a_players = [p for p in waiting_players if p.category == 'A']
+                b_players = [p for p in waiting_players if p.category == 'B']
+                if len(a_players) >= 2 and len(b_players) >= 1:
+                    print('about to create a group')
+                    return [a_players[0], a_players[1], b_players[0]]
+                print('not enough players yet to create a group')
+                for p in waiting_players:
+                    if p.waiting_too_long():
+                        p.alone = 1
+                        return [p]
+            else:
+                if len(waiting_players) >= 3:
+                    return waiting_players[:3]
+                for p in waiting_players:
+                    if p.waiting_too_long():
+                        p.alone = 1
+                        return [p]
 
 class Group(BaseGroup):
 
@@ -165,6 +169,8 @@ class Player(BasePlayer):
 
     category = models.StringField()
     treatment = models.BooleanField()
+
+
     alone = models.BooleanField(initial=False)
 
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
@@ -181,8 +187,27 @@ class Player(BasePlayer):
     timeout_endresults = models.BooleanField(initial=False)
     timeout_survey = models.BooleanField(initial=False)
 
-    expectations1 = models.IntegerField(label='How many points did you expect your first team member to take?')
-    expectations2 = models.IntegerField(label='How many points did you expect your second team member to take?')
+    expectations1C = models.IntegerField(
+        label='How many points did you expect your first team member to take?',
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+    expectations2C = models.IntegerField(
+        label='How many points did you expect your second team member to take?',
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+    expectations1T = models.IntegerField(
+        label='How many points did you expect your first team member to take (Type A)?',
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+    expectations2T = models.IntegerField(
+        label='How many points did you expect your second team member to take (Type B)?',
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+    expectations2TB = models.IntegerField(
+        label='How many points did you expect your second team member to take (Type A)?',
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
 
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
@@ -220,11 +245,20 @@ class Player(BasePlayer):
             [5,'Strongly Agree'],
         ]
     )
-    def expectations1_choices(self):
-        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+    #def expectations1C_choices(self):
+        #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
-    def expectations2_choices(self):
-        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+    #def expectations2C_choices(self):
+        #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+
+    #def expectations1T_choices(self):
+        #return range(11)
+
+    #def expectations2T_choices(self):
+        #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+
+    #def expectations2TB_choices(self):
+        #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     def take_choices(self):
         return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
