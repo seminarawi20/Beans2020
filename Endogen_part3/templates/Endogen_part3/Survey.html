@@ -1,0 +1,19 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}Survey{% endblock %}
+
+{% block content %}
+<div id="likert">
+    <p>Now please answer a few questions about yourself.</p>
+    <p>Everything will be kept completely anonymous. <br>
+
+        {% formfield player.age %}
+        {% formfield player.gender %}
+        {% formfield player.children %}
+        {% formfield player.education %}
+        {% formfield player.environment %}
+        {% formfield player.answer_same %}
+</div>
+<p>{% next_button %}<br>
+    {% endblock %}

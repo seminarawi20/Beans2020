@@ -36,7 +36,7 @@ mturk_hit_settings = {
 }
 #############################################
 
-PARTICIPANT_FIELDS = {'category'}
+PARTICIPANT_FIELDS = {'category', 'take'}
 SESSION_FIELDS = {'treatment'}
 
 ################################################################
@@ -65,13 +65,13 @@ SESSION_CONFIGS = [
     dict(name='Endogen',
         display_name="Endogen",
         num_demo_participants=3,
-        app_sequence=['Endogen','Endogen_part2'],
+        app_sequence=['Endogen','Endogen_part2', 'Endogen_part3'],
         treatment = False
     ),
     dict(name='Edogen_Treat',
         display_name="Endogen_Treat",
         num_demo_participants=3,
-        app_sequence=['Endogen', 'Endogen_part2'],
+        app_sequence=['Endogen', 'Endogen_part2', 'Endogen_part3'],
         treatment = True
     )
 ]

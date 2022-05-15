@@ -12,30 +12,6 @@ import time
 # it is key that you indicate from which model you return a variable, here our treatment is defined on the subsession level while the pool is defined in the constants
 
 
-class Grouping(WaitPage):
-    group_by_arrival_time = True
-    #get_player_by_id = True
-    body_text = "Waiting for two other participants to reach this task.\
-      This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
-
-
-# Now we create a page for the player to decide what to take.
-class Take(Page):
-    form_model = 'player'
-    form_fields = ['take']
-
-    def vars_for_template(self):
-        # here the dict() is used to convert our list to a dictionary. dict() and {} are equivalent, but use a different notation. Please be aware.
-
-        return dict(
-            max=Constants.max,
-            alone=self.player.alone)
-
-    timeout_seconds = 120
-
-    def before_next_page(self):
-        if self.timeout_happened:
-            self.player.timeout_take = True
 
 
 class ResultsWaitPage(WaitPage):
@@ -45,12 +21,21 @@ class ResultsWaitPage(WaitPage):
     # This is done by calling the functions be defined on our group level.
     # We order is important, since the tipping point is an input for the breakdown, which is an input for the payoff
 
+
+
+
     def after_all_players_arrive(self):
         self.group.set_up_otherplayer()
         self.group.set_tipping_point()
         self.group.set_breakdown()
         self.group.set_payoffs()
 
+class ResultsWaitPage2(WaitPage):
+
+    #get_player_by_id = True
+
+    def after_all_players_arrive(self):
+        self.group.set_payoffs()
 
 class Results(Page):
     def vars_for_template(self):
@@ -67,7 +52,7 @@ class Results(Page):
             breakdown=self.group.breakdown,
             treatment=self.player.treatment,
             share=self.group.resource_share,
-            tipping_point=round(self.group.tipping_point * 100, 1)
+            tipping_point=round(self.group.tipping_point * 100, 1),
         )
 
     timeout_seconds = 120
@@ -78,6 +63,8 @@ class Results(Page):
 
 class Expectations(Page):
 
+    get_player_by_id = True
+
     def vars_for_template(self):
         return {'id_in_group': self.player.id_in_group}
 
@@ -85,7 +72,7 @@ class Expectations(Page):
         return self.subsession.treatment == 1
 
     form_model = 'player'
-    form_fields = ['expectations1T', 'expectations2T', 'expectations2TB']
+    form_fields = ['expectations1T', 'expectations2T', 'expectations2tb']
 
     timeout_seconds = 120
 
@@ -101,6 +88,20 @@ class Expectations_Control(Page):
     form_fields = ['expectations1C', 'expectations2C']
 
     timeout_seconds = 120
+
+class Results_Expectations(Page):
+
+    def vars_for_template(self):
+        return dict(
+            payoff=self.player.payoff,
+            money=Constants.money_per_point * self.player.payoff,
+            rate=Constants.money_per_point,
+
+        )
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.timeout_expectationsresults = True
 
 class Survey(Page):
     form_model = 'player'
@@ -121,8 +122,10 @@ class End(Page):
 
 
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Grouping,
-                 Take,
-                 ResultsWaitPage,
-                 Results,
+page_sequence = [Expectations,
+                 Expectations_Control,
+                 ResultsWaitPage2,
+                 Results_Expectations,
+                 Survey,
+                 End,
                  ]

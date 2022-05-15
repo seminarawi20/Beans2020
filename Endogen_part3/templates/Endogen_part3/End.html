@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}End{% endblock %}
+
+{% block content %}
+    <br>
+    <p>You have completed the experiment.</p> <br>
+    <p>Thank you for participating! <br>
+
+<p>
+        Please use the completion code below to return your HIT.
+        You will receive your payment once your HIT was approved. <br><br>
+        You completion code is <b>{{ completion_code }}</b>
+
+</p>
+Please note your code. You can then close your tab.</b>
+{% endblock %}

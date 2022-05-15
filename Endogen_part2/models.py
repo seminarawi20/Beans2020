@@ -19,13 +19,14 @@ import settings
 authors = 'Linda Aldehoff based on the work of Moritz Sommerlad, Julius Gross, Emeli Röttgers'
 
 doc = """
-This is the bachelor thesis of Linda ALdehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
+This is the bachelor thesis of Linda Aldehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
 """
 
 
 class Constants(BaseConstants):
 
     # Here we define the different values that are valid in every form of the game.
+
 
     name_in_url = 'Endogen2'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
@@ -45,38 +46,35 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
+    # Ideally you do not need to change anything here.
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
-    treatment = models.BooleanField()
-    def creating_session(self):
-        self.treatment = self.session.config.get('treatment')
-        self.session.vars['treatment'] = self.session.config.get('treatment')
-
+    # treatment = models.BooleanField()
 
     def group_by_arrival_time_method(subsession, waiting_players):
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
 
-            if p.treatment == 1:
-                print('in group_by_arrival_time_method')
-                a_players = [p for p in waiting_players if p.category == 'A']
-                b_players = [p for p in waiting_players if p.category == 'B']
-                if len(a_players) >= 2 and len(b_players) >= 1:
-                    print('about to create a group')
-                    return [a_players[0], a_players[1], b_players[0]]
-                print('not enough players yet to create a group')
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
-            else:
-                if len(waiting_players) >= 3:
-                    return waiting_players[:3]
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
+        if p.treatment == 1:
+            print('in group_by_arrival_time_method')
+            a_players = [p for p in waiting_players if p.category == 'A']
+            b_players = [p for p in waiting_players if p.category == 'B']
+            if len(a_players) >= 2 and len(b_players) >= 1:
+                print('about to create a group')
+                return [a_players[0], a_players[1], b_players[0]]
+            print('not enough players yet to create a group')
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
+        else:
+            if len(waiting_players) >= 3:
+                return waiting_players[:3]
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
 
 class Group(BaseGroup):
 
@@ -89,6 +87,8 @@ class Group(BaseGroup):
     tipping_point = models.FloatField()
     otherplayer1_take = models.IntegerField()
     otherplayer2_take = models.IntegerField()
+
+
     #chance = models.FloatField()
 
     def set_up_otherplayer(self):
@@ -117,6 +117,12 @@ class Group(BaseGroup):
         self.breakdown = self.tipping_point > np.random.rand()
 
 
+
+    #def expectations2C_check(self, value):
+       # self.otherplayer2_take = value['expectations2C']
+
+
+
     # total_points_left is the number of points that do not get taken.
     # resource share is the share each player receives from the resource.
     total_points_left = models.IntegerField()
@@ -125,7 +131,8 @@ class Group(BaseGroup):
     # keeps the code a little "cleaner"
 
     #Now we need to set the payoff.
-    # If we want the player we need to use player. or for p in self get._players()
+    #If we want the player we need to use player. or for p in self get._players()
+
     def set_payoffs(self):
         if sum([p.alone for p in self.get_players()]) > 0:
             self.total_points_left = Constants.pool - sum([p.take for p in self.get_players()]) - self.otherplayer1_take - self.otherplayer2_take
@@ -161,6 +168,7 @@ class Group(BaseGroup):
                                     + self.resource_share,
                                     ])
 
+
 class Player(BasePlayer):
 
     def waiting_too_long(self):
@@ -176,7 +184,11 @@ class Player(BasePlayer):
     # The Player-level is used to define var on the player level. In otree this means everything that involves a players direct choice.
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
-    take = models.IntegerField(label="How many points do you want to take ?")
+    #take = models.IntegerField(label="How many points do you want to take ?")
+    take = models.IntegerField(
+        label="How many points do you want to take ?",
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
@@ -189,25 +201,29 @@ class Player(BasePlayer):
 
     expectations1C = models.IntegerField(
         label='How many points did you expect your first team member to take?',
-        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
+
     expectations2C = models.IntegerField(
         label='How many points did you expect your second team member to take?',
-        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
 
     expectations1T = models.IntegerField(
         label='How many points did you expect your first team member to take (Type A)?',
-        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
+
     expectations2T = models.IntegerField(
         label='How many points did you expect your second team member to take (Type B)?',
-        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
+
     expectations2TB = models.IntegerField(
         label='How many points did you expect your second team member to take (Type A)?',
-        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
+
 
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
@@ -260,7 +276,7 @@ class Player(BasePlayer):
     #def expectations2TB_choices(self):
         #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
-    def take_choices(self):
-        return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
+    #def take_choices(self):
+        #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.

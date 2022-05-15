@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Result
+{% endblock %}
+
+{% block content %}
+
+
+<! Here we need an if statement, since the players in the treatment determines if he gets info of the pool breaking down or not.
+        In this special case we have a nested loop. For those the syntax remains the same as a normal loop>
+
+
+    <p>
+        <! Expectations >
+        Thank you for your guess.<br><br>
+        You received {{ payoff }} additionally. Reminder: Each point ist worth ${{ rate }}
+        <br><br>
+
+    </p>
+{% next_button %}
+{% endblock %}
