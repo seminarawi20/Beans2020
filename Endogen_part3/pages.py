@@ -72,9 +72,16 @@ class Expectations(Page):
         return self.subsession.treatment == 1
 
     form_model = 'player'
-    form_fields = ['expectations1T', 'expectations2T', 'expectations2tb']
+
+    def get_form_fields(self):
+        player = self.player
+        if player.id_in_group == 3:
+            return ['expectations1T', 'expectations2tb']
+        else:
+            return ['expectations1T', 'expectations2T']
 
     timeout_seconds = 120
+
 
 class Expectations_Control(Page):
 
@@ -85,7 +92,7 @@ class Expectations_Control(Page):
         return self.subsession.treatment == 0
 
     form_model = 'player'
-    form_fields = ['expectations1C', 'expectations2C']
+    get_form_fields = ['expectations1C', 'expectations2C']
 
     timeout_seconds = 120
 

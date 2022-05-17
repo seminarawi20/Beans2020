@@ -1,22 +1,17 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
-
-{% block title %}Expectations{% endblock %}
+{% block title %}
+    Expectations
+{% endblock %}
 
 {% block content %}
+<div id="main">
+    <p><! This is the statement for the treatment group >
 
-    <p> Now, please indicate what you expected your group members to withdraw from the pool when you made your withdrawal decision
-        <! This is the statement for the treatment group >
-        {% if id_in_group == 3 %}
-            {% formfield player.expectations1T %}
-            {% formfield player.expectations2tb %}
-        {% else %}
-            {% formfield player.expectations1T %}
-            {% formfield player.expectations2T %}
-        {% endif %}
+            {% formfields %}
     </p>
 
 </div>
-<p>{% next_button %}<br>
+    {% next_button %}
 
 {% endblock %}

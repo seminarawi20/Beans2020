@@ -14,7 +14,7 @@ import time
 
 class Grouping(WaitPage):
     group_by_arrival_time = True
-    #get_player_by_id = True
+    get_player_by_id = True
     body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
@@ -36,7 +36,6 @@ class Take(Page):
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_take = True
-
 
 class ResultsWaitPage(WaitPage):
 

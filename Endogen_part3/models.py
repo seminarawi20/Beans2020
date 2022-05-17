@@ -189,6 +189,7 @@ class Group(BaseGroup):
         p2 = self.get_player_by_id(2)
         p3 = self.get_player_by_id(3)
         self.expectations2C1_check = p1.value['expectations2C'] == p3.participant.vars['take'].value['take']
+
         #if [p1.value['expectations2C'] == p3.session.vars['take'].value['take']]:
             #self.expectations2C1_check = True
 
@@ -275,14 +276,14 @@ class Group(BaseGroup):
 
 
     def set_payoffs(player):
-        players = player.get_players()
+        #players = player.get_players()
         p1 = player.get_player_by_id(1)
         p2 = player.get_player_by_id(2)
         p3 = player.get_player_by_id(3)
         for p in player.get_players():
             p.treatment = p.session.vars['treatment']
             if p.treatment == 1:
-                if player.get_player_by_id(3) == p3:
+                if p in player.get_players() == p3:
                     if player.expectations1T_check == True:
                         if player.expectations2T_check == True:
                             for p in player.get_players():
@@ -298,7 +299,7 @@ class Group(BaseGroup):
                             for p in player.get_players():
                                 p.payoff = 0
                 else:
-                    if player.get_player_by_id(2) == p2:
+                    if p in player.get_players() == p2:
                         if player.expectations1T2_check == True:
                             if player.expectations2T2_check == True:
                                 for p in player.get_players():
@@ -329,7 +330,7 @@ class Group(BaseGroup):
                                 for p in player.get_players():
                                     p.payoff = 0
             else:
-                if player.get_player_by_id(3) == p3:
+                if p in player.get_players == p3:
                     if player.expectations1C_check == True:
                         if player.expectations2C_check == True:
                             for p in player.get_players():
@@ -345,7 +346,7 @@ class Group(BaseGroup):
                             for p in player.get_players():
                                 p.payoff = 0
                 else:
-                    if player.get_player_by_id(2) == p2:
+                    if p in player.get_players == p2:
                         if player.expectations1C2_check == True:
                             if player.expectations2C2_check == True:
                                 for p in player.get_players():
