@@ -85,14 +85,11 @@ class Expectations(Page):
 
 class Expectations_Control(Page):
 
-    def vars_for_template(self):
-        return {'id_in_group': self.player.id_in_group}
-
     def is_displayed(self):
         return self.subsession.treatment == 0
 
     form_model = 'player'
-    get_form_fields = ['expectations1C', 'expectations2C']
+    form_fields = ['expectations1C', 'expectations2C']
 
     timeout_seconds = 120
 

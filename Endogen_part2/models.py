@@ -55,6 +55,7 @@ class Subsession(BaseSubsession):
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
+           # p.take = p.participant.vars['take']
 
         if p.treatment == 1:
             print('in group_by_arrival_time_method')
@@ -185,10 +186,12 @@ class Player(BasePlayer):
     # In our case it is the amount he takes.
     # We give the field a label which is then displayed on our html page without any further action.
     #take = models.IntegerField(label="How many points do you want to take ?")
+
     take = models.IntegerField(
         label="How many points do you want to take ?",
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
+
     #the max a player can take is the third of the pool, rounded down. e.g. pool = 40 --> 40/3 = 13,33.
     #The decimal places can be avoided by picking a number that is divisible by 3. To round down we use the numpy (np) function floor.
     #The way we set up the choices here is by adding a valiation function. This can be done by jst writing fieldname_choices.
