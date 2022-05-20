@@ -283,3 +283,4 @@ class Player(BasePlayer):
         #return range(int(np.floor(Constants.pool/Constants.players_per_group))+1)
 
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
+

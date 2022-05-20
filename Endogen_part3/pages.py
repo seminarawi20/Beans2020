@@ -96,6 +96,7 @@ class Expectations_Control(Page):
 class Results_Expectations(Page):
 
     def vars_for_template(self):
+        self.take = self.player.participant.vars['take']
         return dict(
             payoff=self.player.payoff,
             money=Constants.money_per_point * self.player.payoff,

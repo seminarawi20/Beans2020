@@ -229,10 +229,11 @@ class Group(BaseGroup):
     expectations1T2_check = models.BooleanField(initial=False)
 
     def set_expectations1T2_check(self):
-        players = self.get_players()
+        #player = self.get_players()
         p1 = self.get_player_by_id(1)
         p2 = self.get_player_by_id(2)
         p3 = self.get_player_by_id(3)
+        #self.take = player.participant.vars['take']
         self.expectations1T2_check = p2.value['expectations1T'] == p1.session.vars['take'].value['take']
 
     expectations2T2_check = models.BooleanField(initial=False)
@@ -292,11 +293,11 @@ class Group(BaseGroup):
         p3 = self.get_player_by_id(3)
         for p in self.get_players():
             #p.session.config.get('take')
-            #p.take = p.participant.vars['take']
+            p.take = p.participant.vars['take']
             p.treatment = p.session.vars['treatment']
-            #p1.take = p1.participant.vars['take']
-            #p2.take = p2.participant.vars['take']
-            #p3.take = p3.participant.vars['take']
+            p1.take = p1.participant.vars['take']
+            p2.take = p2.participant.vars['take']
+            p3.take = p3.participant.vars['take']
             #p3.expectations1C = p3.value['expecations1C']
             #p2.expectations1C = p2.value['expecations1C']
             #p1.expectations1C = p1.value['expecations1C']
@@ -313,11 +314,11 @@ class Group(BaseGroup):
                 print('treatment')
                 if p == p3:
                     print('p3')
-                    if self.expectations1T_check == True:
-                    #if p3.expectations1T == p1.take:
+                    #if self.expectations1T_check == True:
+                    if p3.expectations1T == p1.take:
                         print('expectations1T_check')
-                        if self.expectations2T_check == True:
-                        #if p3.expectations2T == p2.take:
+                        #if self.expectations2T_check == True:
+                        if p3.expectations2tb == p2.take:
                             for p3 in self.get_players():
                                 print('payoff4)')
                                 p3.payoff = 4
@@ -325,8 +326,8 @@ class Group(BaseGroup):
                             for p3 in self.get_players():
                                 p3.payoff = 2
                     else:
-                        if self.expectations2T_check == True:
-                        #if p3.expectations2T == p2.take:
+                        #if self.expectations2T_check == True:
+                        if p3.expectations2T == p2.take:
                             for p3 in self.get_players():
                                 p3.payoff = 2
                         else:
@@ -335,36 +336,36 @@ class Group(BaseGroup):
                 else:
                     if p == p2:
                         print('p2')
-                        if self.expectations1T2_check == True:
-                        #if p2.expectations1T == p1.take:
-                            if self.expectations2T2_check == True:
-                            #if p2.expectations2T == p3.take:
+                        #if self.expectations1T2_check == True:
+                        if p2.expectations1T == p1.take:
+                            #if self.expectations2T2_check == True:
+                            if p2.expectations2T == p3.take:
                                 for p2 in self.get_players():
                                     p2.payoff = 4
                             else:
                                 for p2 in self.get_players():
                                     p2.payoff = 2
                         else:
-                            if self.expectations2T2_check == True:
-                            #if p2.expectations2T == p3.take:
+                            #if self.expectations2T2_check == True:
+                            if p2.expectations2T == p3.take:
                                 for p2 in self.get_players():
                                     p2.payoff = 2
                             else:
                                 for p2 in self.get_players():
                                     p2.payoff = 0
                     else:
-                        if self.expectations1T1_check == True:
-                        #if p1.expectations1T == p2.take:
-                            if self.expectations2T1_check == True:
-                            #if p1.expectations2T == p3.take:
+                        #if self.expectations1T1_check == True:
+                        if p1.expectations1T == p2.take:
+                            #if self.expectations2T1_check == True:
+                            if p1.expectations2T == p3.take:
                                 for p1 in self.get_players():
                                     p1.payoff = 4
                             else:
                                 for p1 in self.get_players():
                                     p1.payoff = 2
                         else:
-                            if self.expectations2T1_check == True:
-                            #if p1.expectations2T == p3.take: p.take is none
+                            #if self.expectations2T1_check == True:
+                            if p1.expectations2T == p3.take: #p.take is none
                                 for p1 in self.get_players():
                                     p1.payoff = 2
                             else:

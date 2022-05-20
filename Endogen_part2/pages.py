@@ -33,8 +33,12 @@ class Take(Page):
 
     timeout_seconds = 120
 
+
+
     def before_next_page(self):
+        self.player.participant.vars['take'] = self.player.take
         if self.timeout_happened:
+
             self.player.timeout_take = True
 
 class ResultsWaitPage(WaitPage):
@@ -49,6 +53,7 @@ class ResultsWaitPage(WaitPage):
         self.group.set_tipping_point()
         self.group.set_breakdown()
         self.group.set_payoffs()
+
 
 
 class Results(Page):
