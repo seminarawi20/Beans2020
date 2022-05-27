@@ -32,7 +32,9 @@ class ResultsWaitPage(WaitPage):
 
 class ResultsWaitPage2(WaitPage):
 
-
+    def is_displayed(self):
+        self.player.alone = self.player.participant.vars['alone']
+        return self.player.alone == 0
     #get_player_by_id = True
     def vars_for_template(self):
         self.player.alone = self.player.participant.vars['alone']
@@ -75,7 +77,7 @@ class ResultsWaitPage2(WaitPage):
         self.player.alone = self.player.participant.vars['alone']
         if self.player.alone == 1:
             print('hallo')
-            self.timeout_seconds = time.time() - self.player.participant.wait_page_arrival
+            self.timeout_seconds = 2
 
 
 class Results(Page):
