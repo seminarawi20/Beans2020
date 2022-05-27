@@ -32,10 +32,51 @@ class ResultsWaitPage(WaitPage):
 
 class ResultsWaitPage2(WaitPage):
 
+
     #get_player_by_id = True
+    def vars_for_template(self):
+        self.player.alone = self.player.participant.vars['alone']
+        if self.player.alone == 0:
+            if self.subsession.treatment == 0:
+                self.player.expectations1C = self.player.participant.vars['expectations1C']
+                self.player.expectations2C = self.player.participant.vars['expectations2C']
+            else:
+                if self.player.id_in_group == 3:
+                    self.player.expectations2tb = self.player.participant.vars['expectations2tb']
+                    self.player.expectations1T = self.player.participant.vars['expectations1T']
+                else:
+                    self.player.expectations1T = self.player.participant.vars['expectations1T']
+                    self.player.expectations2T = self.player.participant.vars['expectations2T']
+            self.p1 = self.group.get_player_by_id(1)
+            self.p2 = self.group.get_player_by_id(2)
+            self.p3 = self.group.get_player_by_id(3)
+            if self.player == self.p1:
+                self.p1.take = self.player.participant.vars['take']
+            if self.player == self.p2:
+                self.p2.take = self.player.participant.vars['take']
+            if self.player == self.p3:
+                self.p3.take = self.player.participant.vars['take']
+        else:
+            if self.player == self.group.set_up_otherplayer():
+                self.group.otherplayer1_take = self.player.participant.vars['otherplayer1_take']
+            if self.subsession.treatment == 0:
+                self.player.expectations1C = self.player.participant.vars['expectations1C']
+                self.player.expectations2C = self.player.participant.vars['expectations2C']
+            else:
+                    self.player.expectations1T = self.player.participant.vars['expectations1T']
+                    self.player.expectations2T = self.player.participant.vars['expectations2T']
+
 
     def after_all_players_arrive(self):
         self.group.set_payoffs()
+
+    def get_timeout_seconds(self):
+        import time
+        self.player.alone = self.player.participant.vars['alone']
+        if self.player.alone == 1:
+            print('hallo')
+            self.timeout_seconds = time.time() - self.player.participant.wait_page_arrival
+
 
 class Results(Page):
     def vars_for_template(self):
@@ -62,6 +103,7 @@ class Results(Page):
             self.player.timeout_endresults = True
 
 class Expectations(Page):
+
 
     get_player_by_id = True
 
@@ -96,7 +138,19 @@ class Expectations_Control(Page):
 class Results_Expectations(Page):
 
     def vars_for_template(self):
-        self.take = self.player.participant.vars['take']
+        if self.player.alone == False:
+            self.p1 = self.group.get_player_by_id(1)
+            self.p2 = self.group.get_player_by_id(2)
+            self.p3 = self.group.get_player_by_id(3)
+        #if self.player == self.p1:
+            self.p1.take = self.player.participant.vars['take']
+            self.p2.take = self.player.participant.vars['take']
+            self.p3.take = self.player.participant.vars['take']
+        else:
+            if self.player == self.group.set_up_otherplayer():
+                self.group.otherplayer1_take = self.player.participant.vars['otherplayer1_take']
+
+        #self.take = self.player.participant.vars['take']
         return dict(
             payoff=self.player.payoff,
             money=Constants.money_per_point * self.player.payoff,
@@ -127,9 +181,7 @@ class End(Page):
 
 
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
-page_sequence = [Expectations,
-                 Expectations_Control,
-                 ResultsWaitPage2,
+page_sequence = [ResultsWaitPage2,
                  Results_Expectations,
                  Survey,
                  End,

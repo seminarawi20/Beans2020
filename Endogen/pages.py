@@ -52,6 +52,7 @@ class Welcome(Page):
     timeout_seconds = 120
 
     def before_next_page(self):
+        self.player.participant.vars['category'] = self.player.category
         if self.timeout_happened:
             self.player.timeout_welcome = True
 

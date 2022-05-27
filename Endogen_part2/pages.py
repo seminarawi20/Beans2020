@@ -18,7 +18,12 @@ class Grouping(WaitPage):
     body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
 
+    def vars_for_template(self):
+        self.player.category = self.player.participant.vars['category']
 
+    def before_next_page(self):
+        if self.player == self.group.set_up_otherplayer():
+            self.player.participant.vars['otherplayer1_take'] = self.group.otherplayer1_take
 # Now we create a page for the player to decide what to take.
 class Take(Page):
     form_model = 'player'
@@ -31,12 +36,28 @@ class Take(Page):
             max=Constants.max,
             alone=self.player.alone)
 
+
     timeout_seconds = 120
 
 
 
     def before_next_page(self):
-        self.player.participant.vars['take'] = self.player.take
+        self.player.participant.vars['alone'] = self.player.alone
+        if self.player.alone == False:
+            self.p1 = self.group.get_player_by_id(1)
+            self.p2 = self.group.get_player_by_id(2)
+            self.p3 = self.group.get_player_by_id(3)
+            if self.player == self.p1:
+                self.player.participant.vars['take'] = self.p1.take
+            if self.player == self.p2:
+                self.player.participant.vars['take'] = self.p2.take
+            if self.player == self.p3:
+                self.player.participant.vars['take'] = self.p3.take
+        else:
+            if self.player == self.group.set_up_otherplayer():
+                self.player.participant.vars['otherplayer1_take'] = self.group.otherplayer1_take
+            #self.player.participant.
+
         if self.timeout_happened:
 
             self.player.timeout_take = True
@@ -74,6 +95,9 @@ class Results(Page):
             tipping_point=round(self.group.tipping_point * 100, 1)
         )
 
+    def before_next_page(self):
+        self.player.participant.vars['wait_page_arrival'] = time.time()
+
     timeout_seconds = 120
 
     def before_next_page(self):
@@ -82,14 +106,31 @@ class Results(Page):
 
 class Expectations(Page):
 
+    get_player_by_id = True
+
     def vars_for_template(self):
         return {'id_in_group': self.player.id_in_group}
 
     def is_displayed(self):
-        return self.subsession.treatment == 1
+        return self.player.treatment == 1
 
     form_model = 'player'
-    form_fields = ['expectations1T', 'expectations2T', 'expectations2TB']
+
+    def get_form_fields(self):
+        player = self.player
+        if player.id_in_group == 3:
+            return ['expectations1T', 'expectations2tb']
+        else:
+            return ['expectations1T', 'expectations2T']
+
+    def before_next_page(self):
+        player = self.player
+        if player.id_in_group == 3:
+            self.player.participant.vars['expectations2tb'] = self.player.expectations2tb
+            self.player.participant.vars['expectations1T'] = self.player.expectations1T
+        else:
+            self.player.participant.vars['expectations1T'] = self.player.expectations1T
+            self.player.participant.vars['expectations2T'] = self.player.expectations2T
 
     timeout_seconds = 120
 
@@ -99,10 +140,16 @@ class Expectations_Control(Page):
         return {'id_in_group': self.player.id_in_group}
 
     def is_displayed(self):
-        return self.subsession.treatment == 0
+        return self.player.treatment == 0
 
     form_model = 'player'
     form_fields = ['expectations1C', 'expectations2C']
+
+    def before_next_page(self):
+        self.player.participant.vars['expectations1C'] = self.player.expectations1C
+        self.player.participant.vars['expectations2C'] = self.player.expectations2C
+        #if self.player.timout_happened:
+            #self.player.timeout_expectations_control = True
 
     timeout_seconds = 120
 
@@ -128,5 +175,7 @@ class End(Page):
 page_sequence = [Grouping,
                  Take,
                  ResultsWaitPage,
+                 Expectations,
+                 Expectations_Control,
                  Results,
                  ]

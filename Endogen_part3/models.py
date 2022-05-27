@@ -121,11 +121,6 @@ class Group(BaseGroup):
 
 
 
-    #def expectations2C_check(self, value):
-       # self.otherplayer2_take = value['expectations2C']
-
-
-
  #PLAYER 3 expectations:
     expectations1C_check = models.BooleanField(initial=False)
 
@@ -283,150 +278,322 @@ class Group(BaseGroup):
      #If we want the player we need to use player. or for p in self get._players()
 
 
+#    def set_payoffs(self):
+ #       p1 = self.get_player_by_id(1)
+  #      p2 = self.get_player_by_id(2)
+   #     p3 = self.get_player_by_id(3)
+    #    p = self.get_players()
+     #   p1.treatment = p1.session.vars['treatment']
+      #  p2.treatment = p2.session.vars['treatment']
+       # p3.treatment = p3.session.vars['treatment']
+        ##for p in self.get_players():
+#         #   #p.take = p.participant.vars['take']
+ ##       if self.id_in_subsession == 3:
+  #          print('p3')
+   #         p1.take = p1.participant.vars['take']
+    #        p2.take = p2.participant.vars['take']
+     #       p3.take = p3.participant.vars['take']
+      #      if p3.treatment == 1:
+       #         print('p3treat')
+        #        #if self.expectations1T_check == True:
+         #       if p3.expectations1T == p1.take:
+          #          #if self.expectations2T_check == True:
+           #         if p3.expectations2tb == p2.take:
+            #            for p3 in self.get_players():
+             #               print('payoff4)')
+              #              p3.payoff = 4
+               #     else:
+                #        for p3 in self.get_players():
+                 #           p3.payoff = 2
+#                else:
+ #                       #if self.expectations2T_check == True:
+  #                  if p3.expectations2T == p2.take:
+   #                     for p3 in self.get_players():
+    #                        p3.payoff = 2
+     #               else:
+      #                  for p3 in self.get_players():
+       #                     p3.payoff = 0
+        #    else:
+         #       if p3.expectations1C == p1.take:
+          #               # if self.expectations1C_check == True:
+           #             # if self.expectations2C_check == True:
+            #        if p3.expectations2C == p2.take:
+             #           for p3 in self.get_players():
+              #              p3.payoff = 4
+               #     else:
+                #        for p3 in self.get_players():
+                 #           p3.payoff = 2
+#                else:
+ #                       # if self.expectations2C_check == True:
+  #                  if p3.expectations2C == p2.take:
+   #                     for p3 in self.get_players():
+    #                        p3.payoff = 2
+     #               else:
+      #                  for p3 in self.get_players():
+       #                     p3.payoff = 0
+#        if self.id_in_subsession == 2:
+ #           print('p2')
+  #          p1.take = p1.participant.vars['take']
+   #         p2.take = p2.participant.vars['take']
+    #        p3.take = p3.participant.vars['take']
+     #       if p2.treatment == 1:
+      #          if p2.expectations1T == p1.take:
+       #         #if self.expectations2T2_check == True:
+        #            if p2.expectations2T == p3.take:
+         #               for p2 in self.get_players():
+          #                  p2.payoff = 4
+           #         else:
+            #            for p2 in self.get_players():
+             #               p2.payoff = 2
+              #  else:
+               #     #if self.expectations2T2_check == True:
+                #    if p2.expectations2T == p3.take:
+                 #       for p2 in self.get_players():
+                  #          p2.payoff = 2
+                   # else:
+                    #    for p2 in self.get_players():
+                     #       p2.payoff = 0
+#            else:
+ #               print ('p2contr')
+  #                  # if self.expectations1C2_check == True:
+   #             if p2.expectations1C == p1.take:
+    #                print('p2exp.check')
+     #                   # if self.expectations2C2_check == True:
+      #              if p2.expectations2C == p3.take:
+       #                 for p2 in self.get_players():
+        #                    p2.payoff = 4
+         #           else:
+          #              for p2 in self.get_players():
+           #                 p2.payoff = 2
+            #    else:
+             #           # if self.expectations2C2_check == True:
+              #      if p2.expectations2C == p3.take:
+               #         for p2 in self.get_players():
+                #            p2.payoff = 2
+                 #   else:
+                  #      for p2 in self.get_players():
+                   #         p2.payoff = 0
+#        if self.id_in_subsession == 1:
+ #           p1.take = p1.participant.vars['take']
+  #          p2.take = p2.participant.vars['take']
+   #         p3.take = p3.participant.vars['take']
+    #        if p1.treatment == 1:
+     #               #if self.expectations1T1_check == True:
+      #          if p1.expectations1T == p2.take:
+       #                 #if self.expectations2T1_check == True:
+        #            if p1.expectations2T == p3.take:
+         #               for p1 in self.get_players():
+          #                  p1.payoff = 4
+           #         else:
+            #            for p1 in self.get_players():
+             #               p1.payoff = 2
+              #  else:
+               #         #if self.expectations2T1_check == True:
+                #    if p1.expectations2T == p3.take: #p.take is none
+                 #       for p1 in self.get_players():
+                  #          p1.payoff = 2
+                   # else:
+                    #    for p1 in self.get_players():
+                     #       p1.payoff = 0
+ #           else:
+  #              if p1.expectations1C == p2.take:
+   #                     # if self.expectations2C1_check == True:
+    #                if p1.expectations2C == p3.take:
+     #                   for p1 in self.get_players():
+      #                      p1.payoff = 4
+       #             else:
+        #                for p1 in self.get_players():
+         #                   p1.payoff = 2
+          #      else:
+           #             # if self.expectations2C1_check == True:
+            #        if p1.expectations2C == p3.take:
+             #           for p1 in self.get_players():
+              #              p1.payoff = 2
+               #     else:
+                #        for p1 in self.get_players():
+                 #           p1.payoff = 0
+
+
 
 
 
     def set_payoffs(self):
         p1 = self.get_player_by_id(1)
-        #id_in_group = player.id_in_group
         p2 = self.get_player_by_id(2)
         p3 = self.get_player_by_id(3)
         for p in self.get_players():
-            #p.session.config.get('take')
-            p.take = p.participant.vars['take']
+            p.alone = p.participant.vars['alone']
             p.treatment = p.session.vars['treatment']
-            p1.take = p1.participant.vars['take']
-            p2.take = p2.participant.vars['take']
-            p3.take = p3.participant.vars['take']
-            #p3.expectations1C = p3.value['expecations1C']
-            #p2.expectations1C = p2.value['expecations1C']
-            #p1.expectations1C = p1.value['expecations1C']
-            #p3.expectations2C = p3.value['expecations2C']
-            #p2.expectations2C = p2.value['expecations2C']
-            #p1.expectations2C = p1.value['expecations2C']
-            #p3.expectations1T = p3.value['expecations1T']
-            #p2.expectations1T = p2.value['expecations1T']
-            #p1.expectations1T = p1.value['expecations1T']
-            #p3.expectations2tb = p3.value['expecations2tb']
-            #p2.expectations2T = p2.value['expecations2T']
-            #p1.expectations2T = p1.value['expecations2T']
-            if p.treatment == 1:
-                print('treatment')
-                if p == p3:
-                    print('p3')
-                    #if self.expectations1T_check == True:
-                    if p3.expectations1T == p1.take:
-                        print('expectations1T_check')
-                        #if self.expectations2T_check == True:
-                        if p3.expectations2tb == p2.take:
-                            for p3 in self.get_players():
-                                print('payoff4)')
-                                p3.payoff = 4
+            if p.alone == 1:
+                if p == self.set_up_otherplayer():
+                    self.otherplayer1_take = p.participant.vars['otherplayer1_take']
+                if p.treatment == 1:
+                    p.expectations1T = p.participant.vars['expectations1T']
+                    p.expectations2T = p.participant.vars['expectations2T']
+                    if p.expectations1T == p.group.otherplayer1_take:
+                        if p.expectations2T == p.group.otherplayer1_take:
+                            p.payoff = 4
                         else:
-                            for p3 in self.get_players():
-                                p3.payoff = 2
+                            p.payoff = 2
                     else:
-                        #if self.expectations2T_check == True:
-                        if p3.expectations2T == p2.take:
-                            for p3 in self.get_players():
-                                p3.payoff = 2
+                        if p.expectations2T == p.group.otherplayer1_take:
+                            p.payoff = 2
                         else:
-                            for p3 in self.get_players():
-                                p3.payoff = 0
+                            p.payoff = 0
                 else:
-                    if p == p2:
-                        print('p2')
-                        #if self.expectations1T2_check == True:
-                        if p2.expectations1T == p1.take:
-                            #if self.expectations2T2_check == True:
-                            if p2.expectations2T == p3.take:
-                                for p2 in self.get_players():
-                                    p2.payoff = 4
-                            else:
-                                for p2 in self.get_players():
-                                    p2.payoff = 2
+                    p.expectations1C = p.participant.vars['expectations1C']
+                    p.expectations2C = p.participant.vars['expectations2C']
+                    if p.expectations1C == p.group.otherplayer1_take:
+                        if p.expectations2C == p.group.otherplayer1_take:
+                            p.payoff = 4
                         else:
-                            #if self.expectations2T2_check == True:
-                            if p2.expectations2T == p3.take:
-                                for p2 in self.get_players():
-                                    p2.payoff = 2
-                            else:
-                                for p2 in self.get_players():
-                                    p2.payoff = 0
+                            p.payoff = 2
                     else:
-                        #if self.expectations1T1_check == True:
-                        if p1.expectations1T == p2.take:
-                            #if self.expectations2T1_check == True:
-                            if p1.expectations2T == p3.take:
-                                for p1 in self.get_players():
-                                    p1.payoff = 4
-                            else:
-                                for p1 in self.get_players():
-                                    p1.payoff = 2
+                        if p.expectations2C == p.group.otherplayer1_take:
+                            p.payoff = 2
                         else:
-                            #if self.expectations2T1_check == True:
-                            if p1.expectations2T == p3.take: #p.take is none
-                                for p1 in self.get_players():
-                                    p1.payoff = 2
-                            else:
-                                for p1 in self.get_players():
-                                    p1.payoff = 0
+                            p.payoff = 0
             else:
-                #for p in player.get_player_by_id(3):
-                if p == p3:
-                    print('p3endo')
-                    if self.expectations1C_check == True:
-                        print('expetationsp3,1')
-                        if self.expectations2C_check == True:
-                            for p3 in self.get_players():
+                p1.take = p1.participant.vars['take']
+                p2.take = p2.participant.vars['take']
+                p3.take = p3.participant.vars['take']
+                if p.treatment == 1:
+                    p.expectations1T = p.participant.vars['expectations1T']
+                    print('treatment')
+                    if p == p3:
+                        p.expectations2tb = p.participant.vars['expectations2tb']
+                        print('p3')
+                        #if self.expectations1T_check == True:
+                        if p3.expectations1T == p1.take:
+                            #print('expectations1T_check')
+                            #if self.expectations2T_check == True:
+                            if p3.expectations2tb == p2.take:
+                                #for p3 in self.get_players():
                                 p3.payoff = 4
-                        else:
-                            for p3 in self.get_players():
-                                p3.payoff = 2
-                    else:
-                        print('exp1CFalse')
-                        if self.expectations2C_check == True:
-                            for p3 in self.get_players():
+                            else:
+                                #for p3 in self.get_players():
                                 p3.payoff = 2
                         else:
-                            for p3 in self.get_players():
+                            #if self.expectations2T_check == True:
+                            if p3.expectations2tb == p2.take:
+                                #for p3 in self.get_players():
+                                p3.payoff = 2
+                            else:
+                                #for p3 in self.get_players():
                                 p3.payoff = 0
-                else:
-                    #for p in player.get_player_by_id(2):
-                    if p == p2:
-                        print('endop2')
-                        if self.expectations1C2_check == True:
-                            print('exp.p2')
-                            if self.expectations2C2_check == True:
-                                for p2 in self.get_players():
+                    else:
+                        if p == p2:
+                            p.expectations2T = p.participant.vars['expectations2T']
+                            print('p2')
+                            #if self.expectations1T2_check == True:
+                            if p2.expectations1T == p1.take:
+                                #if self.expectations2T2_check == True:
+                                if p2.expectations2T == p3.take:
+                                    #for p2 in self.get_players():
                                     p2.payoff = 4
-                            else:
-                                for p2 in self.get_players():
+                                else:
+                                    #for p2 in self.get_players():
                                     p2.payoff = 2
+                            else:
+                                #if self.expectations2T2_check == True:
+                                if p2.expectations2T == p3.take:
+                                    #for p2 in self.get_players():
+                                    p2.payoff = 2
+                                else:
+                                    #for p2 in self.get_players():
+                                    p2.payoff = 0
                         else:
-                            if self.expectations2C2_check == True:
-                                for p2 in self.get_players():
+                            p.expectations2T = p.participant.vars['expectations2T']
+                            #if self.expectations1T1_check == True:
+                            if p1.expectations1T == p2.take:
+                                #if self.expectations2T1_check == True:
+                                if p1.expectations2T == p3.take:
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 4
+                                else:
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 2
+                            else:
+                                #if self.expectations2T1_check == True:
+                                if p1.expectations2T == p3.take: #p.take is none
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 2
+                                else:
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 0
+                else:
+                    p.expectations1C = p.participant.vars['expectations1C']
+                    p.expectations2C = p.participant.vars['expectations2C']
+                    if p == p3:
+                        print('p3')
+                        if p3.expectations1C == p1.take:
+                            print('exp13')
+                        #if self.expectations1C_check == True:
+                            #if self.expectations2C_check == True:
+                            if p3.expectations2C == p2.take:
+                                print('exp23')
+                                #for p3 in self.get_players():
+                                p3.payoff = 4
+                            else:
+                                print('exp23false')
+                                #for p3 in self.get_players():
+                                p3.payoff = 2
+                        else:
+                            #if self.expectations2C_check == True:
+                            if p3.expectations2C == p2.take:
+                                print('exp13false')
+                                #for p3 in self.get_players():
+                                p3.payoff = 2
+                            else:
+                                print('exp13')
+                                #for p3 in self.get_players():
+                                p3.payoff = 0
+                    else:
+                        #for p in player.get_player_by_id(2):
+                        if p == p2:
+                            print('p2')
+                            #if self.expectations1C2_check == True:
+                            if p2.expectations1C == p1.take:
+                                print('exp12')
+                                #if self.expectations2C2_check == True:
+                                if p2.expectations2C == p3.take:
+                                    print('exp22')
+                                    #for p2 in self.get_players():
+                                    p2.payoff = 4
+                                else:
+                                    print('exp22false')
+                                    #for p2 in self.get_players():
                                     p2.payoff = 2
                             else:
-                                for p2 in self.get_players():
-                                    print('exp.false')
+                                print('exp12false')
+                                #if self.expectations2C2_check == True:
+                                if p2.expectations2C == p3.take:
+                                    print('exp22')
+                                    #for p2 in self.get_players():
+                                    p2.payoff = 2
+                                else:
+                                    print('exp22false')
+                                    #for p2 in self.get_players():
                                     p2.payoff = 0
 
-                    else:
-                        print('p1')
-                        if self.expectations1C1_check == True:
-                            if self.expectations2C1_check == True:
-                                for p1 in self.get_players():
-                                    p1.payoff = 4
-                            else:
-                                for p1 in self.get_players():
-                                    p1.payoff = 2
                         else:
-                            if self.expectations2C1_check == True:
-                                for p1 in self.get_players():
+                            print('p1')
+                            #if self.expectations1C1_check == True:
+                            if p1.expectations1C == p2.take:
+                                #if self.expectations2C1_check == True:
+                                if p1.expectations2C == p3.take:
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 4
+                                else:
+                                    #for p1 in self.get_players():
                                     p1.payoff = 2
                             else:
-                                for p1 in self.get_players():
+                                #if self.expectations2C1_check == True:
+                                if p1.expectations2C == p3.take:
+                                    #for p1 in self.get_players():
+                                    p1.payoff = 2
+                                else:
+                                    #for p1 in self.get_players():
                                     p1.payoff = 0
 
 
@@ -522,3 +689,22 @@ class Player(BasePlayer):
         ]
     )
 
+##Falls benötigt:
+#p.session.config.get('take')
+            #p.take = p.participant.vars['take']
+            #p.treatment = p.session.vars['treatment']
+            #p1.take = p1.participant.vars['take']
+            #p2.take = p2.participant.vars['take']
+            #p3.take = p3.participant.vars['take']
+            #p3.expectations1C = p3.value['expecations1C']
+            #p2.expectations1C = p2.value['expecations1C']
+            #p1.expectations1C = p1.value['expecations1C']
+            #p3.expectations2C = p3.value['expecations2C']
+            #p2.expectations2C = p2.value['expecations2C']
+            #p1.expectations2C = p1.value['expecations2C']
+            #p3.expectations1T = p3.value['expecations1T']
+            #p2.expectations1T = p2.value['expecations1T']
+            #p1.expectations1T = p1.value['expecations1T']
+            #p3.expectations2tb = p3.value['expecations2tb']
+            #p2.expectations2T = p2.value['expecations2T']
+            #p1.expectations2T = p1.value['expecations2T']

@@ -55,7 +55,6 @@ class Subsession(BaseSubsession):
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
-           # p.take = p.participant.vars['take']
 
         if p.treatment == 1:
             print('in group_by_arrival_time_method')
@@ -174,7 +173,7 @@ class Player(BasePlayer):
 
     def waiting_too_long(self):
         import time
-        return time.time() - self.participant.vars['wait_page_arrival'] > 180
+        return time.time() - self.participant.vars['wait_page_arrival'] > 30 #180
 
     category = models.StringField()
     treatment = models.BooleanField()
@@ -222,7 +221,7 @@ class Player(BasePlayer):
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )
 
-    expectations2TB = models.IntegerField(
+    expectations2tb = models.IntegerField(
         label='How many points did you expect your second team member to take (Type A)?',
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     )

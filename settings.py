@@ -36,7 +36,17 @@ mturk_hit_settings = {
 }
 #############################################
 
-PARTICIPANT_FIELDS = {'category', 'take'}
+PARTICIPANT_FIELDS = {
+    'category',
+    'take',
+    'expectations1C',
+    'expectations2C',
+    'expectations1T',
+    'expectations2T',
+    'expectations2tb',
+    'group.otherplayer1_take',
+    'alone'
+}
 SESSION_FIELDS = {'treatment'}
 
 ################################################################
@@ -90,7 +100,17 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
-ROOMS = []
+ROOMS = [
+    dict(
+        name='econ101',
+        display_name='Econ 101 class',
+        participant_label_file='_rooms/econ101.txt',
+        use_secure_urls=True
+    ),
+    dict(
+        name='econ_lab',
+        display_name='Experimental Economics Lab'
+    ),]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
@@ -102,6 +122,8 @@ SECRET_KEY = 'gqu#5o1o$fci0cbu!9%*8$1obvpnm9&=w%*^z4nur4pb(dw!^p'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
+
+
 
 AWS_ACCESS_KEY_ID = environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY_ID = environ.get("AWS_SECRET_ACCESS_KEY_ID")
