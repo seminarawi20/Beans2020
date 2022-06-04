@@ -16,7 +16,7 @@
         <! This is the statement for the treatment group >
         {% if treatment == 1 %}
             You took {{ take }} points. {{ total_points_left }} points remained in the pool.<br>
-            Since {{ points_taken }} points were taken, the chance that the pool broke down was at {{ tipping_point }}%.<br>
+            Since {{ points_taken }} points were taken in total, the chance that the pool broke down was at {{ tipping_point }}%.<br>
             {% if breakdown == 1 %}
         <b>Unfortunately, the pool broke down</b>. <br><br>
                 This means you earned a total of {{payoff}}. <br>
@@ -31,7 +31,7 @@
         {% else %}
         <! This is the statement for the control group >
         You took {{ take }} points. {{ total_points_left }} points remained in the pool.<br><br>
-        Since {{points_taken}} points were taken, the chance that the pool broke down was at {{ tipping_point }}%.<br>
+        Since {{points_taken}} points were taken in total, the chance that the pool broke down was at {{ tipping_point }}%.<br>
             {% if breakdown == 1 %}
                 <b>Unfortunately, the pool broke down</b>. <br><br>
                 This means you earned a total of {{ payoff }} points. <br>

@@ -10,21 +10,21 @@
         {% if id_in_group == 3 %}
             {% if test1 == 5 %}
             Your answer is <b style="color:green;" <b>correct</b>. <br>
-            The pool breaks down, so you earn what you took.
+            The pool broke down and you have role B. Therefore, you earn what you took.
             Since you took 5 points, you earned 5 points. <br>
 
             {%else%}
             Your answer is <b style="color:red;" <b>wrong</b>. <br>
-            The pool breaks down, so you earn what you took.
+            The pool broke down and you have role B. Therefore, you earn what you took.
             Since you took 5 points, you would have earned 5 points.
             {%endif%}
         {%else%}
             {% if test1 == 0 %}
             Your answer is <b style="color:green;" <b>correct</b>. <br>
-            The pool breaks down, so you earn nothing.
+            The pool broke down and you have role A. Therefore, you earn nothing.
             {%else%}
             Your answer is <b style="color:red;" <b>wrong</b>. <br>
-            The pool breaks down, so you earn nothing.
+            The pool breaks down and you have role A. Therefore, you earn nothing.
             {%endif%}
         {%endif%}
     </p>

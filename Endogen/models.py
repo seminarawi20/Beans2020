@@ -19,7 +19,7 @@ import settings
 authors = '(Moritz Sommerlad), Julius Gross, Emeli Röttgers, Linda Aldehoff'
 
 doc = """
-This is the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
+This is the bachelor thesis of Linda Aldehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
 """
 
 
@@ -103,11 +103,11 @@ class Player(BasePlayer):
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
 
-    test_control = models.IntegerField(choices=[0, 5 , 15, 20], widget=widgets.RadioSelect(), label = "How many points do you earn in total if the pool breaks down?")
-    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "How many points do you earn in total? This time the pool does not break down?")
+    test_control = models.IntegerField(choices=[0, 5 , 15, 20], widget=widgets.RadioSelect(), label = "If the pool breaks down, how many points do you earn in total?")
+    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "If the pool does not break down, how many points do you earn in total?")
 
-    test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points do you earn in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points do you earn in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool breaks down, how many points do you earn in total?")
+    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool does not break down, how many points do you earn in tota?")
 
     timeout_preview = models.BooleanField(initial=False)
     timeout_intro = models.BooleanField(initial=False)

@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Result
+    Result of the guessing game
 {% endblock %}
 
 {% block content %}
@@ -16,6 +16,9 @@
         <! Expectations >
         Thank you for your guess.<br><br>
         You received {{ payoff }} additionally. Reminder: Each point ist worth ${{ rate }}
+        Receiving 0 points means that you didn't guess any group members' withdrawal correctly.
+        Receiving 2 points means that you guessed the withdrawal of one group member correctly.
+        Receiving 4 points means you guessed the withdrawal of both group members correctly.
         <br><br>
 
     </p>
