@@ -173,7 +173,7 @@ class Player(BasePlayer):
 
     def waiting_too_long(self):
         import time
-        return time.time() - self.participant.vars['wait_page_arrival'] > 30 #180
+        return time.time() - self.participant.vars['wait_page_arrival'] > 180
 
     category = models.StringField()
     treatment = models.BooleanField()
