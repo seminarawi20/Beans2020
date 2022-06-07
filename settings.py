@@ -47,7 +47,7 @@ PARTICIPANT_FIELDS = {
     'group.otherplayer1_take',
     'alone'
 }
-SESSION_FIELDS = {'treatment'}
+SESSION_FIELDS = {'treatment', 'ids_finished'}
 
 ################################################################
 #Only touch real_world_currency per point in alignment with us

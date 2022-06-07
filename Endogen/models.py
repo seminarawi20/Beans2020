@@ -107,7 +107,7 @@ class Player(BasePlayer):
     test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "If the pool does not break down, how many points do you earn in total?")
 
     test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool breaks down, how many points do you earn in total?")
-    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool does not break down, how many points do you earn in tota?")
+    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool does not break down, how many points do you earn in total?")
 
     timeout_preview = models.BooleanField(initial=False)
     timeout_intro = models.BooleanField(initial=False)
