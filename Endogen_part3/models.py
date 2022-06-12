@@ -59,11 +59,11 @@ class Subsession(BaseSubsession):
         for player in waiting_players:
             participant = player.participant
             group = player.group
-            group.id = participant.vars['group_id']
+            group.id_in_subsession = participant.vars['group_id']
             print(f'''Current waiting player has group_id: {group.id}''')
-            if group.id not in d:
-                d[group.id] = []
-            players_in_my_group = d[group.id]
+            if group.id_in_subsession not in d:
+                d[group.id_in_subsession] = []
+            players_in_my_group = d[group.id_in_subsession]
             print(f'''Players in my group: {players_in_my_group}''')
             players_in_my_group.append(player)
             print(f'''Players in my group 3: {players_in_my_group}''')

@@ -43,7 +43,7 @@ class ResultsWaitPage2(WaitPage):
         for player in self.group.get_players():
             participant = player.participant
             group = player.group
-            group.id = participant.vars['group_id']
+            group.id_in_subsession = participant.vars['group_id']
         self.player.alone = self.player.participant.vars['alone']
         if self.player.alone == 0:
             if self.subsession.treatment == 0:
