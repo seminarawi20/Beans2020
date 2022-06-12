@@ -47,6 +47,7 @@ PARTICIPANT_FIELDS = {
     'group.otherplayer1_take',
     'alone',
     'group_id',
+    'past_group_id',
     'p1',
     'p2',
     'p3'
