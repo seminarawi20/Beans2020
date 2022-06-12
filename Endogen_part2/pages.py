@@ -38,7 +38,8 @@ class Grouping(WaitPage):
         for player in self.group.get_players():
             participant = player.participant
             group = player.group
-            participant.vars['group_id'] = group.id_in_subsession
+            participant.past_group_id = group.id
+            #participant.vars['group_id'] = group.id_in_subsession
 
 
 
