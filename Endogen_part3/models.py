@@ -19,7 +19,7 @@ import settings
 authors = 'Linda Aldehoff based on the work of Moritz Sommerlad, Julius Gross, Emeli Röttgers'
 
 doc = """
-This is the bachelor thesis of Linda ALdehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
+This is the bachelor thesis of Linda Aldehoff based on the second out of two experiments for the Seminar on Experimental Economics in the WS 2021 at the AWI Heidelberg
 """
 
 
@@ -29,7 +29,7 @@ class Constants(BaseConstants):
 
     name_in_url = 'Endogen3'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
-    id_in_group = ()
+    #id_in_group = ()
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
@@ -54,30 +54,21 @@ class Subsession(BaseSubsession):
         self.session.vars['treatment'] = self.session.config.get('treatment')
         #self.session.vars['take'] = self.session.config.get('take')
 
-    def group_by_arrival_time_method(subsession, waiting_players):
-        for p in waiting_players:
-            p.category = p.participant.vars['category']
-            p.treatment = p.session.vars['treatment']
-
-            if p.treatment == 1:
-                print('in group_by_arrival_time_method')
-                a_players = [p for p in waiting_players if p.category == 'A']
-                b_players = [p for p in waiting_players if p.category == 'B']
-                if len(a_players) >= 2 and len(b_players) >= 1:
-                    print('about to create a group')
-                    return [a_players[0], a_players[1], b_players[0]]
-                print('not enough players yet to create a group')
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
-            else:
-                if len(waiting_players) >= 3:
-                    return waiting_players[:3]
-                for p in waiting_players:
-                    if p.waiting_too_long():
-                        p.alone = 1
-                        return [p]
+    def group_by_arrival_time_method(self, waiting_players):
+        d = {}
+        for player in waiting_players:
+            participant = player.participant
+            group = player.group
+            group.id = participant.vars['group_id']
+            print(f'''Current waiting player has group_id: {group.id}''')
+            if group.id not in d:
+                d[group.id] = []
+            players_in_my_group = d[group.id]
+            print(f'''Players in my group: {players_in_my_group}''')
+            players_in_my_group.append(player)
+            print(f'''Players in my group 3: {players_in_my_group}''')
+            if len(players_in_my_group) == 3:
+                return players_in_my_group
 
 class Group(BaseGroup):
 
@@ -418,10 +409,20 @@ class Group(BaseGroup):
 
 
     def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p3 = self.get_player_by_id(3)
+        #self.p1 = self.player.participant.vars['p1']
+        #p1 = self.get_player_by_id(1)
+        #p2 = self.get_player_by_id(2)
+        #p3 = self.get_player_by_id(3)
         for p in self.get_players():
+            p1 = self.get_player_by_id(1)
+            p2 = self.get_player_by_id(2)
+            p3 = self.get_player_by_id(3)
+            #p1 = p.participant.vars['p1']
+            #p2 = p.participant.vars['p2']
+            #p3 = p.participant.vars['p3']
+            #p1 = self.get_player_by_id(id_in_group = 1)
+            #p2 = self.get_player_by_id(id_in_group=2)
+            #p3 = self.get_player_by_id(id_in_group=3)
             p.alone = p.participant.vars['alone']
             p.treatment = p.session.vars['treatment']
             if p.alone == 1:

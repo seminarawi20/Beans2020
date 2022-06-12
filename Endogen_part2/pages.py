@@ -14,19 +14,34 @@ import time
 
 class Grouping(WaitPage):
     group_by_arrival_time = True
-    get_player_by_id = True
+    #get_player_by_id = True
     body_text = "Waiting for two other participants to reach this task.\
       This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min).\
                 <b>It is very important that you do not close this window!<b\>"
 
     def vars_for_template(self):
         self.player.category = self.player.participant.vars['category']
-        #self.player.session.ids_finished = self.player.session.vars['ids_finished']
 
     def before_next_page(self):
-        #self.player.session.vars['ids_finished'] = self.player.session.ids_finished
+        p1 = self.group.get_player_by_id(1)
+        p2 = self.group.get_player_by_id(2)
+        p3 = self.group.get_player_by_id(3)
+        #self.player.session.vars['ids_finished'] = self.player.session.ids_finishedid_in_subsession
+        #self.player.participant.vars['group.id_in_subsession'] = self.player.group.id_in_subsession
+        #self.player.participant.vars['p1'] = p1
+        #self.player.participant.vars['p2'] = p2
+        #self.player.participant.vars['p3'] = p3
         if self.player == self.group.set_up_otherplayer():
             self.player.participant.vars['otherplayer1_take'] = self.group.otherplayer1_take
+
+    def after_all_players_arrive(self):
+        for player in self.group.get_players():
+            participant = player.participant
+            group = player.group
+            participant.vars['group_id'] = group.id
+
+
+
 # Now we create a page for the player to decide what to take.
 class Take(Page):
     form_model = 'player'
@@ -77,6 +92,7 @@ class ResultsWaitPage(WaitPage):
         self.group.set_tipping_point()
         self.group.set_breakdown()
         self.group.set_payoffs()
+
 
 
 

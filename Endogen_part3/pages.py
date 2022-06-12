@@ -20,7 +20,7 @@ class ResultsWaitPage(WaitPage):
     # First we need to set the tipping point, then we check if the pool breaks down and the last step is to calculate the payoffs.
     # This is done by calling the functions be defined on our group level.
     # We order is important, since the tipping point is an input for the breakdown, which is an input for the payoff
-
+    timeout_seconds = 120
 
 
 
@@ -31,12 +31,19 @@ class ResultsWaitPage(WaitPage):
         self.group.set_payoffs()
 
 class ResultsWaitPage2(WaitPage):
-
+    group_by_arrival_time = True
+    #group_randomly(fixed_id_in_group = True)
+    #fixed_id_in_group = True
+    fixed_group_id = True
     def is_displayed(self):
         self.player.alone = self.player.participant.vars['alone']
         return self.player.alone == 0
     #get_player_by_id = True
     def vars_for_template(self):
+        for player in self.group.get_players():
+            participant = player.participant
+            group = player.group
+            group.id = participant.vars['group_id']
         self.player.alone = self.player.participant.vars['alone']
         if self.player.alone == 0:
             if self.subsession.treatment == 0:
@@ -49,9 +56,18 @@ class ResultsWaitPage2(WaitPage):
                 else:
                     self.player.expectations1T = self.player.participant.vars['expectations1T']
                     self.player.expectations2T = self.player.participant.vars['expectations2T']
+
+            #self.p1 = self.player.participant.vars['p1']
+            #self.p2 = self.player.participant.vars['p2']
+            #self.p3 = self.player.participant.vars['p3']
+
             self.p1 = self.group.get_player_by_id(1)
             self.p2 = self.group.get_player_by_id(2)
             self.p3 = self.group.get_player_by_id(3)
+
+            #self.p1 = self.group.get_player_by_id(id_in_group=1)
+            #self.p2 = self.group.get_player_by_id(id_in_group=2)
+            #self.p3 = self.group.get_player_by_id(id_in_group=3)
             if self.player == self.p1:
                 self.p1.take = self.player.participant.vars['take']
             if self.player == self.p2:
@@ -69,16 +85,13 @@ class ResultsWaitPage2(WaitPage):
                     self.player.expectations2T = self.player.participant.vars['expectations2T']
 
 
+    #get_player_by_id = True
+
+
     def after_all_players_arrive(self):
         self.group.set_payoffs()
 
-    def get_timeout_seconds(self):
-        import time
-        self.player.alone = self.player.participant.vars['alone']
-        if self.player.alone == 1:
-            print('hallo')
-            self.timeout_seconds = 2
-
+    timeout_seconds = 120
 
 class Results(Page):
     def vars_for_template(self):
@@ -163,6 +176,8 @@ class Results_Expectations(Page):
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_expectationsresults = True
+
+    timeout_seconds = 120
 
 class Survey(Page):
     form_model = 'player'

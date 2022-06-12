@@ -30,7 +30,7 @@ class Constants(BaseConstants):
 
     name_in_url = 'Endogen2'#The name can be set to whatever you want it to be. It will show in the URL.
     players_per_group = 3 #Players per group can be set here. In our case the we play a one-shot three person game. You can change this to any INT. Just make sure you change it in the settings tab as well.
-    id_in_group = ()
+    #id_in_group = ()
     num_rounds = 1 # You can play more than one round, but in our case we play one.
     pool = 30 #This defines how big the pool is. You can use any INT or String here
     efficiency_factor = 2 # This is a INT that indicates how the resource increases the leftover points. You can use any INT or String here
@@ -50,31 +50,61 @@ class Subsession(BaseSubsession):
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     # treatment = models.BooleanField()
+    #session = BaseSubsession.session
+    #session.ids_finished = {category: set() for category in ['A', 'B']}
+    #neu
+    ids_finished = set()
+    ids_finished_treatment1 = {category: set() for category in ['A', 'B']}
 
     def group_by_arrival_time_method(subsession, waiting_players):
+        print('about to create a group')
+        #session = subsession.session
+        all_players = subsession.get_players()
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
+            player_id = int(p.id_in_subsession)
+            if p.waiting_too_long():
+                p.alone = 1
+                return [p]
 
-        if p.treatment == 1:
-            print('in group_by_arrival_time_method')
-            a_players = [p for p in waiting_players if p.category == 'A']
-            b_players = [p for p in waiting_players if p.category == 'B']
-            if len(a_players) >= 2 and len(b_players) >= 1:
-                print('about to create a group')
-                return [a_players[0], a_players[1], b_players[0]]
-            print('not enough players yet to create a group')
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
-        else:
-            if len(waiting_players) >= 3:
-                return waiting_players[:3]
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
+            if p.treatment != 1:
+                subsession.ids_finished.add(
+                    player_id)  # add all players with no distinction, will get grouped in second part
+            if p.treatment == 1:
+                subsession.ids_finished_treatment1[p.category].add(
+                    player_id)  # add all the players who had treatment 1 in their correct category
+                print(subsession.ids_finished)
+        print('IDs with treatment 1:', subsession.ids_finished_treatment1)
+
+        if len(subsession.ids_finished_treatment1['A']) >= 2 and len(subsession.ids_finished_treatment1['B']) >= 1:
+            print('about to create a group')
+            a_players = [p for p in all_players if p.id_in_subsession in subsession.ids_finished_treatment1['A']]
+            b_players = [p for p in all_players if p.id_in_subsession in subsession.ids_finished_treatment1['B']]
+            return [a_players[0], a_players[1], b_players[0]]
+        # the grouped participants need to be removed from the dict
+        ids_grouped_a = sorted(subsession.ids_finished_treatment1['A'])[:2]
+        ids_grouped_b = sorted(subsession.ids_finished_treatment1['B'])[:1]
+        subsession.ids_finished_treatment1['A'].difference_update(ids_grouped_a)
+        subsession.ids_finished_treatment1['B'].difference_update(ids_grouped_b)
+        #subsession.ids_finished_treatment1['B'].remove(min(subsession.ids_finished_treatment1['B']))
+
+
+        #print('not enough players yet to create a group')
+        if len(subsession.ids_finished) >= 3:
+            players_finished = [p for p in all_players if p.id_in_subsession in subsession.ids_finished]
+
+            #the participants with the lowest 3 IDs will get grouped, so they have to be removed from the set ids_finished
+            ids_grouped = sorted(subsession.ids_finished)[:3]
+            print('ids_grouped:', ids_grouped)
+            subsession.ids_finished.difference_update(ids_grouped)
+
+            return [players_finished[0], players_finished[1], players_finished[2]]
+
+
+
+
+
 
 class Group(BaseGroup):
 

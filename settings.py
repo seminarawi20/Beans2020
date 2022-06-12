@@ -45,7 +45,11 @@ PARTICIPANT_FIELDS = {
     'expectations2T',
     'expectations2tb',
     'group.otherplayer1_take',
-    'alone'
+    'alone',
+    'group_id',
+    'p1',
+    'p2',
+    'p3'
 }
 SESSION_FIELDS = {'treatment'}
 
