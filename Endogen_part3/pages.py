@@ -40,10 +40,10 @@ class ResultsWaitPage2(WaitPage):
         return self.player.alone == 0
     #get_player_by_id = True
     def vars_for_template(self):
-        for player in self.group.get_players():
-            participant = player.participant
-            group = player.group
-            group.id_in_subsession = participant.vars['group_id']
+        #for player in self.group.get_players():
+            #participant = player.participant
+            #group = player.group
+            #group.id_in_subsession = participant.vars['group_id']
         self.player.alone = self.player.participant.vars['alone']
         if self.player.alone == 0:
             if self.subsession.treatment == 0:
