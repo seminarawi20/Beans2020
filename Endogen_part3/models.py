@@ -60,7 +60,7 @@ class Subsession(BaseSubsession):
             participant = player.participant
             group = player.group
             #group.id_in_subsession = participant.vars['group_id']
-            group_id = p.participant.past_group_id
+            group_id = player.participant.past_group_id
             print(f'''Current waiting player has group_id: {group_id}''')
             if group_id not in d:
                 d[group_id] = []
