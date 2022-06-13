@@ -33,8 +33,8 @@ class ResultsWaitPage(WaitPage):
 class ResultsWaitPage2(WaitPage):
     group_by_arrival_time = True
     #group_randomly(fixed_id_in_group = True)
-    #fixed_id_in_group = True
-    fixed_group_id = True
+    fixed_id_in_group = True
+    #fixed_group_id = True
     def is_displayed(self):
         self.player.alone = self.player.participant.vars['alone']
         return self.player.alone == 0
