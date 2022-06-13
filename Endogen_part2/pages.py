@@ -23,9 +23,9 @@ class Grouping(WaitPage):
         self.player.category = self.player.participant.vars['category']
 
     def before_next_page(self):
-        p1 = self.group.get_player_by_id(1)
-        p2 = self.group.get_player_by_id(2)
-        p3 = self.group.get_player_by_id(3)
+        #p1 = self.group.get_player_by_id(1)
+        #p2 = self.group.get_player_by_id(2)
+        #p3 = self.group.get_player_by_id(3)
         #self.player.session.vars['ids_finished'] = self.player.session.ids_finishedid_in_subsession
         #self.player.participant.vars['group.id_in_subsession'] = self.player.group.id_in_subsession
         #self.player.participant.vars['p1'] = p1
@@ -40,9 +40,9 @@ class Grouping(WaitPage):
             group = player.group
             participant.past_group_id = group.id
             participant.past_id_in_group = player.id_in_group
-            participant.p1 = group.get_player_by_id(1)
-            participant.p2 = group.get_player_by_id(2)
-            participant.p3 = group.get_player_by_id(3)
+            #participant.p1 = group.get_player_by_id(1)
+            #participant.p2 = group.get_player_by_id(2)
+            #participant.p3 = group.get_player_by_id(3)
             #participant.vars['group_id'] = group.id_in_subsession
 
 
