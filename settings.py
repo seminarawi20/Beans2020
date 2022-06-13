@@ -46,8 +46,8 @@ PARTICIPANT_FIELDS = {
     'expectations2tb',
     'group.otherplayer1_take',
     'alone',
-    'group_id',
     'past_group_id',
+    'past_id_in_group',
     'p1',
     'p2',
     'p3'

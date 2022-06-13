@@ -48,6 +48,7 @@ class Subsession(BaseSubsession):
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     treatment = models.BooleanField()
+
     def creating_session(self):
         self.treatment = self.session.config.get('treatment')
         #self.take = self.session.config.get('take')
@@ -59,6 +60,8 @@ class Subsession(BaseSubsession):
         for player in waiting_players:
             participant = player.participant
             group = player.group
+            id_in_group = player.participant.past_id_in_group
+            #id_in_group = player.id_in_group
             #group.id_in_subsession = participant.vars['group_id']
             group_id = player.participant.past_group_id
             print(f'''Current waiting player has group_id: {group_id}''')
@@ -68,8 +71,16 @@ class Subsession(BaseSubsession):
             print(f'''Players in my group: {players_in_my_group}''')
             players_in_my_group.append(player)
             print(f'''Players in my group 3: {players_in_my_group}''')
+            first_player = [p for p in waiting_players if id_in_group == 1]
+            second_player = [p for p in waiting_players if id_in_group == 2]
+            third_player = [p for p in waiting_players if id_in_group == 3]
             if len(players_in_my_group) == 3:
-                return players_in_my_group
+                return [first_player[0], second_player[0], third_player[0]]
+                #return players_in_my_group
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
 
 class Group(BaseGroup):
 
