@@ -37,7 +37,7 @@ class Constants(BaseConstants):
     addition_per_take = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
-    completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
+    completion_code = 112022 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
     base_payment = 0.7  # The amount of money (in $) the player gets just for participating
     money_per_point = 0.05
@@ -103,11 +103,11 @@ class Player(BasePlayer):
     #Now we implement the test questions. For this we use radioselect and a couple of choices.
 
 
-    test_control = models.IntegerField(choices=[0, 5 , 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total when the pool breaks down?")
-    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "How many points would you earn in total? This time the pool does not break down?")
+    test_control = models.IntegerField(choices=[0, 5 , 15, 20], widget=widgets.RadioSelect(), label = "If the pool breaks down, how many points do you earn in total?")
+    test_control2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect(), label = "If the pool does not break down, how many points do you earn in total?")
 
-    test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool breaks down?")
-    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label=" How many points would you earn in total if the pool does not break down?")
+    test1 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool breaks down, how many points do you earn in total?")
+    test2 = models.IntegerField(choices=[0, 5, 15, 20], widget=widgets.RadioSelect() , label = "If the pool does not break down, how many points do you earn in total?")
 
     timeout_preview = models.BooleanField(initial=False)
     timeout_intro = models.BooleanField(initial=False)

@@ -37,7 +37,7 @@ class Constants(BaseConstants):
     addition_per_take = 2/100 #This is the percentage the tipping point will increase per point taken. The first number indicates the percentage, which you can adjust.
     max = int(np.floor(pool / players_per_group)) #The max value is calculated by the point available and the number of players.
     # np.floor rounds it down and int converts it to an integer. The last step is not necessary, but it looks better.
-    completion_code = 112021 # Please change this number in your live version. This is just a random code all participants in the live version get
+    completion_code = 112022 # Please change this number in your live version. This is just a random code all participants in the live version get
     #after they complete the experiment.
     base_payment = 0.7  # The amount of money (in $) the player gets just for participating
     money_per_point = 0.05
@@ -48,31 +48,83 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
     # Here we define the different treatments that are available in the different subversions.
     # This is done by having a Boolean (either TRUE or FALSE) for the Treatment.
     # treatment = models.BooleanField()
+    ids_finished = set()
+    ids_finished_treatment1 = {category: set() for category in ['A', 'B']}
 
     def group_by_arrival_time_method(subsession, waiting_players):
+        print('about to create a group')
+        #session = subsession.session
+        all_players = subsession.get_players()
         for p in waiting_players:
             p.category = p.participant.vars['category']
             p.treatment = p.session.vars['treatment']
+            player_id = int(p.id_in_subsession)
+            if p.waiting_too_long():
+                p.alone = 1
+                return [p]
 
-        if p.treatment == 1:
-            print('in group_by_arrival_time_method')
-            a_players = [p for p in waiting_players if p.category == 'A']
-            b_players = [p for p in waiting_players if p.category == 'B']
-            if len(a_players) >= 2 and len(b_players) >= 1:
-                print('about to create a group')
-                return [a_players[0], a_players[1], b_players[0]]
-            print('not enough players yet to create a group')
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
-        else:
-            if len(waiting_players) >= 3:
-                return waiting_players[:3]
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
+            if p.treatment != 1:
+                subsession.ids_finished.add(
+                    player_id)  # add all players with no distinction, will get grouped in second part
+            if p.treatment == 1:
+                subsession.ids_finished_treatment1[p.category].add(
+                    player_id)  # add all the players who had treatment 1 in their correct category
+                print(subsession.ids_finished)
+        print('IDs with treatment 1:', subsession.ids_finished_treatment1)
+
+        if len(subsession.ids_finished_treatment1['A']) >= 2 and len(subsession.ids_finished_treatment1['B']) >= 1:
+            print('about to create a group')
+            a_players = [p for p in all_players if p.id_in_subsession in subsession.ids_finished_treatment1['A']]
+            b_players = [p for p in all_players if p.id_in_subsession in subsession.ids_finished_treatment1['B']]
+            return [a_players[0], a_players[1], b_players[0]]
+        # the grouped participants need to be removed from the dict
+        ids_grouped_a = sorted(subsession.ids_finished_treatment1['A'])[:2]
+        ids_grouped_b = sorted(subsession.ids_finished_treatment1['B'])[:1]
+        subsession.ids_finished_treatment1['A'].difference_update(ids_grouped_a)
+        subsession.ids_finished_treatment1['B'].difference_update(ids_grouped_b)
+
+        #print('not enough players yet to create a group')
+        if len(subsession.ids_finished) >= 3:
+            players_finished = [p for p in all_players if p.id_in_subsession in subsession.ids_finished]
+
+            #the participants with the lowest 3 IDs will get grouped, so they have to be removed from the set ids_finished
+            ids_grouped = sorted(subsession.ids_finished)[:3]
+            print('ids_grouped:', ids_grouped)
+            subsession.ids_finished.difference_update(ids_grouped)
+
+            return [players_finished[0], players_finished[1], players_finished[2]]
+
+
+    #def group_by_arrival_time_method(subsession, waiting_players):
+        #for p in waiting_players:
+            #p.category = p.participant.vars['category']
+            #p.treatment = p.session.vars['treatment']
+
+        #if p.treatment == 1:
+            #print('in group_by_arrival_time_method')
+            ##if p.id_in_group == 3:
+                ##p.category = 'A'
+            ##else:
+                ##p.category = 'B'
+            #a_players = [p for p in waiting_players if p.category == 'A']
+            #b_players = [p for p in waiting_players if p.category == 'B']
+            #if len(a_players) >= 2 and len(b_players) >= 1:
+                #print('about to create a group')
+                #return [a_players[0], a_players[1], b_players[0]]
+            #print('not enough players yet to create a group')
+            #for p in waiting_players:
+                #if p.waiting_too_long():
+                    #p.alone = 1
+                    #return [p]
+        #else:
+            #if len(waiting_players) >= 3:
+                #return waiting_players[:3]
+            #for p in waiting_players:
+                #if p.waiting_too_long():
+                    #p.alone = 1
+                    #return [p]
+
+
 
 class Group(BaseGroup):
 
@@ -182,6 +234,32 @@ class Player(BasePlayer):
     timeout_survey = models.BooleanField(initial=False)
 
 
+    expectations1C = models.IntegerField(
+        label='How many points did you expect your first team member to take?',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+    expectations2C = models.IntegerField(
+        label='How many points did you expect your second team member to take?',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+    expectations1T = models.IntegerField(
+        label='How many points did you expect your first team member to take (Type A)?',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+    expectations2T = models.IntegerField(
+        label='How many points did you expect your second team member to take (Type B)?',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+    expectations2tb = models.IntegerField(
+        label='How many points did you expect your second team member to take (Type A)?',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    )
+
+
     age = models.IntegerField(label='How old are you?', min=18, max=125)
     gender = models.StringField(
         choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
@@ -194,29 +272,28 @@ class Player(BasePlayer):
         label='What is your highest level of education? (If currently enrolled highest degree received)',
         widget=widgets.RadioSelect,
     )
-    employment = models.StringField(
-        label='What is your employment status?',
-        choices=[['Employed', 'Employed'], ['Unemployed', 'Unemployed'], ['Other', 'Other']],
-        widget=widgets.RadioSelect
+    children = models.StringField(
+        label='Do you have children?',
+        choices=[['yes', 'yes'], ['no', 'no']]
     )
     answer_same= models.IntegerField(
         label='Compared to other participants who were assigned the same role, do you think your decision was socially fair?',
         choices=[
-            [1,'Very fair'],
-            [2,'Fair'],
+            [1,'Not fair at all'],
+            [2,'Not fair'],
             [3,'Average'],
-            [4,'Not fair'],
-            [5,'Not fair at all'],
+            [4,'Fair'],
+            [5,'Very fair'],
         ]
     )
     environment= models.IntegerField(
         label='How much do you agree with this sentence: "I care about the environment":',
         choices=[
-            [1,'Strongly Agree'],
-            [2,'Agree'],
+            [1,'Strongly Disagree'],
+            [2,'Disagree'],
             [3,'Neutral'],
-            [4,'Disagree'],
-            [5,'Strongly Disagree'],
+            [4,'Agree'],
+            [5,'Strongly Agree'],
         ]
     )
     def take_choices(self):

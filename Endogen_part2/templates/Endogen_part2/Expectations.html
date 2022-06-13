@@ -1,0 +1,19 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}
+    Expectations
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <p><! This is the statement for the treatment group >
+    <p>Please state how many points you expected each group member to take when you made your withdrawal decision. <br>
+
+
+            {% formfields %}
+    </p>
+
+</div>
+    {% next_button %}
+
+{% endblock %}

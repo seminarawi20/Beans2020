@@ -38,6 +38,42 @@ class Take(Page):
             self.player.timeout_take = True
 
 
+class Expectations_Control(Page):
+
+    def vars_for_template(self):
+        return {'id_in_group': self.player.id_in_group}
+
+    def is_displayed(self):
+        return self.player.treatment == 0
+
+    form_model = 'player'
+    form_fields = ['expectations1C', 'expectations2C']
+
+    timeout_seconds = 120
+
+
+class Expectations(Page):
+
+    get_player_by_id = True
+
+    def vars_for_template(self):
+        return {'id_in_group': self.player.id_in_group}
+
+    def is_displayed(self):
+        return self.player.treatment == 1
+
+    form_model = 'player'
+
+    def get_form_fields(self):
+        player = self.player
+        if player.id_in_group == 3:
+            return ['expectations1T', 'expectations2tb']
+        else:
+            return ['expectations1T', 'expectations2T']
+
+    timeout_seconds = 120
+
+
 class ResultsWaitPage(WaitPage):
 
     # We use after_all_players_arrive to make sure we only start our calculation after every participant made their choice.
@@ -77,15 +113,17 @@ class Results(Page):
             self.player.timeout_endresults = True
 
 
+
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'employment', 'environment', 'answer_same']
+    form_fields = ['age', 'gender', 'education', 'children', 'environment', 'answer_same']
 
     timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_survey = True
+
 
 
 class End(Page):
@@ -98,6 +136,8 @@ class End(Page):
 # here we indicate in which sequence we want the pages to be played. You can repeat pages as well.
 page_sequence = [Grouping,
                  Take,
+                 Expectations,
+                 Expectations_Control,
                  ResultsWaitPage,
                  Results,
                  Survey,

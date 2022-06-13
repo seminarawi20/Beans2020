@@ -1,0 +1,19 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}Expectations{% endblock %}
+
+{% block content %}
+
+
+    <p>Please state how many points you expected each group member to take when you made your withdrawal decision. <br>
+
+        <! This is the statement for the control group >
+
+           {% formfield player.expectations1C %}
+           {% formfield player.expectations2C %}
+    </p>
+
+</div>
+<p>{% next_button %}<br>
+    {% endblock %}

@@ -69,11 +69,16 @@ class Test_Control(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
+    def error_message(self, value):
+        if value['test_control'] !=0:
+            return 'Wrong answer, please try again'
+
     timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_ctest1 = True
+
 
 class Results_Control(Page):
 
@@ -97,13 +102,18 @@ class Test_Control2(Page):
     def is_displayed(self):
         return self.subsession.treatment == 0
 
+    def error_message(self, value):
+        if value['test_control2'] !=15:
+            return 'Wrong answer, please try again'
+
     timeout_seconds = 120
 
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_ctest2 = True
 
-    ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: ##
+    ## DIESE SEITE IST NEU: GIBT DENJENIGEN, DIE ERSTE FRAGE FALSCH BEANTWORTET HABEN, ERGEBNISSE DER 2. FRAGE: Das stimmt nicht was hier steht, ist di
+    # Seite für die Kontrollgruppe##
 class Results_Control2(Page):
 
     def vars_for_template(self):
@@ -128,6 +138,14 @@ class Test1(Page):
 
     timeout_seconds = 120
 
+    def error_message(self, value):
+        if self.player.id_in_group == 3:
+            if value['test1'] != 5:
+                return 'Wrong answer, please try again'
+        else:
+            if value['test1'] != 0:
+                return 'Wrong answer, please try again'
+
     def before_next_page(self):
         if self.timeout_happened:
             self.player.timeout_test1 = True
@@ -139,6 +157,10 @@ class Test2(Page):
 
     def is_displayed(self):
         return self.subsession.treatment == 1
+
+    def error_message(self, value):
+        if value['test2'] !=15:
+            return 'Wrong answer, please try again'
 
     timeout_seconds = 120
 
