@@ -60,7 +60,7 @@ class Subsession(BaseSubsession):
         for player in waiting_players:
             participant = player.participant
             group = player.group
-            id_in_group = player.participant.past_id_in_group
+            player.id_in_group = player.participant.past_id_in_group
             ##id_in_group = player.id_in_group
             ##group.id_in_subsession = participant.vars['group_id']
             #group_id = player.participant.past_group_id
@@ -71,9 +71,9 @@ class Subsession(BaseSubsession):
             #print(f'''Players in my group: {players_in_my_group}''')
             #players_in_my_group.append(player)
             #print(f'''Players in my group 3: {players_in_my_group}''')
-            first_player = [p for p in waiting_players if id_in_group == 1]
-            second_player = [p for p in waiting_players if id_in_group == 2]
-            third_player = [p for p in waiting_players if id_in_group == 3]
+            first_player = [p for p in waiting_players if player.id_in_group == 1]
+            second_player = [p for p in waiting_players if player.id_in_group == 2]
+            third_player = [p for p in waiting_players if player.id_in_group == 3]
             if len(first_player) >= 1 and len(second_player) >= 1 and len(third_player) >= 1:
                 return [first_player[0], second_player[0], third_player[0]]
                 #return players_in_my_group
