@@ -80,26 +80,6 @@ class Subsession(BaseSubsession):
 
 
 
-        if p.treatment == 1:
-            print('in group_by_arrival_time_method')
-            a_players = [p for p in waiting_players if p.category == 'A']
-            b_players = [p for p in waiting_players if p.category == 'B']
-            if len(a_players) >= 2 and len(b_players) >= 1:
-                print('about to create a group')
-                return [a_players[0], a_players[1], b_players[0]]
-            print('not enough players yet to create a group')
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
-        else:
-            if len(waiting_players) >= 3:
-                return waiting_players[:3]
-            for p in waiting_players:
-                if p.waiting_too_long():
-                    p.alone = 1
-                    return [p]
-
 class Group(BaseGroup):
 
     #The group-level is used to define values that are the same for every player in the group and to aggregate over the players.
