@@ -74,14 +74,31 @@ class Subsession(BaseSubsession):
             first_player = [p for p in waiting_players if id_in_group == 1]
             second_player = [p for p in waiting_players if id_in_group == 2]
             third_player = [p for p in waiting_players if id_in_group == 3]
-            if len(first_player) >= 1 and len(second_player) >=1 and len(third_player) >=1:
+            if len(first_player) >= 1 and len(second_player) >= 1 and len(third_player) >= 1:
                 return [first_player[0], second_player[0], third_player[0]]
                 #return players_in_my_group
+
+
+
+        if p.treatment == 1:
+            print('in group_by_arrival_time_method')
+            a_players = [p for p in waiting_players if p.category == 'A']
+            b_players = [p for p in waiting_players if p.category == 'B']
+            if len(a_players) >= 2 and len(b_players) >= 1:
+                print('about to create a group')
+                return [a_players[0], a_players[1], b_players[0]]
+            print('not enough players yet to create a group')
             for p in waiting_players:
                 if p.waiting_too_long():
                     p.alone = 1
                     return [p]
-
+        else:
+            if len(waiting_players) >= 3:
+                return waiting_players[:3]
+            for p in waiting_players:
+                if p.waiting_too_long():
+                    p.alone = 1
+                    return [p]
 
 class Group(BaseGroup):
 
