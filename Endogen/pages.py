@@ -139,7 +139,7 @@ class Test1(Page):
     timeout_seconds = 120
 
     def error_message(self, value):
-        if self.player.id_in_group == 3:
+        if self.player.id_in_group == 1:
             if value['test1'] != 5:
                 return 'Wrong answer, please try again'
         else:

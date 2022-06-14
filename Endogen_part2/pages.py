@@ -66,7 +66,7 @@ class Expectations(Page):
 
     def get_form_fields(self):
         player = self.player
-        if player.id_in_group == 3:
+        if player.id_in_group == 1:
             return ['expectations1T', 'expectations2tb']
         else:
             return ['expectations1T', 'expectations2T']
