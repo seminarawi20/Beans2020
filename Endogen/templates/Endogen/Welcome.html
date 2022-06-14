@@ -29,6 +29,16 @@
         <b>You have role B.</b><br>
             Keep in mind, that the other players have a different role.<br>
 
+            <br>
+
+            div class="noteBoxes type1" style="display:flex; font-size: 14px">
+        <div>
+                <p><u>At some point of the experiment, you will be grouped, this can take up to 3 minutes.</u></p>
+                <b>It is very important that you do not close your tab while being grouped.</b><br>
+                Waiting on the group page without closing the tab is part of your task. The time spent there is considered in your payment.<br>
+            </div>
+
+
 
             {%else%}
 
@@ -47,6 +57,15 @@
         <b>You have role A.</b><br>
             Keep in mind, that one of the other players has a different role.<br>
 
+        <br>
+
+            div class="noteBoxes type1" style="display:flex; font-size: 14px">
+        <div>
+                <p><u>At some point of the experiment, you will be grouped, this can take up to 3 minutes.</u></p>
+                <b>It is very important that you do not close your tab while being grouped.</b><br>
+                Waiting on the group page without closing the tab is part of your task. The time spent there is considered in your payment.<br>
+            </div>
+
 
             {% endif %}
         {%else%}
@@ -61,11 +80,43 @@
 
             If the pool collapses, no one gets any points.
 
+                    <br>
+
+            <b>You have role B.</b><br>
+                Keep in mind, that the other players have a different role.<br>
+
+            <br>
+
+            div class="noteBoxes type1" style="display:flex; font-size: 14px">
+        <div>
+                <p><u>At some point of the experiment, you will be grouped, this can take up to 3 minutes.</u></p>
+                <b>It is very important that you do not close your tab while being grouped.</b><br>
+                Waiting on the group page without closing the tab is part of your task. The time spent there is considered in your payment.<br>
+            </div>
+
             <br>
 
         {% endif %}
-    </p>
+
 </div>
     {% next_button %}
+
+<style>
+
+        .noteBoxes
+{
+	border: 1px solid;
+  	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.type1
+{
+	border-color: #E76F51;
+	background-color: rgba(231, 111, 81, 0.1);
+}
+
+</style>
 
 {% endblock %}
