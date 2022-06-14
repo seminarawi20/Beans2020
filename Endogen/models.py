@@ -62,7 +62,7 @@ class Subsession(BaseSubsession): # Ideally you do not need to change anything h
             self.session.vars['code'] = Constants.completion_code
 
             if self.session.vars['treatment'] == 1:
-                if player.id_in_group % 1 == 0:
+                if player.id_in_group == 1:
                     player.participant.vars['category'] = 'B'
                 else:
                     player.participant.vars['category'] = 'A'
