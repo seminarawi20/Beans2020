@@ -19,9 +19,38 @@
         {%endif%}
     </p>
 
+    <br>
+
+    <div class="noteBoxes type1" style="display:flex; font-size: 18px">
+        <div>
+            <p><u><b>Remember:</b> On the next page you will be grouped.</u></p>
+            <b>It is very important that you do not close your tab while being grouped.</b><br>
+            Waiting on the group page without closing the tab is part of your task. The time spent there is considered in your payment.<br>
+            <b>By closing the tab you risk being thrown out of the game, which means you will not be paid!</b>
+        </div>
+    </div>
+
 
 
 </div>
     {% next_button %}
+
+<style>
+
+        .noteBoxes
+{
+	border: 1px solid;
+  	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.type1
+{
+	border-color: #E76F51;
+	background-color: rgba(231, 111, 81, 0.1);
+}
+
+</style>
 
 {% endblock %}

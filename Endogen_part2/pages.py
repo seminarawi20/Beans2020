@@ -16,7 +16,8 @@ class Grouping(WaitPage):
     group_by_arrival_time = True
 
     body_text = "Waiting for two other participants to reach this task.\
-      This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min)."
+      This wait should be fairly short, though in some cases it could last a couple of minutes (max 3 min).\
+        <b>Remember: It is very important that you do not close this tab, as it may kick you out of the game!</b>"
 
 
 # Now we create a page for the player to decide what to take.
